@@ -58,4 +58,5 @@ public class ChessBoard extends JFrame {
             }
         }
     }
+
 }

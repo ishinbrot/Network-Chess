@@ -14,10 +14,16 @@ public class Main {
         System.out.println("Hello World");
 
         JFrame game = new ChessBoard();
+
         game.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         game.pack();
         game.setResizable(true);
         game.setLocationRelativeTo(null);
         game.setVisible(true);
+        System.out.println(game.getContentPane().getComponents().length);
+
+
+
+
     }
 }
