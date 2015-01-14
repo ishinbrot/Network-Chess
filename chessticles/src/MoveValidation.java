@@ -8,6 +8,7 @@ public class MoveValidation {
     public static boolean horizontal(int[] initialPosition, int[] finalPosition){
 
         if (initialPosition[1]==finalPosition[1]){
+
             return true;
         }
         return false;
@@ -34,7 +35,7 @@ public class MoveValidation {
         }
         return false;
     }
-    public static void main (String [] args){
+    /*public static void main (String [] args){
         int[] start = new int[]{1,2};
         int[] end=new int[2];
         for (int i=0;i<8;i++){
@@ -46,6 +47,6 @@ public class MoveValidation {
         }
         //System.out.println(vertical(new int[]{0, 0},new int[]{0, 7}));
         //System.out.println();
-    }
+    }*/
 
 }

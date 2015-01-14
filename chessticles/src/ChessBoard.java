@@ -11,6 +11,7 @@ public class ChessBoard extends JFrame {
     private Dimension boardSize;
     private JLayeredPane layeredPane;
     private JPanel chessBoard;
+    private JPanel[] squares = new JPanel[64];
     private JLabel chessPiece;
     int xAdjustment;
     int yAdjustment;
@@ -37,26 +38,31 @@ public class ChessBoard extends JFrame {
         for(int i=0;i<64;i++)
         {
             JPanel square = new JPanel(new BorderLayout());
-            chessBoard.add(square);
+            squares[i] = square;
+            chessBoard.add(squares[i]);
 
             int row = (i/8)%2;
             if(row == 0)
             {
                 if(i%2 == 0)
                 {
-                    square.setBackground(Color.DARK_GRAY);
+                    squares[i].setBackground(Color.white);
                 }
-                else square.setBackground(Color.white);
+                else squares[i].setBackground(Color.DARK_GRAY);
             }
             else
             {
                 if(i%2 == 0)
                 {
-                    square.setBackground(Color.white);
+                    squares[i].setBackground(Color.DARK_GRAY);
                 }
-                else square.setBackground(Color.DARK_GRAY);
+                else squares[i].setBackground(Color.white);
             }
         }
     }
 
+    public void setSquareColor(int x, Color c)
+    {
+        squares[x].setBackground(c);
+    }
 }
