@@ -1,8 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
 
 /**
  * Created by Mike on 1/13/2015.
@@ -21,6 +17,7 @@ public class Main {
         game.setResizable(true);
         game.setLocationRelativeTo(null);
         game.setVisible(true);
+        /*
         int startPos=12;
         int [] start=new int[]{startPos%8,startPos/8};
         int [] test=new int[2];
@@ -36,6 +33,7 @@ public class Main {
 
         }
         game.setSquareColor(startPos, Color.red);
+        */
 
 
 
