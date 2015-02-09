@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by Mike on 1/13/2015.
@@ -7,10 +8,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("Hello World");
+        MainMenu menu = new MainMenu();
 
-        ChessBoard game = new ChessBoard();
 
+/*
         game.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         game.pack();

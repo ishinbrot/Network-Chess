@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
 import javax.swing.*;
 
 /**
@@ -10,8 +8,8 @@ public class ChessBoard extends JFrame {
 
     private Dimension boardSize;
     private JLayeredPane layeredPane;
-    private JPanel chessBoard;
-    private JPanel[] squares = new JPanel[64];
+    public JPanel chessBoard;
+    public JPanel[] squares = new JPanel[64];
     private JLabel chessPiece;
     int xAdjustment;
     int yAdjustment;
@@ -59,10 +57,30 @@ public class ChessBoard extends JFrame {
                 else squares[i].setBackground(Color.white);
             }
         }
+       // JPanel square = squares[2];
+        
+
+
     }
 
     public void setSquareColor(int x, Color c)
     {
         squares[x].setBackground(c);
     }
+    
+    
+    public void addPiece(String Image, int location)
+    {
+        ImageIcon image = new ImageIcon(this.getClass().getResource(Image));
+        JLabel picLabel = new JLabel(image);
+        squares[location].add(picLabel);
+    }
+    
+    public void removePiece(int location)
+    {
+        JLabel picLabel = new JLabel();
+        squares[location].add(picLabel);
+
+    }
 }
+
