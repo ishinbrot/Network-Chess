@@ -9,7 +9,7 @@ public class ChessBoard extends JFrame {
     private Dimension boardSize;
     private JLayeredPane layeredPane;
     public JPanel chessBoard;
-    public JPanel[] squares = new JPanel[64];
+    public Square[] squares = new Square[64];
     private JLabel chessPiece;
     int xAdjustment;
     int yAdjustment;
@@ -36,7 +36,7 @@ public class ChessBoard extends JFrame {
         for(int i=0;i<64;i++)
         {
             //JPanel square = new JPanel(new BorderLayout());
-            JPanel s=new Square(new BorderLayout());
+            Square s=new Square(new BorderLayout());
             squares[i] = s;
             chessBoard.add(squares[i]);
 
@@ -69,14 +69,17 @@ public class ChessBoard extends JFrame {
     
     public void addPiece(ChessPiece chessPiece, int location)
     {
+        squares[location].setCurrentPiece(chessPiece);
         ImageIcon image = new ImageIcon(this.getClass().getResource(chessPiece.image));
         JLabel picLabel = new JLabel(image);
-        System.out.println(picLabel.getIcon().toString());
+        //System.out.println(chessPiece.image);
+        //System.out.println(picLabel.getIcon().toString());
         squares[location].add(picLabel);
     }
     
     public void removePiece(int location)
     {
+        squares[location].setCurrentPiece(null);
         JLabel picLabel = new JLabel();
         System.out.println(picLabel.getText());
         squares[location].add(picLabel);
@@ -85,13 +88,31 @@ public class ChessBoard extends JFrame {
     public void startPlayer1()
     {
         String color = "white";
+
+        addPiece(new Rook(color), 0);
+        addPiece(new Knight(color), 1);
+        addPiece(new Bishop(color), 2);
+        addPiece(new King(color), 3);
+        addPiece(new Queen(color), 4);
+        addPiece(new Bishop(color), 5);
+        addPiece(new Knight(color), 6);
+        addPiece(new Rook(color), 7);
+        addPiece(new Pawn(color), 8);
+        addPiece(new Pawn(color), 9);
+        addPiece(new Pawn(color), 10);
+        addPiece(new Pawn(color), 11);
+        addPiece(new Pawn(color), 12);
+        addPiece(new Pawn(color), 13);
+        addPiece(new Pawn(color), 14);
+        addPiece(new Pawn(color), 15);
+
         ChessPiece rook1 = new Rook(color);
-                ChessPiece rook2 = new Rook(color);
+        ChessPiece rook2 = new Rook(color);
         ChessPiece knight1 = new Knight(color);
         ChessPiece knight2 = new Knight(color);
         ChessPiece bishop1 = new Bishop(color);
         ChessPiece bishop2 = new Bishop(color);
-        ChessPiece queen = new Queen(color);
+        ChessPiece quees = new Queen(color);
         ChessPiece king = new King(color);
         ChessPiece pawn1 = new Pawn(color);
         ChessPiece pawn2 = new Pawn(color);
@@ -104,19 +125,36 @@ public class ChessBoard extends JFrame {
         
         // place white pieces
         
-        for (int i=0; i<16; i++)
+        /*for (int i=0; i<16; i++)
         {
             if (i%1 ==0 || i % 8 == 0)
             {
                 addPiece(rook1, i);
             }
-        }
+        }*/
         
     }
     
     public void startPlayer2()
     {
         // place black pieces
+        String color="black";
+        addPiece(new Rook(color), 63);
+        addPiece(new Knight(color), 62);
+        addPiece(new Bishop(color), 61);
+        addPiece(new Queen(color), 60);
+        addPiece(new King(color), 59);
+        addPiece(new Bishop(color), 58);
+        addPiece(new Knight(color), 57);
+        addPiece(new Rook(color), 56);
+        addPiece(new Pawn(color), 55);
+        addPiece(new Pawn(color), 54);
+        addPiece(new Pawn(color), 53);
+        addPiece(new Pawn(color), 52);
+        addPiece(new Pawn(color), 51);
+        addPiece(new Pawn(color), 50);
+        addPiece(new Pawn(color), 49);
+        addPiece(new Pawn(color), 48);
         
     }
 }

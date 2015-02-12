@@ -65,10 +65,11 @@ public class MainMenu extends JFrame implements ActionListener {
         game.setVisible(true);
 
 
-        
-        ChessPiece knight = new Knight("black");
+        game.startPlayer1();
+        game.startPlayer2();
+        //ChessPiece knight = new Knight("black");
 
-        game.addPiece(knight.image,2);
+        //game.addPiece(knight.image,2);
     }
 
     public void testMoves()
