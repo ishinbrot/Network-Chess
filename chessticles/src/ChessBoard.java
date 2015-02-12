@@ -58,9 +58,6 @@ public class ChessBoard extends JFrame {
                 else squares[i].setBackground(Color.white);
             }
         }
-       // JPanel square = squares[2];
-        
-
 
     }
 
@@ -70,18 +67,57 @@ public class ChessBoard extends JFrame {
     }
     
     
-    public void addPiece(String Image, int location)
+    public void addPiece(ChessPiece chessPiece, int location)
     {
-        ImageIcon image = new ImageIcon(this.getClass().getResource(Image));
+        ImageIcon image = new ImageIcon(this.getClass().getResource(chessPiece.image));
         JLabel picLabel = new JLabel(image);
+        System.out.println(picLabel.getIcon().toString());
         squares[location].add(picLabel);
     }
     
     public void removePiece(int location)
     {
         JLabel picLabel = new JLabel();
+        System.out.println(picLabel.getText());
         squares[location].add(picLabel);
-
+    }
+    
+    public void startPlayer1()
+    {
+        String color = "white";
+        ChessPiece rook1 = new Rook(color);
+                ChessPiece rook2 = new Rook(color);
+        ChessPiece knight1 = new Knight(color);
+        ChessPiece knight2 = new Knight(color);
+        ChessPiece bishop1 = new Bishop(color);
+        ChessPiece bishop2 = new Bishop(color);
+        ChessPiece queen = new Queen(color);
+        ChessPiece king = new King(color);
+        ChessPiece pawn1 = new Pawn(color);
+        ChessPiece pawn2 = new Pawn(color);
+        ChessPiece pawn3 = new Pawn(color);
+        ChessPiece pawn4 = new Pawn(color);
+        ChessPiece pawn5 = new Pawn(color);
+        ChessPiece pawn6 = new Pawn(color);
+        ChessPiece pawn7 = new Pawn(color);
+        ChessPiece pawn8 = new Pawn(color);
+        
+        // place white pieces
+        
+        for (int i=0; i<16; i++)
+        {
+            if (i%1 ==0 || i % 8 == 0)
+            {
+                addPiece(rook1, i);
+            }
+        }
+        
+    }
+    
+    public void startPlayer2()
+    {
+        // place black pieces
+        
     }
 }
 
