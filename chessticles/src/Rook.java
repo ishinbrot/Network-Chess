@@ -7,13 +7,14 @@ import javax.swing.*;
 public class Rook extends ChessPiece {
 
     public Rook(String color) {
-        super.color=color;
-        if (super.color == "white") {
-            image ="Chess_Pictures/white/rook.png";
+        setColor(color);
+        if (getColor() == "white") {
+            setImage("Chess_Pictures/white/rook.png");
         }
 
-        if (super.color == "black") {
-            image = "Chess_Pictures/black/rook.png";
+        if (getColor() == "black") {
+            setImage("Chess_Pictures/black/rook.png");
         }
+        setValue(5);
     }
 }

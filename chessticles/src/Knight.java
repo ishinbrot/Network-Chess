@@ -7,14 +7,15 @@ public class Knight extends ChessPiece {
 
     public Knight(String color) {
         
-        super.color=color;
-        if (super.color == "white") {
+        setColor(color);
+        if (getColor() == "white") {
         
-            image = "Chess_Pictures/white/knight.png";
+            setImage("Chess_Pictures/white/knight.png");
         }
 
-        if (super.color == "black") {
-            image = "Chess_Pictures/black/knight.png";
+        if (getColor() == "black") {
+            setImage("Chess_Pictures/black/knight.png");
         }
+        setValue(3);
     }
 }

@@ -6,14 +6,15 @@ import javax.swing.*;
 public class Pawn extends ChessPiece {
 
     public Pawn(String color) {
-        super.color=color;
-        if (super.color == "white") {
-            image= "Chess_Pictures/white/pawn.png";
+        setColor(color);
+        if (getColor() == "white") {
+            setImage("Chess_Pictures/white/pawn.png");
         }
 
-        if (super.color == "black") {
-            image = "Chess_Pictures/black/pawn.png";
+        if (getColor() == "black") {
+            setImage("Chess_Pictures/black/pawn.png");
         }
+        setValue(1);
     }
     
     public void move()

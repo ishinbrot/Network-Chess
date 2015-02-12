@@ -70,6 +70,7 @@ public class ChessBoard extends JFrame {
     public void addPiece(ChessPiece chessPiece, int location)
     {
         squares[location].setCurrentPiece(chessPiece);
+        chessPiece.setPosition(location);
         ImageIcon image = new ImageIcon(this.getClass().getResource(chessPiece.image));
         JLabel picLabel = new JLabel(image);
         //System.out.println(chessPiece.image);

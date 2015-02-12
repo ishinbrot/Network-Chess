@@ -6,13 +6,14 @@ import javax.swing.*;
 public class Queen extends ChessPiece {
 
     public Queen(String color) {
-        super.color=color;
-        if (super.color == "white") {
-            image= "Chess_Pictures/white/queen.png";
+        setColor(color);
+        if (getColor() == "white") {
+            setImage("Chess_Pictures/white/queen.png");
         }
 
-        if (super.color == "black") {
-            image = "Chess_Pictures/black/queen.png";
+        if (getColor() == "black") {
+            setImage("Chess_Pictures/black/queen.png");
         }
+        setValue(10);
     }
 }
