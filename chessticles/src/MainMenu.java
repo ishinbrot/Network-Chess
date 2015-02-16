@@ -15,34 +15,50 @@ public class MainMenu extends JFrame implements ActionListener {
     public boolean blackPlayer;
     public boolean whitePlayer;
     public int moveResult;
-    private JMenuItem quit = new JMenuItem("Quit");
-    private JMenuItem newGame = new JMenuItem("New Game");
-    private JMenuItem testMoves = new JMenuItem("test Moves");
+    private JButton quit = new JButton("Quit");
+    private JButton newGame = new JButton("New Game");
+    private JButton testMoves = new JButton("test Moves");
+    private JButton networkGame = new JButton("Network Game");
+    JPanel panel1 = new JPanel();
 
     public MainMenu() {
-        JFrame f = new JFrame("Start");
-
-        JMenuBar menubar = new JMenuBar();
-
-        JMenu menu1 = new JMenu("Options");
-
+        JFrame frame = new JFrame("Start");
+        
+        // Adding New Game Button
+       
+        newGame.setVerticalTextPosition(AbstractButton.CENTER);
+        newGame.setHorizontalTextPosition(AbstractButton.LEADING);
+        newGame.setToolTipText("New Game");
         newGame.addActionListener(this);
-        quit.addActionListener(this);
+        
+        testMoves.setToolTipText("test Moves");
+        testMoves.setVerticalTextPosition(AbstractButton.CENTER);
         testMoves.addActionListener(this);
-        menu1.add(newGame);
-        menu1.add(testMoves);
-        menu1.add(quit);
-        menubar.add(menu1);
+        networkGame.setToolTipText("Network Game");
+        networkGame.addActionListener(this);
+        quit.setToolTipText("Quit");
+        quit.addActionListener(this);
+        quit.setVerticalTextPosition(AbstractButton.CENTER);
+        quit.setHorizontalTextPosition(AbstractButton.LEADING);
+        panel1.add(newGame);
+        panel1.add(testMoves);
+        panel1.add(networkGame);
+        panel1.add(quit);
+        frame.add(panel1);
 
-        f.setJMenuBar(menubar);
-        f.setSize(300, 100);
-        f.setVisible(true);
+
+        frame.setSize(300, 100);
+        frame.setVisible(true);
+        
         System.out.println("Starting Chess Program");
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == newGame) {
             start();
+        }
+        if (e.getSource() == networkGame) {
+            network();
         }
         if (e.getSource() == quit) {
 
@@ -106,10 +122,7 @@ public class MainMenu extends JFrame implements ActionListener {
     public void network() {
     }
     
-    public void load() {
-        
-        
-    }
+
     
     
     public void quit() {
