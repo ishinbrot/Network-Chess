@@ -73,8 +73,6 @@ public class ChessBoard extends JFrame {
         chessPiece.setPosition(location);
         ImageIcon image = new ImageIcon(this.getClass().getResource(chessPiece.image));
         JLabel picLabel = new JLabel(image);
-        //System.out.println(chessPiece.image);
-        //System.out.println(picLabel.getIcon().toString());
         squares[location].add(picLabel);
     }
     
