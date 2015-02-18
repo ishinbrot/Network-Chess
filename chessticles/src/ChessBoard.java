@@ -105,13 +105,14 @@ public class ChessBoard extends JFrame {
         addPiece(new Pawn(color), 14);
         addPiece(new Pawn(color), 15);
 
+
         ChessPiece rook1 = new Rook(color);
         ChessPiece rook2 = new Rook(color);
         ChessPiece knight1 = new Knight(color);
         ChessPiece knight2 = new Knight(color);
         ChessPiece bishop1 = new Bishop(color);
         ChessPiece bishop2 = new Bishop(color);
-        ChessPiece quees = new Queen(color);
+        ChessPiece queen = new Queen(color);
         ChessPiece king = new King(color);
         ChessPiece pawn1 = new Pawn(color);
         ChessPiece pawn2 = new Pawn(color);

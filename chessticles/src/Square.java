@@ -6,6 +6,7 @@ import java.awt.*;
  */
 public class Square extends JPanel {
     ChessPiece currentPiece=null;
+
     public Square ( LayoutManager layout){
         super.setLayout(layout);
     }
@@ -17,4 +18,6 @@ public class Square extends JPanel {
     public void setCurrentPiece(ChessPiece currentPiece) {
         this.currentPiece = currentPiece;
     }
+
+
 }
