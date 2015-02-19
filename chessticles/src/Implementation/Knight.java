@@ -10,11 +10,11 @@ public class Knight extends ChessPiece {
         setColor(color);
         if (getColor() == "white") {
         
-            setImage("Chess_Pictures/white/knight.png");
+            setImage("../Chess_Pictures/white/knight.png");
         }
 
         if (getColor() == "black") {
-            setImage("Chess_Pictures/black/knight.png");
+            setImage("../Chess_Pictures/black/knight.png");
         }
         setValue(3);
     }
