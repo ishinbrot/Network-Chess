@@ -1,77 +1,96 @@
+import javax.swing.*;
 import java.util.Arrays;
 
 /**
- * Created by ianshinbrot on 1/14/15.
+ * Created by Buzz on 2/19/2015.
  */
-public class ChessPiece {//extends ChessRules{
-    
-    private String color;
-    private int position;
-    private String image;
-    private int value;
-    private boolean moved =false;
-    private int moveLimit;
-    
-    
-    public ChessPiece() {}
-    public ChessPiece(String color)
+public class ChessGame {//extends ChessRules{
+    private ChessBoard board;
+    private ChessPiece currentPiece;
+    public static final int player1 = 0;
+    public static final int player2 = 1;
+    int playerToMove = player1;
+
+    public boolean test(){
+
+        return true;
+    }
+
+    public ChessBoard getBoard() {
+        return board;
+    }
+
+    public void setBoard(ChessBoard board) {
+        this.board = board;
+    }
+    public void addPiece(ChessPiece chessPiece, int location)
     {
-        this.color=color;
-
-        
+        board.squares[location].setCurrentPiece(chessPiece);
+        chessPiece.setPosition(location);
+        ImageIcon image = new ImageIcon(this.getClass().getResource(chessPiece.getImage()));
+        JLabel picLabel = new JLabel(image);
+        //System.out.println(chessPiece.image);
+        //System.out.println(picLabel.getIcon().toString());
+        board.squares[location].add(picLabel);
     }
-    public int getMoveLimit() {
-        return moveLimit;
-    }
-
-    public void setMoveLimit(int moveLimit) {
-        this.moveLimit = moveLimit;
-    }
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
+    public void removePiece(int location)
+    {
+        board.squares[location].setCurrentPiece(null);
+        JLabel picLabel = new JLabel();
+        System.out.println(picLabel.getText());
+        board.squares[location].add(picLabel);
     }
 
-    public int getPosition() {
-        return position;
-    }
+    public void startPlayer2()
+    {
+        String color = "black";
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    public boolean isMoved() {
-        return moved;
-    }
-
-    public void setMoved(boolean moved) {
-        this.moved = moved;
+        addPiece(new Rook(color), 0);
+        addPiece(new Knight(color), 1);
+        addPiece(new Bishop(color), 2);
+        addPiece(new King(color), 3);
+        addPiece(new Queen(color), 4);
+        addPiece(new Bishop(color), 5);
+        addPiece(new Knight(color), 6);
+        addPiece(new Rook(color), 7);
+        addPiece(new Pawn(color), 8);
+        addPiece(new Pawn(color), 9);
+        addPiece(new Pawn(color), 10);
+        addPiece(new Pawn(color), 11);
+        addPiece(new Pawn(color), 12);
+        addPiece(new Pawn(color), 13);
+        addPiece(new Pawn(color), 14);
+        addPiece(new Pawn(color), 15);
 
     }
-    public boolean validMove(int[] initialPosition, int[] finalPosition, ChessBoard board){
 
-        return this.validMove(initialPosition,finalPosition, board);
+    public void startPlayer1()
+    {
+        // place black pieces
+        String color="white";
+        addPiece(new Rook(color), 63);
+        addPiece(new Knight(color), 62);
+        addPiece(new Bishop(color), 61);
+        addPiece(new Queen(color), 60);
+        addPiece(new King(color), 59);
+        addPiece(new Bishop(color), 58);
+        addPiece(new Knight(color), 57);
+        addPiece(new Rook(color), 56);
+        addPiece(new Pawn(color), 55);
+        addPiece(new Pawn(color), 54);
+        addPiece(new Pawn(color), 53);
+        addPiece(new Pawn(color), 52);
+        addPiece(new Pawn(color), 51);
+        addPiece(new Pawn(color), 50);
+        addPiece(new Pawn(color), 49);
+        addPiece(new Pawn(color), 48);
+
     }
-    public boolean horizontal(int[] initialPosition, int[] finalPosition, ChessBoard board)
+   public int nextPlayer(int player) {
+        if (player==player1) return player2;
+        return player1;
+    }
+    public boolean horizontal(int[] initialPosition, int[] finalPosition)
     {
         int test;
         if (Arrays.equals(initialPosition, finalPosition)){return false;}
@@ -90,7 +109,7 @@ public class ChessPiece {//extends ChessRules{
         }
         return false;
     }
-    public boolean vertical(int[] initialPosition, int[] finalPosition, ChessBoard board){
+    public boolean vertical(int[] initialPosition, int[] finalPosition){
         int test;
         if (Arrays.equals(initialPosition, finalPosition)){return false;}
         if (initialPosition[0]==finalPosition[0]){
@@ -109,13 +128,10 @@ public class ChessPiece {//extends ChessRules{
 
         return false;
     }
-    public boolean diagonal(int[] initialPosition, int[] finalPosition, ChessBoard board){
+    public boolean diagonal(int[] initialPosition, int[] finalPosition){
         int[] test=new int[2];
         int max;
-
-        if (Arrays.equals(initialPosition, finalPosition)){return false;}
-        if (Math.abs(initialPosition[0] - finalPosition[0])==Math.abs(initialPosition[1]-finalPosition[1])){
-            if (initialPosition[0]<finalPosition[0]){
+        if (initialPosition[0]<finalPosition[0]){
             test[0]=initialPosition[0];
             test[1]=initialPosition[1];
         }
@@ -123,6 +139,8 @@ public class ChessPiece {//extends ChessRules{
             test[0]=finalPosition[0];
             test[1]=finalPosition[1];
         }
+        if (Arrays.equals(initialPosition, finalPosition)){return false;}
+        if (Math.abs(initialPosition[0] - finalPosition[0])==Math.abs(initialPosition[1]-finalPosition[1])){
             if ((initialPosition[0]<finalPosition[0]&&initialPosition[1]<finalPosition[1])||
                     (initialPosition[0]>finalPosition[0]&&initialPosition[1]>finalPosition[1])){
                 //test[0]=Math.min(initialPosition[0], finalPosition[0]);
@@ -130,7 +148,6 @@ public class ChessPiece {//extends ChessRules{
                 max=Math.abs(initialPosition[0] - finalPosition[0]);
                 for(int i=0;i<max;i++){
                     test[0]+=i;
-                    System.out.println(test[0]);
                     test[1]+=i;
                     if (Arrays.equals(test, initialPosition)){continue;}
                     if (board.squares[(test[1]*8)+test[0]].getCurrentPiece()!=null){
@@ -158,7 +175,7 @@ public class ChessPiece {//extends ChessRules{
         }
         return false;
     }
-    public boolean L_shape(int[] initialPosition, int[] finalPosition, ChessBoard board){
+    public boolean L_shape(int[] initialPosition, int[] finalPosition){
         if (Arrays.equals(initialPosition, finalPosition)){return false;}
         if (Math.abs(initialPosition[0]-finalPosition[0])==2 && Math.abs(initialPosition[1]-finalPosition[1])==1){
             return true;
@@ -168,9 +185,4 @@ public class ChessPiece {//extends ChessRules{
         }
         return false;
     }
-
-
-
-    
-    
 }

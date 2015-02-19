@@ -5,6 +5,7 @@ import javax.swing.*;
  */
 public class Queen extends ChessPiece {
 
+
     public Queen(String color) {
         setColor(color);
         if (getColor() == "white") {
@@ -16,4 +17,10 @@ public class Queen extends ChessPiece {
         }
         setValue(10);
     }
+    public boolean validMove(int[] initialPosition, int[] finalPosition, ChessBoard board){
+        return horizontal(initialPosition, finalPosition, board)||
+                vertical(initialPosition, finalPosition, board)||
+                diagonal(initialPosition, finalPosition, board);
+    }
+
 }

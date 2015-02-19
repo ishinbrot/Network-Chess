@@ -42,6 +42,7 @@ public class ChessBoard extends JFrame {
         {
             //JPanel square = new JPanel(new BorderLayout());
             Square s=new Square(new BorderLayout());
+            s.setCoord(new int[]{(i%8), (i/8)});
             squares[i] = s;
             chessBoard.add(squares[i]);
 
@@ -76,7 +77,7 @@ public class ChessBoard extends JFrame {
     {
         squares[location].setCurrentPiece(chessPiece);
         chessPiece.setPosition(location);
-        ImageIcon image = new ImageIcon(this.getClass().getResource(chessPiece.image));
+        ImageIcon image = new ImageIcon(this.getClass().getResource(chessPiece.getImage()));
         JLabel picLabel = new JLabel(image);
         //System.out.println(chessPiece.image);
         //System.out.println(picLabel.getIcon().toString());

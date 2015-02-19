@@ -15,7 +15,7 @@ public class MainMenu extends JFrame implements ActionListener {
     public boolean blackPlayer;
     public boolean whitePlayer;
     public int moveResult;
-    public ChessBoard game;
+    public ChessBoard board;
     private JButton quit = new JButton("Quit");
     private JButton newGame = new JButton("New Game");
     private JButton testMoves = new JButton("test Moves");
@@ -72,35 +72,38 @@ public class MainMenu extends JFrame implements ActionListener {
     }
 
     public void start() {
-        ChessBoard game = new ChessBoard();
+        board = new ChessBoard();
+        ChessGame game=new ChessGame();
 
-        game.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        game.pack();
-        game.setResizable(true);
-        game.setLocationRelativeTo(null);
-        game.setVisible(true);
-
+        board.pack();
+        board.setResizable(true);
+        board.setLocationRelativeTo(null);
+        board.setVisible(true);
+        game.setBoard(board);
 
         game.startPlayer1();
         game.startPlayer2();
         //ChessPiece knight = new Knight("black");
 
-        //game.addPiece(knight.image,2);
+        //board.addPiece(knight.image,2);
     }
 
     public void testMoves()
     {
         System.out.println("Starting Chess Program");
 
-         game = new ChessBoard();
+         board = new ChessBoard();
+        ChessGame game=new ChessGame();
 
-        game.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        game.pack();
-        game.setResizable(true);
-        game.setLocationRelativeTo(null);
-        game.setVisible(true);
+        board.pack();
+        board.setResizable(true);
+        board.setLocationRelativeTo(null);
+        board.setVisible(true);
+        game.setBoard(board);
         int startPos=12;
         game.addPiece(new Pawn("black"), 0);
         game.addPiece(new Pawn("black"), 1);
@@ -140,7 +143,7 @@ public class MainMenu extends JFrame implements ActionListener {
         game.addPiece(new Pawn("black"), 39);
         game.addPiece(new Pawn("black"), 3);
         game.addPiece(new Pawn("black"), 5);
-        game.addPiece(new Queen("white"), startPos);
+        game.addPiece(new Bishop("white"), startPos);
 
 
 
@@ -153,12 +156,12 @@ public class MainMenu extends JFrame implements ActionListener {
             col = i%8;
             test[0]=col;
             test[1]=row;
-            if (game.horizontal(start, test)||game.vertical(start, test)||game.diagonal(start, test)){
-                game.setSquareColor(i, Color.green);
+            if (game.getBoard().squares[startPos].getCurrentPiece().validMove(start, test, game.getBoard())){
+                game.getBoard().setSquareColor(i, Color.green);
             }
 
 
-        }System.out.println(game.squares[26].getCurrentPiece()!=null);
+        }System.out.println(board.squares[26].getCurrentPiece()!=null);
         //game.setSquareColor(startPos, Color.red);
 
     }
