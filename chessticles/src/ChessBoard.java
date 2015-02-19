@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import javax.swing.*;
 
 /**
@@ -13,6 +15,9 @@ public class ChessBoard extends JFrame {
     private JLabel chessPiece;
     int xAdjustment;
     int yAdjustment;
+    int player1=0;
+    int player2=1;
+    int nextPlayer=player1;
 
     public ChessBoard()
     {
@@ -158,6 +163,105 @@ public class ChessBoard extends JFrame {
         addPiece(new Pawn(color), 49);
         addPiece(new Pawn(color), 48);
         
+    }
+    public int nextPlayer(int player) {
+        if (player==player1) return player2;
+        return player1;
+    }
+    public boolean horizontal(int[] initialPosition, int[] finalPosition)
+    {
+        int test;
+        if (Arrays.equals(initialPosition, finalPosition)){return false;}
+        if (initialPosition[1]==finalPosition[1]){
+
+            int min= Math.min(initialPosition[0], finalPosition[0]);
+            int max=Math.max(initialPosition[0], finalPosition[0]);
+            for (int i=min++;i<=max;i++){
+                test=(initialPosition[1]*8)+i;
+                if (test%8==initialPosition[0]){continue;}
+                if (squares[test].getCurrentPiece()!=null){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    public boolean vertical(int[] initialPosition, int[] finalPosition){
+        int test;
+        if (Arrays.equals(initialPosition, finalPosition)){return false;}
+        if (initialPosition[0]==finalPosition[0]){
+
+            int min= Math.min(initialPosition[1], finalPosition[1]);
+            int max=Math.max(initialPosition[1], finalPosition[1]);
+            for (int i=min++;i<=max;i++){
+                test=(i*8)+initialPosition[0];
+                if (test/8==initialPosition[1]){continue;}
+                if (squares[test].getCurrentPiece()!=null){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        return false;
+    }
+    public boolean diagonal(int[] initialPosition, int[] finalPosition){
+        int[] test=new int[2];
+        int max;
+        if (initialPosition[0]<finalPosition[0]){
+            test[0]=initialPosition[0];
+            test[1]=initialPosition[1];
+        }
+        else{
+            test[0]=finalPosition[0];
+            test[1]=finalPosition[1];
+        }
+        if (Arrays.equals(initialPosition, finalPosition)){return false;}
+        if (Math.abs(initialPosition[0] - finalPosition[0])==Math.abs(initialPosition[1]-finalPosition[1])){
+            if ((initialPosition[0]<finalPosition[0]&&initialPosition[1]<finalPosition[1])||
+                    (initialPosition[0]>finalPosition[0]&&initialPosition[1]>finalPosition[1])){
+                //test[0]=Math.min(initialPosition[0], finalPosition[0]);
+                //test[1]=Math.min(initialPosition[1], finalPosition[1]);
+                max=Math.abs(initialPosition[0] - finalPosition[0]);
+                for(int i=0;i<max;i++){
+                    test[0]+=i;
+                    test[1]+=i;
+                    if (Arrays.equals(test, initialPosition)){continue;}
+                    if (squares[(test[1]*8)+test[0]].getCurrentPiece()!=null){
+                        System.out.println(((test[1]*8)+test[0]));
+                        return false;
+                    }
+                }
+            }
+            else{
+
+                max=Math.abs(initialPosition[0] - finalPosition[0]);
+                for(int i=0;i<=max;i++){
+                    test[0]+=i;
+                    test[1]-=i;
+                    if (Arrays.equals(test, initialPosition)){continue;}
+                    //System.out.println(((test[1]*8)+test[0]));
+                    if (squares[((test[1]*8)+test[0])].getCurrentPiece()!=null){
+                        //System.out.println(((test[1]*8)+test[0]));
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+        return false;
+    }
+    public boolean L_shape(int[] initialPosition, int[] finalPosition){
+        if (Arrays.equals(initialPosition, finalPosition)){return false;}
+        if (Math.abs(initialPosition[0]-finalPosition[0])==2 && Math.abs(initialPosition[1]-finalPosition[1])==1){
+            return true;
+        }
+        if (Math.abs(initialPosition[0]-finalPosition[0])==1 && Math.abs(initialPosition[1]-finalPosition[1])==2){
+            return true;
+        }
+        return false;
     }
 }
 

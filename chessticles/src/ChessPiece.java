@@ -1,8 +1,3 @@
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-
 /**
  * Created by ianshinbrot on 1/14/15.
  */
@@ -12,7 +7,7 @@ public class ChessPiece {
     public int position;
     public String image;
     public int value;
-    public boolean hasMoved=false;
+    public boolean moved =false;
 
     
     
@@ -56,19 +51,16 @@ public class ChessPiece {
         this.value = value;
     }
 
-    public boolean isHasMoved() {
-        return hasMoved;
+    public boolean isMoved() {
+        return moved;
     }
 
-    public void setHasMoved(boolean hasMoved) {
-        this.hasMoved = hasMoved;
+    public void setMoved(boolean moved) {
+        this.moved = moved;
     }
 
-    public void move() {
-        
-        
-    }
-    
+
+
     
     
 }

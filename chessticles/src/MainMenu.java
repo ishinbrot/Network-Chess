@@ -15,6 +15,7 @@ public class MainMenu extends JFrame implements ActionListener {
     public boolean blackPlayer;
     public boolean whitePlayer;
     public int moveResult;
+    public ChessBoard game;
     private JButton quit = new JButton("Quit");
     private JButton newGame = new JButton("New Game");
     private JButton testMoves = new JButton("test Moves");
@@ -92,7 +93,7 @@ public class MainMenu extends JFrame implements ActionListener {
     {
         System.out.println("Starting Chess Program");
 
-        ChessBoard game = new ChessBoard();
+         game = new ChessBoard();
 
         game.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -101,6 +102,49 @@ public class MainMenu extends JFrame implements ActionListener {
         game.setLocationRelativeTo(null);
         game.setVisible(true);
         int startPos=12;
+        game.addPiece(new Pawn("black"), 0);
+        game.addPiece(new Pawn("black"), 1);
+        game.addPiece(new Pawn("black"), 2);
+        game.addPiece(new Pawn("black"), 6);
+        game.addPiece(new Pawn("black"), 7);
+        game.addPiece(new Pawn("black"), 8);
+        game.addPiece(new Pawn("black"), 16);
+        game.addPiece(new Pawn("black"), 24);
+        game.addPiece(new Pawn("black"), 32);
+        game.addPiece(new Pawn("black"), 40);
+        game.addPiece(new Pawn("black"), 48);
+        game.addPiece(new Pawn("black"), 56);
+        game.addPiece(new Pawn("black"), 15);
+        game.addPiece(new Pawn("black"), 23);
+        game.addPiece(new Pawn("black"), 39);
+        game.addPiece(new Pawn("black"), 47);
+        game.addPiece(new Pawn("black"), 55);
+        game.addPiece(new Pawn("black"), 56);
+        game.addPiece(new Pawn("black"), 63);
+        game.addPiece(new Pawn("black"), 57);
+        game.addPiece(new Pawn("black"), 58);
+        game.addPiece(new Pawn("black"), 59);
+        game.addPiece(new Pawn("black"), 60);
+        game.addPiece(new Pawn("black"), 61);
+        game.addPiece(new Pawn("black"), 62);
+        game.addPiece(new Pawn("black"), 31);
+
+
+
+
+        game.addPiece(new Pawn("black"), 9);
+        game.addPiece(new Pawn("black"), 36);
+        game.addPiece(new Pawn("black"), 14);
+        game.addPiece(new Pawn("black"), 4);
+        game.addPiece(new Pawn("black"), 33);
+        game.addPiece(new Pawn("black"), 39);
+        game.addPiece(new Pawn("black"), 3);
+        game.addPiece(new Pawn("black"), 5);
+        game.addPiece(new Queen("white"), startPos);
+
+
+
+
         int [] start=new int[]{startPos%8,startPos/8};
         int [] test=new int[2];
         for (int i =0; i<64;i++){
@@ -109,12 +153,13 @@ public class MainMenu extends JFrame implements ActionListener {
             col = i%8;
             test[0]=col;
             test[1]=row;
-            if (MoveValidation.horizontal(start, test)||MoveValidation.vertical(start, test)||MoveValidation.diagonal(start, test)){
+            if (game.horizontal(start, test)||game.vertical(start, test)||game.diagonal(start, test)){
                 game.setSquareColor(i, Color.green);
             }
 
-        }
-        game.setSquareColor(startPos, Color.red);
+
+        }System.out.println(game.squares[26].getCurrentPiece()!=null);
+        //game.setSquareColor(startPos, Color.red);
 
     }
     

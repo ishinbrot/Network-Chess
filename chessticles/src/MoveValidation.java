@@ -5,17 +5,19 @@ public class MoveValidation {
 
 
 
-    public static boolean horizontal(int[] initialPosition, int[] finalPosition){
-
+    public static boolean horizontal(int[] initialPosition, int[] finalPosition)
+    {
+        if (initialPosition==finalPosition){return false;}
+        int test;
         if (initialPosition[1]==finalPosition[1]){
-            int test;
+
             int i= Math.min(initialPosition[0], finalPosition[0]);
             int max=Math.max(initialPosition[0], finalPosition[0]);
             for (i=i++;i<max;i++){
                 test=(initialPosition[0]*8)+i;
-                if (ChessBoard.squares[test].getCurrentPiece()!=null){
+                //if (ChessBoard.squares[test].getCurrentPiece()!=null){
                     return false;
-                }
+                //}
             }
             return true;
         }
@@ -23,15 +25,16 @@ public class MoveValidation {
     }
     public static boolean vertical(int[] initialPosition, int[] finalPosition){
         int test;
+        if (initialPosition==finalPosition){return false;}
         if (initialPosition[0]==finalPosition[0]){
 
             int i= Math.min(initialPosition[1], finalPosition[1]);
             int max=Math.max(initialPosition[1], finalPosition[1]);
             for (i=i++;i<max;i++){
                 test=(i*8)+initialPosition[0];
-                if (ChessBoard.squares[test].getCurrentPiece()!=null){
+               // if (ChessBoard.squares[test].getCurrentPiece()!=null){
                     return false;
-                }
+                //}
             }
             return true;
         }
@@ -39,12 +42,14 @@ public class MoveValidation {
         return false;
     }
     public static boolean diagonal(int[] initialPosition, int[] finalPosition){
+        if (initialPosition==finalPosition){return false;}
         if (Math.abs(initialPosition[0] - finalPosition[0])==Math.abs(initialPosition[1]-finalPosition[1])){
             return true;
         }
         return false;
     }
     public static boolean L_shape(int[] initialPosition, int[] finalPosition){
+        if (initialPosition==finalPosition){return false;}
         if (Math.abs(initialPosition[0]-finalPosition[0])==2 && Math.abs(initialPosition[1]-finalPosition[1])==1){
             return true;
         }
