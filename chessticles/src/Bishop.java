@@ -21,5 +21,8 @@ public class Bishop extends ChessPiece {
         
         setValue(3);
     }
+    public boolean validMove(int[] initialPosition, int[] finalPosition, ChessBoard board){
+        return diagonal(initialPosition, finalPosition, board);
+    }
     
 }

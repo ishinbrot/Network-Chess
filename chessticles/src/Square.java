@@ -6,6 +6,8 @@ import java.awt.*;
  */
 public class Square extends JPanel {
     ChessPiece currentPiece=null;
+    int [] coord=new int[2];
+
 
     public Square ( LayoutManager layout){
         super.setLayout(layout);
@@ -19,5 +21,11 @@ public class Square extends JPanel {
         this.currentPiece = currentPiece;
     }
 
+    public int[] getCoord() {
+        return coord;
+    }
 
+    public void setCoord(int[] coord) {
+        this.coord = coord;
+    }
 }
