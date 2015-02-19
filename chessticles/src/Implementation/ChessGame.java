@@ -1,98 +1,54 @@
-import java.awt.*;
-import java.lang.reflect.Array;
-import java.util.Arrays;
+package Implementation;
+
+import Implementation.Bishop;
+import Implementation.ChessBoard;
+
 import javax.swing.*;
+import java.util.Arrays;
 
 /**
- * Created by mike on 1/13/2015.
+ * Created by Buzz on 2/19/2015.
  */
-public class ChessBoard extends JFrame {
+public class ChessGame {//extends ChessRules{
+    private ChessBoard board;
+    private ChessPiece currentPiece;
+    public static final int player1 = 0;
+    public static final int player2 = 1;
+    int playerToMove = player1;
 
-    private Dimension boardSize;
-    private JLayeredPane layeredPane;
-    public JPanel chessBoard;
-    public Square[] squares = new Square[64];
-    private JLabel chessPiece;
-    int xAdjustment;
-    int yAdjustment;
-    int player1=0;
-    int player2=1;
-    int nextPlayer=player1;
+    public boolean test(){
 
-    public ChessBoard()
-    {
-        //Initialize Board and it's components
-
-        boardSize = new Dimension(600, 600);
-        layeredPane = new JLayeredPane();
-        getContentPane().add(layeredPane);
-        layeredPane.setPreferredSize(boardSize);
-
-        //Add the Board to the Pane
-
-        chessBoard = new JPanel();
-        layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
-        chessBoard.setLayout(new GridLayout(8,8));
-        chessBoard.setPreferredSize(boardSize);
-        chessBoard.setBounds(0,0,boardSize.width,boardSize.height);
-
-        //Add Squares and Color them
-
-        for(int i=0;i<64;i++)
-        {
-            //JPanel square = new JPanel(new BorderLayout());
-            Square s=new Square(new BorderLayout());
-            s.setCoord(new int[]{(i%8), (i/8)});
-            squares[i] = s;
-            chessBoard.add(squares[i]);
-
-            int row = (i/8)%2;
-            if(row == 0)
-            {
-                if(i%2 == 0)
-                {
-                    squares[i].setBackground(Color.white);
-                }
-                else squares[i].setBackground(Color.DARK_GRAY);
-            }
-            else
-            {
-                if(i%2 == 0)
-                {
-                    squares[i].setBackground(Color.DARK_GRAY);
-                }
-                else squares[i].setBackground(Color.white);
-            }
-        }
-
+        return true;
     }
 
-    public void setSquareColor(int x, Color c)
-    {
-        squares[x].setBackground(c);
+    public ChessBoard getBoard() {
+        return board;
     }
-    
-    
+
+    public void setBoard(ChessBoard board) {
+        this.board = board;
+    }
     public void addPiece(ChessPiece chessPiece, int location)
     {
-        squares[location].setCurrentPiece(chessPiece);
+        board.squares[location].setCurrentPiece(chessPiece);
         chessPiece.setPosition(location);
         ImageIcon image = new ImageIcon(this.getClass().getResource(chessPiece.getImage()));
         JLabel picLabel = new JLabel(image);
-        squares[location].add(picLabel);
+        //System.out.println(chessPiece.image);
+        //System.out.println(picLabel.getIcon().toString());
+        board.squares[location].add(picLabel);
     }
-    
     public void removePiece(int location)
     {
-        squares[location].setCurrentPiece(null);
+        board.squares[location].setCurrentPiece(null);
         JLabel picLabel = new JLabel();
         System.out.println(picLabel.getText());
-        squares[location].add(picLabel);
+        board.squares[location].add(picLabel);
     }
-    
-    public void startPlayer1()
+
+    public void startPlayer2()
     {
-        String color = "white";
+        String color = "black";
 
         addPiece(new Rook(color), 0);
         addPiece(new Knight(color), 1);
@@ -111,40 +67,12 @@ public class ChessBoard extends JFrame {
         addPiece(new Pawn(color), 14);
         addPiece(new Pawn(color), 15);
 
-
-        ChessPiece rook1 = new Rook(color);
-        ChessPiece rook2 = new Rook(color);
-        ChessPiece knight1 = new Knight(color);
-        ChessPiece knight2 = new Knight(color);
-        ChessPiece bishop1 = new Bishop(color);
-        ChessPiece bishop2 = new Bishop(color);
-        ChessPiece queen = new Queen(color);
-        ChessPiece king = new King(color);
-        ChessPiece pawn1 = new Pawn(color);
-        ChessPiece pawn2 = new Pawn(color);
-        ChessPiece pawn3 = new Pawn(color);
-        ChessPiece pawn4 = new Pawn(color);
-        ChessPiece pawn5 = new Pawn(color);
-        ChessPiece pawn6 = new Pawn(color);
-        ChessPiece pawn7 = new Pawn(color);
-        ChessPiece pawn8 = new Pawn(color);
-        
-        // place white pieces
-        
-        /*for (int i=0; i<16; i++)
-        {
-            if (i%1 ==0 || i % 8 == 0)
-            {
-                addPiece(rook1, i);
-            }
-        }*/
-        
     }
-    
-    public void startPlayer2()
+
+    public void startPlayer1()
     {
         // place black pieces
-        String color="black";
+        String color="white";
         addPiece(new Rook(color), 63);
         addPiece(new Knight(color), 62);
         addPiece(new Bishop(color), 61);
@@ -161,9 +89,9 @@ public class ChessBoard extends JFrame {
         addPiece(new Pawn(color), 50);
         addPiece(new Pawn(color), 49);
         addPiece(new Pawn(color), 48);
-        
+
     }
-    public int nextPlayer(int player) {
+   public int nextPlayer(int player) {
         if (player==player1) return player2;
         return player1;
     }
@@ -178,7 +106,7 @@ public class ChessBoard extends JFrame {
             for (int i=min++;i<=max;i++){
                 test=(initialPosition[1]*8)+i;
                 if (test%8==initialPosition[0]){continue;}
-                if (squares[test].getCurrentPiece()!=null){
+                if (board.squares[test].getCurrentPiece()!=null){
                     return false;
                 }
             }
@@ -196,7 +124,7 @@ public class ChessBoard extends JFrame {
             for (int i=min++;i<=max;i++){
                 test=(i*8)+initialPosition[0];
                 if (test/8==initialPosition[1]){continue;}
-                if (squares[test].getCurrentPiece()!=null){
+                if (board.squares[test].getCurrentPiece()!=null){
                     return false;
                 }
             }
@@ -227,7 +155,7 @@ public class ChessBoard extends JFrame {
                     test[0]+=i;
                     test[1]+=i;
                     if (Arrays.equals(test, initialPosition)){continue;}
-                    if (squares[(test[1]*8)+test[0]].getCurrentPiece()!=null){
+                    if (board.squares[(test[1]*8)+test[0]].getCurrentPiece()!=null){
                         System.out.println(((test[1]*8)+test[0]));
                         return false;
                     }
@@ -241,7 +169,7 @@ public class ChessBoard extends JFrame {
                     test[1]-=i;
                     if (Arrays.equals(test, initialPosition)){continue;}
                     //System.out.println(((test[1]*8)+test[0]));
-                    if (squares[((test[1]*8)+test[0])].getCurrentPiece()!=null){
+                    if (board.squares[((test[1]*8)+test[0])].getCurrentPiece()!=null){
                         //System.out.println(((test[1]*8)+test[0]));
                         return false;
                     }
@@ -263,4 +191,3 @@ public class ChessBoard extends JFrame {
         return false;
     }
 }
-

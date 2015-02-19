@@ -1,5 +1,4 @@
-import javax.swing.*;
-import java.awt.*;
+package Implementation;
 
 /**
  * Created by Mike on 1/13/2015.
@@ -28,7 +27,7 @@ public class Main {
             col = i%8;
             test[0]=col;
             test[1]=row;
-            if (MoveValidation.horizontal(start, test)||MoveValidation.vertical(start, test)||MoveValidation.diagonal(start, test)){
+            if (Implementation.MoveValidation.horizontal(start, test)||Implementation.MoveValidation.vertical(start, test)||Implementation.MoveValidation.diagonal(start, test)){
                 game.setSquareColor(i, Color.green);
             }
 

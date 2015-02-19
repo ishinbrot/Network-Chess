@@ -1,4 +1,4 @@
-import javax.swing.*;
+package Implementation;
 
 /**
  * Created by ianshinbrot on 1/14/15.
