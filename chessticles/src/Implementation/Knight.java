@@ -18,4 +18,7 @@ public class Knight extends ChessPiece {
         }
         setValue(3);
     }
+    public boolean validMove(int[] initialPosition, int[] finalPosition, ChessBoard board){
+        return L_shape(initialPosition, finalPosition, board);
+    }
 }
