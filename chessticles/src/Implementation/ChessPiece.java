@@ -1,3 +1,7 @@
+package Implementation;
+
+import Implementation.ChessBoard;
+
 import java.util.Arrays;
 
 /**

@@ -1,3 +1,5 @@
+package Implementation;
+
 /**
  * Created by Buzz on 1/14/2015.
  */
@@ -15,7 +17,7 @@ public class MoveValidation {
             int max=Math.max(initialPosition[0], finalPosition[0]);
             for (i=i++;i<max;i++){
                 test=(initialPosition[0]*8)+i;
-                //if (ChessBoard.squares[test].getCurrentPiece()!=null){
+                //if (Implementation.ChessBoard.squares[test].getCurrentPiece()!=null){
                     return false;
                 //}
             }
@@ -32,7 +34,7 @@ public class MoveValidation {
             int max=Math.max(initialPosition[1], finalPosition[1]);
             for (i=i++;i<max;i++){
                 test=(i*8)+initialPosition[0];
-               // if (ChessBoard.squares[test].getCurrentPiece()!=null){
+               // if (Implementation.ChessBoard.squares[test].getCurrentPiece()!=null){
                     return false;
                 //}
             }

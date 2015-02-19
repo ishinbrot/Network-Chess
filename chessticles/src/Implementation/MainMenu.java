@@ -1,11 +1,9 @@
-import javax.imageio.ImageIO;
+package Implementation;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by ianshinbrot on 1/14/15.
@@ -85,7 +83,7 @@ public class MainMenu extends JFrame implements ActionListener {
 
         game.startPlayer1();
         game.startPlayer2();
-        //ChessPiece knight = new Knight("black");
+        //Implementation.ChessPiece knight = new Implementation.Knight("black");
 
         //board.addPiece(knight.image,2);
     }
