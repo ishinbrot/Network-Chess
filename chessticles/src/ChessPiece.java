@@ -128,29 +128,36 @@ public class ChessPiece {//extends ChessRules{
                 //test[0]=Math.min(initialPosition[0], finalPosition[0]);
                 //test[1]=Math.min(initialPosition[1], finalPosition[1]);
                 max=Math.abs(initialPosition[0] - finalPosition[0]);
-                for(int i=0;i<max;i++){
-                    test[0]+=i;
-                    System.out.println(test[0]);
-                    test[1]+=i;
-                    if (Arrays.equals(test, initialPosition)){continue;}
+                for(int i=0;i<=max;i++){
+
+                    if (Arrays.equals(test, initialPosition)){
+                        test[0]+=1;
+                        test[1]+=1;
+                        continue;}
                     if (board.squares[(test[1]*8)+test[0]].getCurrentPiece()!=null){
                         System.out.println(((test[1]*8)+test[0]));
                         return false;
                     }
+                    test[0]+=1;
+                    test[1]+=1;
                 }
             }
             else{
 
                 max=Math.abs(initialPosition[0] - finalPosition[0]);
                 for(int i=0;i<=max;i++){
-                    test[0]+=i;
-                    test[1]-=i;
-                    if (Arrays.equals(test, initialPosition)){continue;}
+
+                    if (Arrays.equals(test, initialPosition)){
+                        test[0]+=1;
+                        test[1]-=1;
+                        continue;}
                     //System.out.println(((test[1]*8)+test[0]));
                     if (board.squares[((test[1]*8)+test[0])].getCurrentPiece()!=null){
                         //System.out.println(((test[1]*8)+test[0]));
                         return false;
                     }
+                    test[0]+=1;
+                    test[1]-=1;
                 }
             }
 
@@ -160,12 +167,15 @@ public class ChessPiece {//extends ChessRules{
     }
     public boolean L_shape(int[] initialPosition, int[] finalPosition, ChessBoard board){
         if (Arrays.equals(initialPosition, finalPosition)){return false;}
-        if (Math.abs(initialPosition[0]-finalPosition[0])==2 && Math.abs(initialPosition[1]-finalPosition[1])==1){
+        if ((Math.abs(initialPosition[0]-finalPosition[0])==2 && Math.abs(initialPosition[1]-finalPosition[1])==1)||
+                (Math.abs(initialPosition[0]-finalPosition[0])==1 && Math.abs(initialPosition[1]-finalPosition[1])==2)){
+            if (board.squares[((finalPosition[1]*8)+finalPosition[0])].getCurrentPiece()!=null){
+
+                return false;
+            }
             return true;
         }
-        if (Math.abs(initialPosition[0]-finalPosition[0])==1 && Math.abs(initialPosition[1]-finalPosition[1])==2){
-            return true;
-        }
+
         return false;
     }
 

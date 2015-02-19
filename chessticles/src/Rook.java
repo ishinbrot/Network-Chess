@@ -17,4 +17,8 @@ public class Rook extends ChessPiece {
         }
         setValue(5);
     }
+    public boolean validMove(int[] initialPosition, int[] finalPosition, ChessBoard board){
+        return horizontal(initialPosition, finalPosition, board)||
+                vertical(initialPosition, finalPosition, board);
+    }
 }
