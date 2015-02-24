@@ -20,11 +20,12 @@ public class Square extends JPanel {
                 getCoord();
                 if (getCurrentPiece()!=null)           // check if valid piece clicked
                 {
-                    setBackground(Color.LIGHT_GRAY);        // selected square turns gray
+                    setCurrentPiece(getCurrentPiece());
+                    setBackground(Color.ORANGE);        // selected square turns gray
                     int position = getCurrentPiece().getPosition();
                 }
 
-                if (getBackground()==Color.lightGray)       // change to color that valid squares will be
+                if (getBackground()==Color.ORANGE)       // change to color that valid squares will be
                 {
                     // move piece here
                 }
