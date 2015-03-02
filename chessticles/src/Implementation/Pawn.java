@@ -17,6 +17,7 @@ public class Pawn extends ChessPiece {
             setImage("../Chess_Pictures/black/pawn.png");
         }
         setValue(1);
+        setName("Pawn");
 
     }
     

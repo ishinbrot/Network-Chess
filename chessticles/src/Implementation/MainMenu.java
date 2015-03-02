@@ -95,6 +95,7 @@ public class MainMenu extends JFrame implements ActionListener {
         board = new ChessBoard();
         ChessGame game=new ChessGame();
 
+
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         board.pack();
