@@ -4,6 +4,8 @@ import Implementation.Bishop;
 import Implementation.ChessBoard;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 /**
@@ -12,6 +14,7 @@ import java.util.Arrays;
 public class ChessGame {//extends ChessRules{
     private ChessBoard board;
     private ChessPiece currentPiece;
+    public static int CurrentPosition;
     public static final int player1 = 0;
     public static final int player2 = 1;
     int playerToMove = player1;
@@ -38,6 +41,7 @@ public class ChessGame {//extends ChessRules{
         //System.out.println(picLabel.getIcon().toString());
         board.squares[location].add(picLabel);
     }
+
     public void removePiece(int location)
     {
         board.squares[location].setCurrentPiece(null);

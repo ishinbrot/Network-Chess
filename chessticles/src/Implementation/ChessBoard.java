@@ -45,6 +45,7 @@ public class ChessBoard extends JFrame {
         {
             //JPanel square = new JPanel(new BorderLayout());
             Square s=new Square(new BorderLayout());
+
             s.setCoord(new int[]{(i%8), (i/8)});
             squares[i] = s;
             chessBoard.add(squares[i]);

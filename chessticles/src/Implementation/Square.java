@@ -4,28 +4,34 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 /**
  * Created by Buzz on 2/11/2015.
  */
-public class Square extends JPanel {
+public class Square extends JPanel{
     ChessPiece currentPiece=null;
     int [] coord=new int[2];
+    boolean clicked=false;
     public Square ( LayoutManager layout){
         super.setLayout(layout);
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 getCurrentPiece().getMoveLimit();
-                getCoord();
-                if (getCurrentPiece()!=null)           // check if valid piece clicked
+                System.out.println();
+                ChessGame.CurrentPosition = getCurrentPiece().getPosition();
+
+                if (getCurrentPiece() != null)           // check if valid piece clicked
                 {
-                    setCurrentPiece(getCurrentPiece());
+
+                   currentPiece = getCurrentPiece();
+                    clicked=true;
                     setBackground(Color.ORANGE);        // selected square turns gray
                     int position = getCurrentPiece().getPosition();
                 }
 
-                if (getBackground()==Color.ORANGE)       // change to color that valid squares will be
+                if (getBackground() == Color.ORANGE)       // change to color that valid squares will be
                 {
                     // move piece here
                 }
