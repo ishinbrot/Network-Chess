@@ -11,13 +11,13 @@ import javax.swing.*;
  */
 public class Bishop extends ChessPiece {
 
-    public Bishop(String color) {
+    public Bishop(Color color) {
         setColor(color);
-        if (getColor()=="white") {
+        if (getColor()==Color.white) {
             setImage("../Chess_Pictures/white/bishop.png");
         }
         
-        if (getColor()=="black") {
+        if (getColor()==Color.black) {
             setImage("../Chess_Pictures/black/bishop.png");
         }
         

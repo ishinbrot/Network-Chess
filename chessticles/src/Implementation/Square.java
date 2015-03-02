@@ -11,18 +11,35 @@ import java.awt.event.MouseMotionListener;
  */
 public class Square extends JPanel{
     ChessPiece currentPiece=null;
+    Color defaultColor;
+
+    public Color getDefaultColor() {
+        return defaultColor;
+    }
+
+    public void setDefaultColor(Color defaultColor) {
+        this.defaultColor = defaultColor;
+    }
+
     int [] coord=new int[2];
     boolean clicked=false;
     public Square ( LayoutManager layout){
         super.setLayout(layout);
+        Color defaultColor;
+
+        public Color getDefaultColor() {
+            return defaultColor;
+        }
+
+        public void setDefaultColor(Color defaultColor) {
+            this.defaultColor = defaultColor;
+        }
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 getCurrentPiece().getMoveLimit();
-                System.out.println();
-                ChessGame.CurrentPosition = getCurrentPiece().getPosition();
-
-                if (getCurrentPiece() != null)           // check if valid piece clicked
+                getCoord();
+                if (getCurrentPiece()!=null)           // check if valid piece clicked
                 {
 
                    currentPiece = getCurrentPiece();

@@ -2,6 +2,7 @@ package Implementation;
 
 import Implementation.ChessBoard;
 
+import java.awt.*;
 import java.util.Arrays;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Arrays;
  */
 public class ChessPiece {//extends ChessRules{
     
-    private String color;
+    private Color color;
     private int position;
     private String image;
     private int value;
@@ -18,7 +19,7 @@ public class ChessPiece {//extends ChessRules{
     
     
     public ChessPiece() {}
-    public ChessPiece(String color)
+    public ChessPiece(Color color)
     {
         this.color=color;
 
@@ -31,11 +32,11 @@ public class ChessPiece {//extends ChessRules{
     public void setMoveLimit(int moveLimit) {
         this.moveLimit = moveLimit;
     }
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
@@ -83,10 +84,18 @@ public class ChessPiece {//extends ChessRules{
 
             int min= Math.min(initialPosition[0], finalPosition[0]);
             int max=Math.max(initialPosition[0], finalPosition[0]);
+            int ip=(initialPosition[1]*8)+initialPosition[0];
+            int fp=(finalPosition[1]*8)+finalPosition[0];
             for (int i=min++;i<=max;i++){
                 test=(initialPosition[1]*8)+i;
                 if (test%8==initialPosition[0]){continue;}
                 if (board.squares[test].getCurrentPiece()!=null){
+                    if (test==fp){
+                        if (board.squares[ip].getCurrentPiece().getColor()!=
+                                board.squares[fp].getCurrentPiece().getColor()){
+                            continue;
+                        }
+                    }
                     return false;
                 }
             }
@@ -98,13 +107,20 @@ public class ChessPiece {//extends ChessRules{
         int test;
         if (Arrays.equals(initialPosition, finalPosition)){return false;}
         if (initialPosition[0]==finalPosition[0]){
-
+            int ip=(initialPosition[1]*8)+initialPosition[0];
+            int fp=(finalPosition[1]*8)+finalPosition[0];
             int min= Math.min(initialPosition[1], finalPosition[1]);
             int max=Math.max(initialPosition[1], finalPosition[1]);
             for (int i=min++;i<=max;i++){
                 test=(i*8)+initialPosition[0];
                 if (test/8==initialPosition[1]){continue;}
                 if (board.squares[test].getCurrentPiece()!=null){
+                    if (test==fp){
+                        if (board.squares[ip].getCurrentPiece().getColor()!=
+                                board.squares[fp].getCurrentPiece().getColor()){
+                            continue;
+                        }
+                    }
                     return false;
                 }
             }
@@ -116,6 +132,8 @@ public class ChessPiece {//extends ChessRules{
     public boolean diagonal(int[] initialPosition, int[] finalPosition, ChessBoard board){
         int[] test=new int[2];
         int max;
+        int ip=(initialPosition[1]*8)+initialPosition[0];
+        int fp=(finalPosition[1]*8)+finalPosition[0];
 
         if (Arrays.equals(initialPosition, finalPosition)){return false;}
         if (Math.abs(initialPosition[0] - finalPosition[0])==Math.abs(initialPosition[1]-finalPosition[1])){
@@ -139,7 +157,12 @@ public class ChessPiece {//extends ChessRules{
                         test[1]+=1;
                         continue;}
                     if (board.squares[(test[1]*8)+test[0]].getCurrentPiece()!=null){
-                        System.out.println(((test[1]*8)+test[0]));
+                        if (Arrays.equals(test, finalPosition)){
+                            if (board.squares[ip].getCurrentPiece().getColor()!=
+                                    board.squares[fp].getCurrentPiece().getColor()){
+                                continue;
+                            }
+                        }
                         return false;
                     }
                     test[0]+=1;
@@ -155,9 +178,15 @@ public class ChessPiece {//extends ChessRules{
                         test[0]+=1;
                         test[1]-=1;
                         continue;}
-                    //System.out.println(((test[1]*8)+test[0]));
+
                     if (board.squares[((test[1]*8)+test[0])].getCurrentPiece()!=null){
-                        //System.out.println(((test[1]*8)+test[0]));
+                        if (Arrays.equals(test, finalPosition)){
+                            if (board.squares[ip].getCurrentPiece().getColor()!=
+                                    board.squares[fp].getCurrentPiece().getColor()){
+                                continue;
+                            }
+                        }
+
                         return false;
                     }
                     test[0]+=1;

@@ -92,7 +92,7 @@ public class MainMenu extends JFrame implements ActionListener {
     {
         System.out.println("Starting Chess Program");
 
-         board = new ChessBoard();
+        board = new ChessBoard();
         ChessGame game=new ChessGame();
 
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -103,45 +103,45 @@ public class MainMenu extends JFrame implements ActionListener {
         board.setVisible(true);
         game.setBoard(board);
         int startPos=12;
-        game.addPiece(new Pawn("black"), 0);
-        game.addPiece(new Pawn("black"), 1);
-        game.addPiece(new Pawn("black"), 2);
-        game.addPiece(new Pawn("black"), 6);
-        game.addPiece(new Pawn("black"), 7);
-        game.addPiece(new Pawn("black"), 8);
-        game.addPiece(new Pawn("black"), 16);
-        game.addPiece(new Pawn("black"), 24);
-        game.addPiece(new Pawn("black"), 32);
-        game.addPiece(new Pawn("black"), 40);
-        game.addPiece(new Pawn("black"), 48);
-        game.addPiece(new Pawn("black"), 56);
-        game.addPiece(new Pawn("black"), 15);
-        game.addPiece(new Pawn("black"), 23);
-        game.addPiece(new Pawn("black"), 39);
-        game.addPiece(new Pawn("black"), 47);
-        game.addPiece(new Pawn("black"), 55);
-        game.addPiece(new Pawn("black"), 56);
-        game.addPiece(new Pawn("black"), 63);
-        game.addPiece(new Pawn("black"), 57);
-        game.addPiece(new Pawn("black"), 58);
-        game.addPiece(new Pawn("black"), 59);
-        game.addPiece(new Pawn("black"), 60);
-        game.addPiece(new Pawn("black"), 61);
-        game.addPiece(new Pawn("black"), 62);
-        game.addPiece(new Pawn("black"), 31);
+        game.addPiece(new Pawn(Color.black), 0);
+        game.addPiece(new Pawn(Color.black), 1);
+        game.addPiece(new Pawn(Color.black), 2);
+        game.addPiece(new Pawn(Color.black), 6);
+        game.addPiece(new Pawn(Color.black), 7);
+        game.addPiece(new Pawn(Color.black), 8);
+        game.addPiece(new Pawn(Color.black), 16);
+        game.addPiece(new Pawn(Color.black), 24);
+        game.addPiece(new Pawn(Color.black), 32);
+        game.addPiece(new Pawn(Color.black), 40);
+        game.addPiece(new Pawn(Color.black), 48);
+        game.addPiece(new Pawn(Color.black), 56);
+        game.addPiece(new Pawn(Color.black), 15);
+        game.addPiece(new Pawn(Color.black), 23);
+        game.addPiece(new Pawn(Color.black), 39);
+        game.addPiece(new Pawn(Color.black), 47);
+        game.addPiece(new Pawn(Color.black), 55);
+        game.addPiece(new Pawn(Color.black), 56);
+        game.addPiece(new Pawn(Color.black), 63);
+        game.addPiece(new Pawn(Color.black), 57);
+        game.addPiece(new Pawn(Color.black), 58);
+        game.addPiece(new Pawn(Color.black), 59);
+        game.addPiece(new Pawn(Color.black), 60);
+        game.addPiece(new Pawn(Color.black), 61);
+        game.addPiece(new Pawn(Color.black), 62);
+        game.addPiece(new Pawn(Color.black), 31);
 
 
 
 
-        game.addPiece(new Pawn("black"), 9);
-        game.addPiece(new Pawn("black"), 36);
-        game.addPiece(new Pawn("black"), 14);
-        game.addPiece(new Pawn("black"), 4);
-        game.addPiece(new Pawn("black"), 33);
-        game.addPiece(new Pawn("black"), 39);
-        game.addPiece(new Pawn("black"), 3);
-        game.addPiece(new Pawn("black"), 5);
-        game.addPiece(new Knight("white"), startPos);
+        game.addPiece(new Pawn(Color.black), 9);
+        game.addPiece(new Pawn(Color.black), 36);
+        game.addPiece(new Pawn(Color.black), 14);
+        game.addPiece(new Pawn(Color.white), 4);
+        game.addPiece(new Pawn(Color.black), 33);
+        game.addPiece(new Pawn(Color.black), 39);
+        game.addPiece(new Pawn(Color.black), 3);
+        game.addPiece(new Pawn(Color.black), 5);
+        game.addPiece(new Queen(Color.white), startPos);
 
 
 
