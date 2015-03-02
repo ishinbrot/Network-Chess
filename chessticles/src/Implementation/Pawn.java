@@ -18,7 +18,6 @@ public class Pawn extends ChessPiece {
         }
         setValue(1);
         setName("Pawn");
-
     }
     
 
