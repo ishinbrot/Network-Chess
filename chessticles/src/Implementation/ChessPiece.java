@@ -16,8 +16,16 @@ public class ChessPiece {//extends ChessRules{
     private int value;
     private boolean moved =false;
     private int moveLimit;
-    
-    
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public ChessPiece() {}
     public ChessPiece(Color color)
     {

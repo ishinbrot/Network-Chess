@@ -5,22 +5,22 @@ import Implementation.ChessBoard;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Arrays;
 
 /**
  * Created by Buzz on 2/19/2015.
  */
-public class ChessGame {//extends ChessRules{
+public class ChessGame implements MouseListener
+{
     private ChessBoard board;
     private ChessPiece currentPiece;
     public static final int player1 = 0;
     public static final int player2 = 1;
     int playerToMove = player1;
 
-    public boolean test(){
 
-        return true;
-    }
 
     public ChessBoard getBoard() {
         return board;
@@ -28,9 +28,13 @@ public class ChessGame {//extends ChessRules{
 
     public void setBoard(ChessBoard board) {
         this.board = board;
+        for (int i=0; i<this.board.squares.length;i++){
+            this.board.squares[i].addMouseListener(this);
+        }
+
     }
-    public void addPiece(ChessPiece chessPiece, int location)
-    {
+
+    public void addPiece(ChessPiece chessPiece, int location) {
         board.squares[location].setCurrentPiece(chessPiece);
         chessPiece.setPosition(location);
         ImageIcon image = new ImageIcon(this.getClass().getResource(chessPiece.getImage()));
@@ -39,16 +43,15 @@ public class ChessGame {//extends ChessRules{
         //System.out.println(picLabel.getIcon().toString());
         board.squares[location].add(picLabel);
     }
-    public void removePiece(int location)
-    {
+
+    public void removePiece(int location) {
         board.squares[location].setCurrentPiece(null);
         JLabel picLabel = new JLabel();
         System.out.println(picLabel.getText());
         board.squares[location].add(picLabel);
     }
 
-    public void startPlayer2()
-    {
+    public void startPlayer2() {
         Color color = Color.black;
 
         addPiece(new Rook(color), 0);
@@ -70,10 +73,9 @@ public class ChessGame {//extends ChessRules{
 
     }
 
-    public void startPlayer1()
-    {
+    public void startPlayer1() {
         // place black pieces
-        Color color= Color.white;
+        Color color = Color.white;
         addPiece(new Rook(color), 63);
         addPiece(new Knight(color), 62);
         addPiece(new Bishop(color), 61);
@@ -92,16 +94,40 @@ public class ChessGame {//extends ChessRules{
         addPiece(new Pawn(color), 48);
 
     }
+
     public int nextPlayer(int player) {
-        if (player==player1) return player2;
+        if (player == player1) return player2;
         return player1;
     }
-    public Square[] getPath(int[] initialPosition, int[] finalPosition){
-        int len=Math.max(Math.abs(initialPosition[1]-finalPosition[1]),Math.abs(initialPosition[0]-finalPosition[0]));
-        Square [] path=new Square[len];
 
-        return null;
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+        System.out.println(e.getSource().getClass());
+        System.out.println("X: "+e.getX()+"  Y: "+e.getY());
+        System.out.println("X: "+e.getXOnScreen()+"  Y: "+e.getYOnScreen());
+
+
     }
-    public boolean validatePath(Square[] path){
-        return false;
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
     }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+}

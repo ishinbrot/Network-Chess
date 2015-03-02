@@ -56,16 +56,20 @@ public class ChessBoard extends JFrame {
                 if(i%2 == 0)
                 {
                     squares[i].setBackground(Color.white);
+                    squares[i].setDefaultColor(Color.white);
                 }
-                else squares[i].setBackground(Color.DARK_GRAY);
+                else squares[i].setBackground(Color.darkGray);
+                squares[i].setDefaultColor(Color.darkGray);
             }
             else
             {
                 if(i%2 == 0)
                 {
-                    squares[i].setBackground(Color.DARK_GRAY);
+                    squares[i].setBackground(Color.darkGray);
+                    squares[i].setDefaultColor(Color.darkGray);
                 }
                 else squares[i].setBackground(Color.white);
+                squares[i].setDefaultColor(Color.white);
             }
         }
 
