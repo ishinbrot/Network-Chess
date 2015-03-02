@@ -4,6 +4,7 @@ import Implementation.Bishop;
 import Implementation.ChessBoard;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Arrays;
 
 /**
@@ -48,7 +49,7 @@ public class ChessGame {//extends ChessRules{
 
     public void startPlayer2()
     {
-        String color = "black";
+        Color color = Color.black;
 
         addPiece(new Rook(color), 0);
         addPiece(new Knight(color), 1);
@@ -72,7 +73,7 @@ public class ChessGame {//extends ChessRules{
     public void startPlayer1()
     {
         // place black pieces
-        String color="white";
+        Color color= Color.white;
         addPiece(new Rook(color), 63);
         addPiece(new Knight(color), 62);
         addPiece(new Bishop(color), 61);
@@ -95,99 +96,14 @@ public class ChessGame {//extends ChessRules{
         if (player==player1) return player2;
         return player1;
     }
-    public boolean horizontal(int[] initialPosition, int[] finalPosition)
-    {
-        int test;
-        if (Arrays.equals(initialPosition, finalPosition)){return false;}
-        if (initialPosition[1]==finalPosition[1]){
+    public Square[] getPath(int[] initialPosition, int[] finalPosition){
+        int len=Math.max(Math.abs(initialPosition[1]-finalPosition[1]),Math.abs(initialPosition[0]-finalPosition[0]));
+        Square [] path=new Square[len];
 
-            int min= Math.min(initialPosition[0], finalPosition[0]);
-            int max=Math.max(initialPosition[0], finalPosition[0]);
-            for (int i=min++;i<=max;i++){
-                test=(initialPosition[1]*8)+i;
-                if (test%8==initialPosition[0]){continue;}
-                if (board.squares[test].getCurrentPiece()!=null){
-                    return false;
-                }
-            }
-            return true;
-        }
+        return null;
+    }
+    public boolean validatePath(Square[] path){
         return false;
     }
-    public boolean vertical(int[] initialPosition, int[] finalPosition){
-        int test;
-        if (Arrays.equals(initialPosition, finalPosition)){return false;}
-        if (initialPosition[0]==finalPosition[0]){
 
-            int min= Math.min(initialPosition[1], finalPosition[1]);
-            int max=Math.max(initialPosition[1], finalPosition[1]);
-            for (int i=min++;i<=max;i++){
-                test=(i*8)+initialPosition[0];
-                if (test/8==initialPosition[1]){continue;}
-                if (board.squares[test].getCurrentPiece()!=null){
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        return false;
-    }
-    public boolean diagonal(int[] initialPosition, int[] finalPosition){
-        int[] test=new int[2];
-        int max;
-        if (initialPosition[0]<finalPosition[0]){
-            test[0]=initialPosition[0];
-            test[1]=initialPosition[1];
-        }
-        else{
-            test[0]=finalPosition[0];
-            test[1]=finalPosition[1];
-        }
-        if (Arrays.equals(initialPosition, finalPosition)){return false;}
-        if (Math.abs(initialPosition[0] - finalPosition[0])==Math.abs(initialPosition[1]-finalPosition[1])){
-            if ((initialPosition[0]<finalPosition[0]&&initialPosition[1]<finalPosition[1])||
-                    (initialPosition[0]>finalPosition[0]&&initialPosition[1]>finalPosition[1])){
-                //test[0]=Math.min(initialPosition[0], finalPosition[0]);
-                //test[1]=Math.min(initialPosition[1], finalPosition[1]);
-                max=Math.abs(initialPosition[0] - finalPosition[0]);
-                for(int i=0;i<max;i++){
-                    test[0]+=i;
-                    test[1]+=i;
-                    if (Arrays.equals(test, initialPosition)){continue;}
-                    if (board.squares[(test[1]*8)+test[0]].getCurrentPiece()!=null){
-                        System.out.println(((test[1]*8)+test[0]));
-                        return false;
-                    }
-                }
-            }
-            else{
-
-                max=Math.abs(initialPosition[0] - finalPosition[0]);
-                for(int i=0;i<=max;i++){
-                    test[0]+=i;
-                    test[1]-=i;
-                    if (Arrays.equals(test, initialPosition)){continue;}
-                    //System.out.println(((test[1]*8)+test[0]));
-                    if (board.squares[((test[1]*8)+test[0])].getCurrentPiece()!=null){
-                        //System.out.println(((test[1]*8)+test[0]));
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
-        return false;
-    }
-    public boolean L_shape(int[] initialPosition, int[] finalPosition){
-        if (Arrays.equals(initialPosition, finalPosition)){return false;}
-        if (Math.abs(initialPosition[0]-finalPosition[0])==2 && Math.abs(initialPosition[1]-finalPosition[1])==1){
-            return true;
-        }
-        if (Math.abs(initialPosition[0]-finalPosition[0])==1 && Math.abs(initialPosition[1]-finalPosition[1])==2){
-            return true;
-        }
-        return false;
-    }
 }

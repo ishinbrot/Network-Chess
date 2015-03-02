@@ -10,6 +10,16 @@ import java.awt.event.MouseListener;
  */
 public class Square extends JPanel {
     ChessPiece currentPiece=null;
+    Color defaultColor;
+
+    public Color getDefaultColor() {
+        return defaultColor;
+    }
+
+    public void setDefaultColor(Color defaultColor) {
+        this.defaultColor = defaultColor;
+    }
+
     int [] coord=new int[2];
     public Square ( LayoutManager layout){
         super.setLayout(layout);
@@ -18,14 +28,14 @@ public class Square extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 getCurrentPiece().getMoveLimit();
                 getCoord();
-                if (getCurrentPiece()!=null)           // check if valid piece clicked
+                if (getCurrentPiece() != null)           // check if valid piece clicked
                 {
                     setCurrentPiece(getCurrentPiece());
                     setBackground(Color.ORANGE);        // selected square turns gray
                     int position = getCurrentPiece().getPosition();
                 }
 
-                if (getBackground()==Color.ORANGE)       // change to color that valid squares will be
+                if (getBackground() == Color.ORANGE)       // change to color that valid squares will be
                 {
                     // move piece here
                 }

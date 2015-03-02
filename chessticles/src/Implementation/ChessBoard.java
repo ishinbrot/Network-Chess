@@ -95,7 +95,7 @@ public class ChessBoard extends JFrame {
     
     public void startPlayer1()
     {
-        String color = "white";
+        Color color = Color.white;
 
         addPiece(new Rook(color), 0);
         addPiece(new Knight(color), 1);
@@ -147,7 +147,7 @@ public class ChessBoard extends JFrame {
     public void startPlayer2()
     {
         // place black pieces
-        String color="black";
+        Color color=Color.black;
         addPiece(new Rook(color), 63);
         addPiece(new Knight(color), 62);
         addPiece(new Bishop(color), 61);
