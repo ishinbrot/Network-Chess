@@ -19,7 +19,6 @@ public class Pawn extends ChessPiece {
             setImage("../Chess_Pictures/black/pawn.png");
         }
         setValue(1);
-        setName("Pawn");
         setMoveLimit(2);
     }
     public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){

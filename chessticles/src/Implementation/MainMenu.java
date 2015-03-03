@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.ActionEvent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * Created by ianshinbrot on 1/14/15.
@@ -80,19 +82,18 @@ public class MainMenu extends JFrame implements ActionListener {
         board.setLocationRelativeTo(null);
         board.setVisible(true);
         game.setBoard(board);
-
+        game.getBoard().currentPlayer=1;
         game.getBoard().startPlayer1();
         game.getBoard().startPlayer2();
 
     }
 
-    public void testMoves()
-    {
+    public void testMoves() {
         System.out.println("Starting Chess Program");
 
         board = new ChessBoard();
-        ChessGame game=new ChessGame();
-
+        ChessGame game = new ChessGame();
+        board.currentPlayer=2;
 
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -101,7 +102,7 @@ public class MainMenu extends JFrame implements ActionListener {
         board.setLocationRelativeTo(null);
         board.setVisible(true);
         game.setBoard(board);
-        int startPos=19;
+        int startPos = 19;
         game.addPiece(new Pawn(Color.black), 0);
         game.addPiece(new Pawn(Color.black), 1);
         game.addPiece(new Pawn(Color.black), 2);
@@ -130,7 +131,6 @@ public class MainMenu extends JFrame implements ActionListener {
         game.addPiece(new Pawn(Color.black), 31);
 
 
-
         game.addPiece(new Pawn(Color.black), 37);
         game.addPiece(new Pawn(Color.black), 10);
         game.addPiece(new Pawn(Color.black), 26);
@@ -147,54 +147,53 @@ public class MainMenu extends JFrame implements ActionListener {
         game.addPiece(new Pawn(Color.black), startPos);
 
 
-
-
-        int [] start=new int[]{startPos%8,startPos/8};
-        int [] test=new int[2];
-        for (int i =0; i<64;i++){
+        int[] start = new int[]{startPos % 8, startPos / 8};
+        int[] test = new int[2];
+        for (int i = 0; i < 64; i++) {
             int row, col;
-            row =i/8;
-            col = i%8;
-            test[0]=col;
-            test[1]=row;
-            if (game.getBoard().squares[startPos].getCurrentPiece().validMove(start, test, game.getBoard().squares)){
-                game.getBoard().setSquareColor(i, Color.green);
+            row = i / 8;
+            col = i % 8;
+            test[0] = col;
+            test[1] = row;
+            if (game.getBoard().squares[startPos].getCurrentPiece().validMove(start, test, game.getBoard().squares)) {
+                game.getBoard().getSquare(i).setBackground(Color.green);
+
             }
-
-
         }
-        /*
-        test[0]=7;
-        test[1]=4;
-
-        System.out.println(game.getBoard().squares[12].getCurrentPiece().validMove(start, test, game.getBoard()));
-        System.out.println();*/
-        //game.setSquareColor(startPos, Color.red);
-
     }
     
     
     public void network() {
 
         JFrame frame = new JFrame("Upgrade Piece");
+        String ip = "";
+        try {
+            ip = InetAddress.getLocalHost().toString();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
 
-        // prompt the user to enter their name
+
         String IP_Address = "";
         do {
+            JOptionPane.showMessageDialog(new JFrame(), "your ip address is: " + ip,
+                    "Dialog",
+                    JOptionPane.INFORMATION_MESSAGE);
             IP_Address = JOptionPane.showInputDialog(frame, "Please type in the IP Address");
-
         } while (IP_Address == "");
-
+        
         ChessGame game=new ChessGame();
 
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
+        game.getBoard().currentPlayer=2;
         board.pack();
         board.setResizable(true);
         board.setLocationRelativeTo(null);
         board.setVisible(true);
         game.setBoard(board);
 
+        game.getBoard().connection(IP_Address);
         game.getBoard().startPlayer1();
         game.getBoard().startPlayer2();
 

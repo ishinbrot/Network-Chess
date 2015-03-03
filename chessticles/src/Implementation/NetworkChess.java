@@ -84,17 +84,4 @@ public class  NetworkChess extends Thread
         return thing;
     }
 
-
-
-
-  /*  public static void main(String args[]) throws Exception
-    {
-       // NetworkChess c=new NetworkChess(args);
-        String test = c.sendAndWait("penis");
-        System.out.println(test);
-        test = c.sendAndWait("peen");
-        System.out.println(test);
-    }
-    */
-
 }
