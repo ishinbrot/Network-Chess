@@ -18,6 +18,7 @@ public class Queen extends ChessPiece {
             setImage("../Chess_Pictures/black/queen.png");
         }
         setValue(10);
+        setMoveLimit(8);
     }
     public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
         return horizontal(initialPosition, finalPosition, board)||

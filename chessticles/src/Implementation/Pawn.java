@@ -18,7 +18,17 @@ public class Pawn extends ChessPiece {
         }
         setValue(1);
         setName("Pawn");
+        setMoveLimit(2);
     }
-    
+    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
+        if (Math.abs(initialPosition[1]-finalPosition[1])>getMoveLimit()){return false;}
+
+        if (getColor()==Color.black){
+            if (initialPosition[1]-finalPosition[1]<0){return false;}
+        }else{
+            if (initialPosition[1]-finalPosition[1]>0){return false;}
+        }
+        return vertical(initialPosition, finalPosition, board);
+    }
 
 }
