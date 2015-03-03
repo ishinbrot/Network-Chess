@@ -2,6 +2,7 @@ package Implementation;
 
 import Implementation.ChessBoard;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
@@ -82,11 +83,11 @@ public class ChessPiece {//extends ChessRules{
         this.moved = moved;
 
     }
-    public boolean validMove(int[] initialPosition, int[] finalPosition, ChessBoard board){
+    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
 
         return this.validMove(initialPosition,finalPosition, board);
     }
-    public boolean horizontal(int[] initialPosition, int[] finalPosition, ChessBoard board)
+    public boolean horizontal(int[] initialPosition, int[] finalPosition, Square[] board)
     {
         int test;
         if (Arrays.equals(initialPosition, finalPosition)){return false;}
@@ -99,10 +100,10 @@ public class ChessPiece {//extends ChessRules{
             for (int i=min++;i<=max;i++){
                 test=(initialPosition[1]*8)+i;
                 if (test%8==initialPosition[0]){continue;}
-                if (board.squares[test].getCurrentPiece()!=null){
+                if (board[test].getCurrentPiece()!=null){
                     if (test==fp){
-                        if (board.squares[ip].getCurrentPiece().getColor()!=
-                                board.squares[fp].getCurrentPiece().getColor()){
+                        if (board[ip].getCurrentPiece().getColor()!=
+                                board[fp].getCurrentPiece().getColor()){
                             continue;
                         }
                     }
@@ -113,7 +114,7 @@ public class ChessPiece {//extends ChessRules{
         }
         return false;
     }
-    public boolean vertical(int[] initialPosition, int[] finalPosition, ChessBoard board){
+    public boolean vertical(int[] initialPosition, int[] finalPosition, Square[] board){
         int test;
         if (Arrays.equals(initialPosition, finalPosition)){return false;}
         if (initialPosition[0]==finalPosition[0]){
@@ -124,10 +125,10 @@ public class ChessPiece {//extends ChessRules{
             for (int i=min++;i<=max;i++){
                 test=(i*8)+initialPosition[0];
                 if (test/8==initialPosition[1]){continue;}
-                if (board.squares[test].getCurrentPiece()!=null){
+                if (board[test].getCurrentPiece()!=null){
                     if (test==fp){
-                        if (board.squares[ip].getCurrentPiece().getColor()!=
-                                board.squares[fp].getCurrentPiece().getColor()){
+                        if (board[ip].getCurrentPiece().getColor()!=
+                                board[fp].getCurrentPiece().getColor()){
                             continue;
                         }
                     }
@@ -139,7 +140,7 @@ public class ChessPiece {//extends ChessRules{
 
         return false;
     }
-    public boolean diagonal(int[] initialPosition, int[] finalPosition, ChessBoard board){
+    public boolean diagonal(int[] initialPosition, int[] finalPosition, Square[] board){
         int[] test=new int[2];
         int max;
         int ip=(initialPosition[1]*8)+initialPosition[0];
@@ -166,10 +167,10 @@ public class ChessPiece {//extends ChessRules{
                         test[0]+=1;
                         test[1]+=1;
                         continue;}
-                    if (board.squares[(test[1]*8)+test[0]].getCurrentPiece()!=null){
+                    if (board[(test[1]*8)+test[0]].getCurrentPiece()!=null){
                         if (Arrays.equals(test, finalPosition)){
-                            if (board.squares[ip].getCurrentPiece().getColor()!=
-                                    board.squares[fp].getCurrentPiece().getColor()){
+                            if (board[ip].getCurrentPiece().getColor()!=
+                                    board[fp].getCurrentPiece().getColor()){
                                 continue;
                             }
                         }
@@ -189,10 +190,10 @@ public class ChessPiece {//extends ChessRules{
                         test[1]-=1;
                         continue;}
 
-                    if (board.squares[((test[1]*8)+test[0])].getCurrentPiece()!=null){
+                    if (board[((test[1]*8)+test[0])].getCurrentPiece()!=null){
                         if (Arrays.equals(test, finalPosition)){
-                            if (board.squares[ip].getCurrentPiece().getColor()!=
-                                    board.squares[fp].getCurrentPiece().getColor()){
+                            if (board[ip].getCurrentPiece().getColor()!=
+                                    board[fp].getCurrentPiece().getColor()){
                                 continue;
                             }
                         }
@@ -208,11 +209,11 @@ public class ChessPiece {//extends ChessRules{
         }
         return false;
     }
-    public boolean L_shape(int[] initialPosition, int[] finalPosition, ChessBoard board){
+    public boolean L_shape(int[] initialPosition, int[] finalPosition, Square[] board){
         if (Arrays.equals(initialPosition, finalPosition)){return false;}
         if ((Math.abs(initialPosition[0]-finalPosition[0])==2 && Math.abs(initialPosition[1]-finalPosition[1])==1)||
                 (Math.abs(initialPosition[0]-finalPosition[0])==1 && Math.abs(initialPosition[1]-finalPosition[1])==2)){
-            if (board.squares[((finalPosition[1]*8)+finalPosition[0])].getCurrentPiece()!=null){
+            if (board[((finalPosition[1]*8)+finalPosition[0])].getCurrentPiece()!=null){
 
                 return false;
             }

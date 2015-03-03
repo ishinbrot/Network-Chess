@@ -1,5 +1,6 @@
 package Implementation;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -20,7 +21,7 @@ public class Knight extends ChessPiece {
         }
         setValue(3);
     }
-    public boolean validMove(int[] initialPosition, int[] finalPosition, ChessBoard board){
+    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
         return L_shape(initialPosition, finalPosition, board);
     }
 }

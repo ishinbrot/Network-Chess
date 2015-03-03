@@ -142,7 +142,7 @@ public class MainMenu extends JFrame implements ActionListener {
         game.addPiece(new Pawn(Color.black), 39);
         game.addPiece(new Pawn(Color.black), 3);
         game.addPiece(new Pawn(Color.black), 5);
-        game.addPiece(new Queen(Color.white), startPos);
+        game.addPiece(new Knight(Color.white), startPos);
 
 
 
@@ -155,7 +155,7 @@ public class MainMenu extends JFrame implements ActionListener {
             col = i%8;
             test[0]=col;
             test[1]=row;
-            if (game.getBoard().squares[startPos].getCurrentPiece().validMove(start, test, game.getBoard())){
+            if (game.getBoard().squares[startPos].getCurrentPiece().validMove(start, test, game.getBoard().squares)){
                 game.getBoard().setSquareColor(i, Color.green);
             }
 
@@ -182,4 +182,6 @@ public class MainMenu extends JFrame implements ActionListener {
         
         System.exit(2);
     }
+
+
 }

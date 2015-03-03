@@ -33,6 +33,7 @@ public class Square extends JPanel{
         this.currentPiece = currentPiece;
     }
 
+    public void RemovePiece(ChessPiece currentPiece) {this.currentPiece = null;}
     public int[] getCoord() {
         return coord;
     }

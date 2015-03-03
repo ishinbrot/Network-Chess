@@ -16,6 +16,9 @@ public class ChessBoard extends JFrame implements MouseListener{
     private Dimension boardSize;
     private JLayeredPane layeredPane;
     public JPanel chessBoard;
+    public ChessPiece highlightedPiece;
+    public int[] highlightedPosition;
+    boolean PieceSelected = false;
     public Square[] squares = new Square[64];
     private JLabel chessPiece;
     int xAdjustment;
@@ -47,11 +50,10 @@ public class ChessBoard extends JFrame implements MouseListener{
         for (int i = 0; i < 64; i++) {
             //JPanel square = new JPanel(new BorderLayout());
             Square s = new Square(new BorderLayout());
-
+            s.add(new JLabel());
 
 
             s.setCoord(new int[]
-
                             {
                                     (i % 8), (i / 8)
                             }
@@ -66,13 +68,21 @@ public class ChessBoard extends JFrame implements MouseListener{
             {
                 if (i % 2 == 0) {
                     squares[i].setBackground(Color.white);
-                } else squares[i].setBackground(Color.DARK_GRAY);
+                    squares[i].setDefaultColor(Color.white);
+                } else {
+                    squares[i].setBackground(Color.DARK_GRAY);
+                    squares[i].setDefaultColor(Color.DARK_GRAY);
+                }
             } else
-
+            
             {
                 if (i % 2 == 0) {
                     squares[i].setBackground(Color.DARK_GRAY);
-                } else squares[i].setBackground(Color.white);
+                    squares[i].setDefaultColor(Color.DARK_GRAY);
+                } else {
+                    squares[i].setBackground(Color.white);
+                    squares[i].setDefaultColor(Color.white);
+                }
             }
         }
 
@@ -89,14 +99,21 @@ public class ChessBoard extends JFrame implements MouseListener{
         ImageIcon image = new ImageIcon(this.getClass().getResource(chessPiece.getImage()));
         JLabel picLabel = new JLabel(image);
         squares[location].add(picLabel);
+        chessBoard.repaint();
+        chessBoard.revalidate();
     }
 
 
     public void removePiece(int location) {
         squares[location].setCurrentPiece(null);
-        JLabel picLabel = new JLabel();
-        System.out.println(picLabel.getText());
-        squares[location].add(picLabel);
+      //  ImageIcon image = new ImageIcon(null);
+     //   JLabel picLabel = new JLabel(image);
+        squares[location].removeAll();
+        squares[location].add(new JLabel());
+      //  System.out.println(picLabel.getText());
+      //  squares[location].add(picLabel);
+        chessBoard.repaint();
+        chessBoard.revalidate();
     }
 
     public void startPlayer1() {
@@ -287,17 +304,53 @@ public class ChessBoard extends JFrame implements MouseListener{
         }
         return false;
     }
+    public void deselectCurrentSquare()
+    {
+        PieceSelected=false;
+        Square originalSquare = squares[highlightedPosition[1] * 8 + highlightedPosition[0]];
+        originalSquare.setBackground(originalSquare.defaultColor);
+        
+    }
+
 
     public void mouseClicked(MouseEvent e)
 
     {
-        Component c = chessBoard.findComponentAt(e.getX(), e.getY());
-        Square s = (Square) c.getParent();
-   s.getCurrentPiece();
-        s.setBackground(Color.ORANGE);
-        
+        if (!PieceSelected) {
+            Component c = chessBoard.findComponentAt(e.getX(), e.getY());
+            Square s = (Square) c.getParent();
+            if (s.getCurrentPiece() == null) {
+                System.out.println("Not valid piece");
+                return;
+            }
+            highlightedPiece = s.getCurrentPiece();
+            highlightedPosition = s.getCoord();
+            PieceSelected = true;
+            s.setBackground(Color.ORANGE);
+        } else {
+            Component c = chessBoard.findComponentAt(e.getX(), e.getY());
+            Square s = (Square) c.getParent();
+            int[] newPosition = s.getCoord();
+            if (newPosition==highlightedPosition)
+            {
+                this.deselectCurrentSquare();
+                this.Error_Message("Please select a valid square");
+                return;
+            }
+            if (highlightedPiece.validMove(highlightedPosition, newPosition, squares)) {
+                this.removePiece(newPosition[1] * 8 + newPosition[0]);
+                this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
+                this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
+                this.deselectCurrentSquare();
 
+               // do networking here
 
+            } else {
+                Error_Message("Not valid move");
+                this.deselectCurrentSquare();
+            }
+          
+        }
     }
     public void mousePressed(MouseEvent e) {}
 
@@ -307,6 +360,17 @@ public class ChessBoard extends JFrame implements MouseListener{
     public void mouseExited(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
 
-
+    public void Error_Message(String message) {
+        JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
+                JOptionPane.ERROR_MESSAGE);
+    }
+    public void Information_Message(String message) {
+        JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+    public void Won(String message) {
+        JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
+                JOptionPane.YES_OPTION);
+    }
 }
 

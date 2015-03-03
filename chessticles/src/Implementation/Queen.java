@@ -19,7 +19,7 @@ public class Queen extends ChessPiece {
         }
         setValue(10);
     }
-    public boolean validMove(int[] initialPosition, int[] finalPosition, ChessBoard board){
+    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
         return horizontal(initialPosition, finalPosition, board)||
                 vertical(initialPosition, finalPosition, board)||
                 diagonal(initialPosition, finalPosition, board);

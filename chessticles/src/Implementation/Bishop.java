@@ -23,7 +23,7 @@ public class Bishop extends ChessPiece {
         
         setValue(3);
     }
-    public boolean validMove(int[] initialPosition, int[] finalPosition, ChessBoard board){
+    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
         return diagonal(initialPosition, finalPosition, board);
     }
     

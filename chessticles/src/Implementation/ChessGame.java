@@ -121,4 +121,6 @@ public class ChessGame {//extends ChessRules{
     public boolean validatePath(Square[] path) {
         return false;
     }
+
+
 }
