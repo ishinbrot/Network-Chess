@@ -55,13 +55,6 @@ public class ChessGame {//extends ChessRules{
         board.squares[location].add(picLabel);
     }
 
-    public void removePiece(int location) {
-        board.squares[location].setCurrentPiece(null);
-        JLabel picLabel = new JLabel();
-        System.out.println(picLabel.getText());
-        board.squares[location].add(picLabel);
-    }
-
     public void startPlayer2() {
         Color color = Color.black;
 

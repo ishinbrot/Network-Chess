@@ -154,16 +154,6 @@ public class ChessBoard extends JFrame implements MouseListener{
         ChessPiece pawn7 = new Pawn(color);
         ChessPiece pawn8 = new Pawn(color);
 
-        // place white pieces
-        
-        /*for (int i=0; i<16; i++)
-        {
-            if (i%1 ==0 || i % 8 == 0)
-            {
-                addPiece(rook1, i);
-            }
-        }*/
-
     }
 
     public void startPlayer2() {

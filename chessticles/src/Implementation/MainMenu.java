@@ -81,11 +81,9 @@ public class MainMenu extends JFrame implements ActionListener {
         board.setVisible(true);
         game.setBoard(board);
 
-        game.startPlayer1();
-        game.startPlayer2();
-        //Implementation.ChessPiece knight = new Implementation.Knight("black");
+        game.getBoard().startPlayer1();
+        game.getBoard().startPlayer2();
 
-        //board.addPiece(knight.image,2);
     }
 
     public void testMoves()
@@ -173,11 +171,32 @@ public class MainMenu extends JFrame implements ActionListener {
     
     
     public void network() {
-    }
-    
 
-    
-    
+        JFrame frame = new JFrame("Upgrade Piece");
+
+        // prompt the user to enter their name
+        String IP_Address = "";
+        do {
+            IP_Address = JOptionPane.showInputDialog(frame, "Please type in the IP Address");
+
+        } while (IP_Address == "");
+
+        ChessGame game=new ChessGame();
+
+        board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        board.pack();
+        board.setResizable(true);
+        board.setLocationRelativeTo(null);
+        board.setVisible(true);
+        game.setBoard(board);
+
+        game.getBoard().startPlayer1();
+        game.getBoard().startPlayer2();
+
+    }
+
+
     public void quit() {
         
         System.exit(2);
