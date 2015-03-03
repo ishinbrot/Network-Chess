@@ -19,6 +19,7 @@ public class Rook extends ChessPiece {
             setImage("../Chess_Pictures/black/rook.png");
         }
         setValue(5);
+        setMoveLimit(8);
     }
     public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
         return horizontal(initialPosition, finalPosition, board)||

@@ -171,8 +171,7 @@ public class ChessPiece {//extends ChessRules{
         }
             if ((initialPosition[0]<finalPosition[0]&&initialPosition[1]<finalPosition[1])||
                     (initialPosition[0]>finalPosition[0]&&initialPosition[1]>finalPosition[1])){
-                //test[0]=Math.min(initialPosition[0], finalPosition[0]);
-                //test[1]=Math.min(initialPosition[1], finalPosition[1]);
+
                 max=Math.abs(initialPosition[0] - finalPosition[0]);
                 for(int i=0;i<=max;i++){
 
@@ -180,12 +179,17 @@ public class ChessPiece {//extends ChessRules{
                         test[0]+=1;
                         test[1]+=1;
                         continue;}
+
                     if (board[(test[1]*8)+test[0]].getCurrentPiece()!=null){
+
                         if (Arrays.equals(test, finalPosition)){
                             if (board[ip].getCurrentPiece().getColor()!=
                                     board[fp].getCurrentPiece().getColor()){
+                                test[0]+=1;
+                                test[1]+=1;
                                 continue;
                             }
+
                         }
                         return false;
                     }
@@ -207,6 +211,8 @@ public class ChessPiece {//extends ChessRules{
                         if (Arrays.equals(test, finalPosition)){
                             if (board[ip].getCurrentPiece().getColor()!=
                                     board[fp].getCurrentPiece().getColor()){
+                                test[0]+=1;
+                                test[1]-=1;
                                 continue;
                             }
                         }
@@ -223,11 +229,16 @@ public class ChessPiece {//extends ChessRules{
         return false;
     }
     public boolean L_shape(int[] initialPosition, int[] finalPosition, Square[] board){
+        int ip=(initialPosition[1]*8)+initialPosition[0];
+        int fp=(finalPosition[1]*8)+finalPosition[0];
         if (Arrays.equals(initialPosition, finalPosition)){return false;}
         if ((Math.abs(initialPosition[0]-finalPosition[0])==2 && Math.abs(initialPosition[1]-finalPosition[1])==1)||
                 (Math.abs(initialPosition[0]-finalPosition[0])==1 && Math.abs(initialPosition[1]-finalPosition[1])==2)){
             if (board[((finalPosition[1]*8)+finalPosition[0])].getCurrentPiece()!=null){
-
+                    if (board[ip].getCurrentPiece().getColor()!=
+                            board[fp].getCurrentPiece().getColor()){
+                        return true;
+                    }
                 return false;
             }
             return true;
@@ -236,8 +247,4 @@ public class ChessPiece {//extends ChessRules{
         return false;
     }
 
-
-
-    
-    
 }

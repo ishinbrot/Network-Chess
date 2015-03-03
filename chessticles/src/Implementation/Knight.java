@@ -21,6 +21,7 @@ public class Knight extends ChessPiece {
             setImage("../Chess_Pictures/black/knight.png");
         }
         setValue(3);
+        setMoveLimit(3);
     }
     public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
         return L_shape(initialPosition, finalPosition, board);
