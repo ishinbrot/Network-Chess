@@ -10,6 +10,7 @@ public class Queen extends ChessPiece {
 
     public Queen(Color color) {
         setColor(color);
+        setPlayer(color);
         if (getColor() == Color.white) {
             setImage("../Chess_Pictures/white/queen.png");
         }

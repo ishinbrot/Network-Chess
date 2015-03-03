@@ -13,6 +13,7 @@ public class ChessPiece {//extends ChessRules{
     
     private Color color;
     private int position;
+    private int player;
     private String image;
     private int value;
     private boolean moved =false;
@@ -73,6 +74,18 @@ public class ChessPiece {//extends ChessRules{
 
     public void setValue(int value) {
         this.value = value;
+    }
+    
+    public void setPlayer(Color color) {
+        if (this.color == Color.white)
+            player = 1;
+        if (this.color == color.black)
+            player = 2;
+    }
+    public int getPlayer()
+    {
+        return this.player;
+        
     }
 
     public boolean isMoved() {

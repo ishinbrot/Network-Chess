@@ -14,18 +14,14 @@ import javax.swing.*;
 public class ChessBoard extends JFrame implements MouseListener{
 
     private Dimension boardSize;
+    private  NetworkChess networkChess;
     private JLayeredPane layeredPane;
     public JPanel chessBoard;
     public ChessPiece highlightedPiece;
     public int[] highlightedPosition;
     boolean PieceSelected = false;
     public Square[] squares = new Square[64];
-    private JLabel chessPiece;
-    int xAdjustment;
-    int yAdjustment;
-    int player1 = 0;
-    int player2 = 1;
-    int nextPlayer = player1;
+    int currentPlayer;
 
     public ChessBoard() {
         //Initialize Board and it's components
@@ -106,12 +102,8 @@ public class ChessBoard extends JFrame implements MouseListener{
 
     public void removePiece(int location) {
         squares[location].setCurrentPiece(null);
-      //  ImageIcon image = new ImageIcon(null);
-     //   JLabel picLabel = new JLabel(image);
         squares[location].removeAll();
         squares[location].add(new JLabel());
-      //  System.out.println(picLabel.getText());
-      //  squares[location].add(picLabel);
         chessBoard.repaint();
         chessBoard.revalidate();
     }
@@ -178,10 +170,6 @@ public class ChessBoard extends JFrame implements MouseListener{
 
     }
 
-    public int nextPlayer(int player) {
-        if (player == player1) return player2;
-        return player1;
-    }
 
     public boolean horizontal(int[] initialPosition, int[] finalPosition) {
         int test;
@@ -294,6 +282,12 @@ public class ChessBoard extends JFrame implements MouseListener{
         }
         return false;
     }
+    public void connection(String IP_Address)
+    {
+       //  networkChess = new NetworkChess(IP_Address);
+        
+        
+    }
     public void deselectCurrentSquare()
     {
         PieceSelected=false;
@@ -302,7 +296,6 @@ public class ChessBoard extends JFrame implements MouseListener{
         
     }
 
-
     public void mouseClicked(MouseEvent e)
 
     {
@@ -310,13 +303,17 @@ public class ChessBoard extends JFrame implements MouseListener{
             Component c = chessBoard.findComponentAt(e.getX(), e.getY());
             Square s = (Square) c.getParent();
             if (s.getCurrentPiece() == null) {
+
                 System.out.println("Not valid piece");
                 return;
+            } else if ((s.getCurrentPiece().getPlayer() == currentPlayer)) {
+                highlightedPiece = s.getCurrentPiece();
+                highlightedPosition = s.getCoord();
+                PieceSelected = true;
+                s.setBackground(Color.ORANGE);
+            } else {
+                this.Error_Message("Please select the other color");
             }
-            highlightedPiece = s.getCurrentPiece();
-            highlightedPosition = s.getCoord();
-            PieceSelected = true;
-            s.setBackground(Color.ORANGE);
         } else {
             Component c = chessBoard.findComponentAt(e.getX(), e.getY());
             Square s = (Square) c.getParent();
@@ -329,11 +326,17 @@ public class ChessBoard extends JFrame implements MouseListener{
             }
             if (highlightedPiece.validMove(highlightedPosition, newPosition, squares)) {
                 this.removePiece(newPosition[1] * 8 + newPosition[0]);
+                
+                
+                String oldPosition = Integer.toString(newPosition[1] *8 + newPosition[0]);
+                String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
+               // String theirMove = networkChess.sendAndWait(oldPosition + ";" + newPos);
+                
+             //   this.backGroundChange(theirMove);
+                
                 this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
                 this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
                 this.deselectCurrentSquare();
-
-               // do networking here
 
             } else {
                 Error_Message("Not valid move");
@@ -341,6 +344,12 @@ public class ChessBoard extends JFrame implements MouseListener{
             }
           
         }
+    }
+    public void backGroundChange(String theirMove)
+    {
+        String oldPosition = theirMove.substring(0, theirMove.indexOf(';'));
+        String newPosition = theirMove.substring(theirMove.indexOf(';')+1,theirMove.length()-1);
+        
     }
     public void mousePressed(MouseEvent e) {}
 

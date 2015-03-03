@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.ActionEvent;
+import java.net.*;
 
 /**
  * Created by ianshinbrot on 1/14/15.
@@ -71,6 +72,7 @@ public class MainMenu extends JFrame implements ActionListener {
 
     public void start() {
         board = new ChessBoard();
+
         ChessGame game=new ChessGame();
 
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -80,7 +82,7 @@ public class MainMenu extends JFrame implements ActionListener {
         board.setLocationRelativeTo(null);
         board.setVisible(true);
         game.setBoard(board);
-
+        game.getBoard().currentPlayer=1;
         game.getBoard().startPlayer1();
         game.getBoard().startPlayer2();
 
@@ -93,7 +95,7 @@ public class MainMenu extends JFrame implements ActionListener {
         board = new ChessBoard();
         ChessGame game=new ChessGame();
 
-
+        board.currentPlayer=2;
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         board.pack();
@@ -102,95 +104,97 @@ public class MainMenu extends JFrame implements ActionListener {
         board.setVisible(true);
         game.setBoard(board);
         int startPos=12;
-        game.addPiece(new Pawn(Color.black), 0);
-        game.addPiece(new Pawn(Color.black), 1);
-        game.addPiece(new Pawn(Color.black), 2);
-        game.addPiece(new Pawn(Color.black), 6);
-        game.addPiece(new Pawn(Color.black), 7);
-        game.addPiece(new Pawn(Color.black), 8);
-        game.addPiece(new Pawn(Color.black), 16);
-        game.addPiece(new Pawn(Color.black), 24);
-        game.addPiece(new Pawn(Color.black), 32);
-        game.addPiece(new Pawn(Color.black), 40);
-        game.addPiece(new Pawn(Color.black), 48);
-        game.addPiece(new Pawn(Color.black), 56);
-        game.addPiece(new Pawn(Color.black), 15);
-        game.addPiece(new Pawn(Color.black), 23);
-        game.addPiece(new Pawn(Color.black), 39);
-        game.addPiece(new Pawn(Color.black), 47);
-        game.addPiece(new Pawn(Color.black), 55);
-        game.addPiece(new Pawn(Color.black), 56);
-        game.addPiece(new Pawn(Color.black), 63);
-        game.addPiece(new Pawn(Color.black), 57);
-        game.addPiece(new Pawn(Color.black), 58);
-        game.addPiece(new Pawn(Color.black), 59);
-        game.addPiece(new Pawn(Color.black), 60);
-        game.addPiece(new Pawn(Color.black), 61);
-        game.addPiece(new Pawn(Color.black), 62);
-        game.addPiece(new Pawn(Color.black), 31);
+        game.getBoard().addPiece(new Pawn(Color.black), 0);
+        game.getBoard().addPiece(new Pawn(Color.black), 1);
+        game.getBoard().addPiece(new Pawn(Color.black), 2);
+        game.getBoard().addPiece(new Pawn(Color.black), 6);
+        game.getBoard().addPiece(new Pawn(Color.black), 7);
+        game.getBoard().addPiece(new Pawn(Color.black), 8);
+        game.getBoard().addPiece(new Pawn(Color.black), 16);
+        game.getBoard().addPiece(new Pawn(Color.black), 24);
+        game.getBoard().addPiece(new Pawn(Color.black), 32);
+        game.getBoard().addPiece(new Pawn(Color.black), 40);
+        game.getBoard().addPiece(new Pawn(Color.black), 48);
+        game.getBoard().addPiece(new Pawn(Color.black), 56);
+        game.getBoard().addPiece(new Pawn(Color.black), 15);
+        game.getBoard().addPiece(new Pawn(Color.black), 23);
+        game.getBoard().addPiece(new Pawn(Color.black), 39);
+        game.getBoard().addPiece(new Pawn(Color.black), 47);
+        game.getBoard().addPiece(new Pawn(Color.black), 55);
+        game.getBoard().addPiece(new Pawn(Color.black), 56);
+        game.getBoard().addPiece(new Pawn(Color.black), 63);
+        game.getBoard().addPiece(new Pawn(Color.black), 57);
+        game.getBoard().addPiece(new Pawn(Color.black), 58);
+        game.getBoard().addPiece(new Pawn(Color.black), 59);
+        game.getBoard().addPiece(new Pawn(Color.black), 60);
+        game.getBoard().addPiece(new Pawn(Color.black), 61);
+        game.getBoard().addPiece(new Pawn(Color.black), 62);
+        game.getBoard().addPiece(new Pawn(Color.black), 31);
 
 
 
 
-        game.addPiece(new Pawn(Color.black), 9);
-        game.addPiece(new Pawn(Color.black), 36);
-        game.addPiece(new Pawn(Color.black), 14);
-        game.addPiece(new Pawn(Color.white), 4);
-        game.addPiece(new Pawn(Color.black), 33);
-        game.addPiece(new Pawn(Color.black), 39);
-        game.addPiece(new Pawn(Color.black), 3);
-        game.addPiece(new Pawn(Color.black), 5);
-        game.addPiece(new Knight(Color.white), startPos);
+        game.getBoard().addPiece(new Pawn(Color.black), 9);
+        game.getBoard().addPiece(new Pawn(Color.black), 36);
+        game.getBoard().addPiece(new Pawn(Color.black), 14);
+        game.getBoard().addPiece(new Pawn(Color.white), 4);
+        game.getBoard().addPiece(new Pawn(Color.black), 33);
+        game.getBoard().addPiece(new Pawn(Color.black), 39);
+        game.getBoard().addPiece(new Pawn(Color.black), 3);
+        game.getBoard().addPiece(new Pawn(Color.black), 5);
+        game.getBoard().addPiece(new Knight(Color.white), startPos);
 
 
 
 
         int [] start=new int[]{startPos%8,startPos/8};
         int [] test=new int[2];
-        for (int i =0; i<64;i++){
+        for (int i =0; i<64;i++) {
             int row, col;
-            row =i/8;
-            col = i%8;
-            test[0]=col;
-            test[1]=row;
-            if (game.getBoard().squares[startPos].getCurrentPiece().validMove(start, test, game.getBoard().squares)){
+            row = i / 8;
+            col = i % 8;
+            test[0] = col;
+            test[1] = row;
+            if (game.getBoard().squares[startPos].getCurrentPiece().validMove(start, test, game.getBoard().squares)) {
                 game.getBoard().setSquareColor(i, Color.green);
             }
 
 
         }
-        /*
-        test[0]=7;
-        test[1]=4;
-
-        System.out.println(game.getBoard().squares[12].getCurrentPiece().validMove(start, test, game.getBoard()));
-        System.out.println();*/
-        //game.setSquareColor(startPos, Color.red);
 
     }
     
     
     public void network() {
+        
 
         JFrame frame = new JFrame("Upgrade Piece");
-
+        String ip = "";
+        try {
+             ip = InetAddress.getLocalHost().toString();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         // prompt the user to enter their name
         String IP_Address = "";
         do {
+            JOptionPane.showMessageDialog(new JFrame(), "your ip address is:" + ip, "Dialog",
+                    JOptionPane.INFORMATION_MESSAGE);
             IP_Address = JOptionPane.showInputDialog(frame, "Please type in the IP Address");
 
         } while (IP_Address == "");
 
         ChessGame game=new ChessGame();
-
+       
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
+        game.getBoard().currentPlayer=2;
         board.pack();
         board.setResizable(true);
         board.setLocationRelativeTo(null);
         board.setVisible(true);
         game.setBoard(board);
 
+        game.getBoard().connection(IP_Address);
         game.getBoard().startPlayer1();
         game.getBoard().startPlayer2();
 
