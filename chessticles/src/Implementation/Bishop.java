@@ -13,6 +13,7 @@ public class Bishop extends ChessPiece {
 
     public Bishop(Color color) {
         setColor(color);
+        setPlayer(color);
         if (getColor()==Color.white) {
             setImage("../Chess_Pictures/white/bishop.png");
         }

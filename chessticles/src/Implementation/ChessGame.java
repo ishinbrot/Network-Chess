@@ -11,16 +11,6 @@ import java.util.Arrays;
  * Created by Buzz on 2/19/2015.
  */
 
-/*
-
-public void highlightPiece
-{
-get a piece from board
-scanner
-
-
-}
- */
 public class ChessGame {//extends ChessRules{
     private ChessBoard board;
 
