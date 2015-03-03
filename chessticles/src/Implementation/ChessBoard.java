@@ -83,10 +83,11 @@ public class ChessBoard extends JFrame implements MouseListener{
         }
 
     }
+    public Square getSquare(int i) {
+        return squares[i];
 
-    public void setSquareColor(int x, Color c) {
-        squares[x].setBackground(c);
     }
+
 
 
     public void addPiece(ChessPiece chessPiece, int location) {
@@ -284,9 +285,14 @@ public class ChessBoard extends JFrame implements MouseListener{
     }
     public void connection(String IP_Address)
     {
-       //  networkChess = new NetworkChess(IP_Address);
-        
-        
+        try {
+            networkChess = new NetworkChess(IP_Address);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Error_Message("Network Game could not be established. Aborting now");
+
+
     }
     public void deselectCurrentSquare()
     {
@@ -295,28 +301,56 @@ public class ChessBoard extends JFrame implements MouseListener{
         originalSquare.setBackground(originalSquare.defaultColor);
         
     }
+            public void movePiece() {
 
+
+            }
+    
+    public Square findSquareatLocation(MouseEvent e) {
+        Component c = chessBoard.findComponentAt(e.getX(), e.getY());
+         return(Square) c.getParent();
+        
+    }
+   public void selectPiece(Square s)
+   {
+       highlightedPiece = s.getCurrentPiece();
+       highlightedPosition = s.getCoord();
+       PieceSelected = true;
+       s.setBackground(Color.ORANGE);
+       
+   }
+    public void makeMove(int[] newPosition)
+    {
+        this.removePiece(newPosition[1] * 8 + newPosition[0]);
+
+
+        String oldPosition = Integer.toString(newPosition[1] *8 + newPosition[0]);
+        String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
+        String theirMove = networkChess.sendAndWait(oldPosition + ";" + newPos);
+
+        this.backGroundChange(theirMove);
+
+        this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
+        this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
+        this.deselectCurrentSquare();
+
+        
+    }
     public void mouseClicked(MouseEvent e)
 
     {
         if (!PieceSelected) {
-            Component c = chessBoard.findComponentAt(e.getX(), e.getY());
-            Square s = (Square) c.getParent();
+            Square s = this.findSquareatLocation(e);
             if (s.getCurrentPiece() == null) {
-
-                System.out.println("Not valid piece");
+                this.selectPiece(s);
                 return;
             } else if ((s.getCurrentPiece().getPlayer() == currentPlayer)) {
-                highlightedPiece = s.getCurrentPiece();
-                highlightedPosition = s.getCoord();
-                PieceSelected = true;
-                s.setBackground(Color.ORANGE);
+
             } else {
                 this.Error_Message("Please select the other color");
             }
         } else {
-            Component c = chessBoard.findComponentAt(e.getX(), e.getY());
-            Square s = (Square) c.getParent();
+            Square s = this.findSquareatLocation(e);
             int[] newPosition = s.getCoord();
             if (newPosition==highlightedPosition)
             {
@@ -325,19 +359,7 @@ public class ChessBoard extends JFrame implements MouseListener{
                 return;
             }
             if (highlightedPiece.validMove(highlightedPosition, newPosition, squares)) {
-                this.removePiece(newPosition[1] * 8 + newPosition[0]);
-                
-                
-                String oldPosition = Integer.toString(newPosition[1] *8 + newPosition[0]);
-                String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
-               // String theirMove = networkChess.sendAndWait(oldPosition + ";" + newPos);
-                
-             //   this.backGroundChange(theirMove);
-                
-                this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
-                this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
-                this.deselectCurrentSquare();
-
+                this.makeMove(newPosition);
             } else {
                 Error_Message("Not valid move");
                 this.deselectCurrentSquare();
