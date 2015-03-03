@@ -21,7 +21,7 @@ public class ChessBoard extends JFrame implements MouseListener{
     public int[] highlightedPosition;
     boolean PieceSelected = false;
     public Square[] squares = new Square[64];
-    int currentPlayer;
+    public int currentPlayer;
 
     public ChessBoard() {
         //Initialize Board and it's components
@@ -289,8 +289,10 @@ public class ChessBoard extends JFrame implements MouseListener{
             networkChess = new NetworkChess(IP_Address);
         } catch (Exception e) {
             e.printStackTrace();
+            Error_Message("Network Game could not be established. Aborting now");
         }
-        Error_Message("Network Game could not be established. Aborting now");
+        
+        
 
 
     }
@@ -329,8 +331,6 @@ public class ChessBoard extends JFrame implements MouseListener{
         this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
         this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
         this.deselectCurrentSquare();
-
-        
     }
     public void mouseClicked(MouseEvent e)
 

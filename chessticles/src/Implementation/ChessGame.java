@@ -14,8 +14,6 @@ import java.util.Arrays;
 public class ChessGame {//extends ChessRules{
     private ChessBoard board;
 
-
-
     private ChessPiece highlightedPiece;
     public static final int player1 = 0;
     public static final int player2 = 1;

@@ -50,8 +50,6 @@ public class MainMenu extends JFrame implements ActionListener {
 
         frame.setSize(300, 100);
         frame.setVisible(true);
-        
-        System.out.println("Starting Chess Program");
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -74,15 +72,17 @@ public class MainMenu extends JFrame implements ActionListener {
     public void start() {
         board = new ChessBoard();
         ChessGame game=new ChessGame();
-
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
+        System.out.println("Starting Chess Program");
+        
         board.pack();
         board.setResizable(true);
         board.setLocationRelativeTo(null);
         board.setVisible(true);
         game.setBoard(board);
         game.getBoard().currentPlayer=1;
+        String IP_Address = this.IP_prompt();
+        game.getBoard().connection(IP_Address);
         game.getBoard().startPlayer1();
         game.getBoard().startPlayer2();
 
@@ -165,41 +165,44 @@ public class MainMenu extends JFrame implements ActionListener {
     
     public void network() {
 
-        JFrame frame = new JFrame("Upgrade Piece");
-        String ip = "";
-        try {
-            ip = InetAddress.getLocalHost().toString();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+    
+        board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        System.out.println("Starting Chess Program");
 
-
-        String IP_Address = "";
-        do {
-            JOptionPane.showMessageDialog(new JFrame(), "your ip address is: " + ip,
-                    "Dialog",
-                    JOptionPane.INFORMATION_MESSAGE);
-            IP_Address = JOptionPane.showInputDialog(frame, "Please type in the IP Address");
-        } while (IP_Address == "");
-        
         ChessGame game=new ChessGame();
 
-        board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        game.getBoard().currentPlayer=2;
         board.pack();
         board.setResizable(true);
         board.setLocationRelativeTo(null);
         board.setVisible(true);
         game.setBoard(board);
-
+        game.getBoard().currentPlayer= 2;
+        game.getBoard().startPlayer1();
+        game.getBoard().startPlayer2();
+          String IP_Address = this.IP_prompt();
         game.getBoard().connection(IP_Address);
         game.getBoard().startPlayer1();
         game.getBoard().startPlayer2();
 
     }
 
+   public String IP_prompt() {
 
+       JFrame frame = new JFrame("Network Connection");
+       String ip="";
+       String IP_Address;
+        try {
+            ip = InetAddress.getLocalHost().toString();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        JOptionPane.showMessageDialog(new JFrame(), "your ip address is: " + ip,
+                "Dialog",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        IP_Address = JOptionPane.showInputDialog(frame, "Please type in the IP Address");
+       return IP_Address;
+    }
     public void quit() {
         
         System.exit(2);
