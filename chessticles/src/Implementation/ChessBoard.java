@@ -150,7 +150,8 @@ public class ChessBoard extends JFrame implements MouseListener{
         addPiece(new Pawn(color), 50);
         addPiece(new Pawn(color), 49);
         addPiece(new Pawn(color), 48);
-        blackFirst();
+        if (currentPlayer==2)
+            blackFirst();
 
     }
 
@@ -306,9 +307,9 @@ public class ChessBoard extends JFrame implements MouseListener{
 
         String theirMove = networkChess.sendAndWait("black");
 
-        this.backGroundChange(theirMove);
+        this.backGroundChange(theirMove, "");
     }
-    public void makeMove(int[] newPosition)
+    public void makeMove(int[] newPosition, String pieceName)
     {
         this.removePiece(newPosition[1] * 8 + newPosition[0]);
 
@@ -317,14 +318,14 @@ public class ChessBoard extends JFrame implements MouseListener{
         String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
         String theirMove = networkChess.sendAndWait(oldPosition + ";" + newPos);
 
-        this.backGroundChange(theirMove);
+        this.backGroundChange(theirMove, pieceName);
 
         this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
         
         this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
         this.deselectCurrentSquare();
     }
-    public boolean upgradablePawn(Square s){
+    public String upgradablePawn(Square s){
 
         
         if ((s.getCoord()[1]==0 && s.getCurrentPiece().getColor()==Color.black) || s.getCoord()[1]==7 && s.getCurrentPiece().getColor()==Color.white) {
@@ -335,9 +336,9 @@ public class ChessBoard extends JFrame implements MouseListener{
             this.removePiece(s.getCoord()[1]*8 + s.getCoord()[0]);
             this.addPiece(piece, s.getCoord()[1]*8 + s.getCoord()[0]);
             
-            return true;
+            return piece.getName();
         }
-            else return false;
+        return null;
     }
     public void mouseClicked(MouseEvent e)
 
@@ -363,9 +364,12 @@ public class ChessBoard extends JFrame implements MouseListener{
                 return;
             }
             if (highlightedPiece.validMove(highlightedPosition, newPosition, squares)) {
-                this.makeMove(newPosition);
-                if (highlightedPiece.getName()=="Pawn")
-                        this.upgradablePawn(s);
+                String pieceName = "";
+                if (highlightedPiece.getName() == "Pawn") {
+                    pieceName = this.upgradablePawn(s);
+                }
+                this.makeMove(newPosition, pieceName);
+           
 
             } else {
                 error_Message("Not valid move");
@@ -374,13 +378,33 @@ public class ChessBoard extends JFrame implements MouseListener{
           
         }
     }
-    public void backGroundChange(String theirMove)
+    public void backGroundChange(String theirMove, String pieceName)
     {
         String oldPosition = theirMove.substring(0, theirMove.indexOf(';'));
         String newPosition = theirMove.substring(theirMove.indexOf(';')+1,theirMove.length()-1);
 
         this.removePiece(Integer.parseInt(oldPosition));
-
+        if (pieceName=="Queen")
+        {
+            highlightedPiece = new Queen(highlightedPiece.getColor());
+        }
+        if (pieceName=="Rook")
+        {
+            highlightedPiece = new Rook(highlightedPiece.getColor());
+        }
+        if (pieceName=="Knight")
+        {
+            highlightedPiece = new Knight(highlightedPiece.getColor());
+        }
+        if (pieceName=="Bishop")
+        {
+            highlightedPiece = new Bishop(highlightedPiece.getColor());
+        }
+        else if (pieceName=="")
+        {
+            // do nothing
+        }
+        
 
         this.addPiece(highlightedPiece, Integer.parseInt(newPosition));
         

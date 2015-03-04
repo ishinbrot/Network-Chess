@@ -11,6 +11,7 @@ public class Rook extends ChessPiece {
     public Rook(Color color) {
         setColor(color);
         setPlayer(color);
+        setName("Rook");
         if (getColor() == Color.white) {
             setImage("../Chess_Pictures/white/rook.png");
         }

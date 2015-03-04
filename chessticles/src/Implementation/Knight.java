@@ -12,6 +12,7 @@ public class Knight extends ChessPiece {
         
         setColor(color);
         setPlayer(color);
+        setName("Knight");
         if (getColor() == Color.white) {
         
             setImage("../Chess_Pictures/white/knight.png");
