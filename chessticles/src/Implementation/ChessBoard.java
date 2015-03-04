@@ -150,6 +150,7 @@ public class ChessBoard extends JFrame implements MouseListener{
         addPiece(new Pawn(color), 50);
         addPiece(new Pawn(color), 49);
         addPiece(new Pawn(color), 48);
+        blackFirst();
 
     }
 
@@ -270,7 +271,7 @@ public class ChessBoard extends JFrame implements MouseListener{
         try {
             networkChess = new NetworkChess(IP_Address);
             if(black){
-                networkChess.blackfirstSend();
+                //networkChess.blackfirstSend();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -299,6 +300,19 @@ public class ChessBoard extends JFrame implements MouseListener{
        s.setBackground(Color.ORANGE);
        
    }
+    
+    public void blackFirst()
+    {
+
+        String theirMove = networkChess.sendAndWait("black");
+
+        this.backGroundChange(theirMove);
+
+        this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
+
+        this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
+        this.deselectCurrentSquare();
+    }
     public void makeMove(int[] newPosition)
     {
         this.removePiece(newPosition[1] * 8 + newPosition[0]);
