@@ -366,6 +366,8 @@ public class ChessBoard extends JFrame implements MouseListener{
                 String pieceName = highlightedPiece.getName();
 
                 this.makeMove(newPosition, pieceName);
+                highlightedPiece.setMoved(true);
+
                 if (highlightedPiece.getName() == "Pawn") {
                     pieceName = this.upgradablePawn(s);
                 }
