@@ -16,10 +16,10 @@ public class ChessBoard extends JFrame implements MouseListener{
     private Dimension boardSize;
     private  NetworkChess networkChess;
     private JLayeredPane layeredPane;
-    public JPanel chessBoard;
-    public ChessPiece highlightedPiece;
-    public int[] highlightedPosition;
-    boolean PieceSelected = false;
+    private JPanel chessBoard;
+    private ChessPiece highlightedPiece;
+    private int[] highlightedPosition;
+    private boolean PieceSelected = false;
     public Square[] squares = new Square[64];
     public int currentPlayer;
 
@@ -44,7 +44,7 @@ public class ChessBoard extends JFrame implements MouseListener{
         //Add Squares and Color them
 
         for (int i = 0; i < 64; i++) {
-            //JPanel square = new JPanel(new BorderLayout());
+
             Square s = new Square(new BorderLayout());
             s.add(new JLabel());
 
@@ -128,24 +128,6 @@ public class ChessBoard extends JFrame implements MouseListener{
         addPiece(new Pawn(color), 13);
         addPiece(new Pawn(color), 14);
         addPiece(new Pawn(color), 15);
-
-
-        ChessPiece rook1 = new Rook(color);
-        ChessPiece rook2 = new Rook(color);
-        ChessPiece knight1 = new Knight(color);
-        ChessPiece knight2 = new Knight(color);
-        ChessPiece bishop1 = new Bishop(color);
-        ChessPiece bishop2 = new Bishop(color);
-        ChessPiece queen = new Queen(color);
-        ChessPiece king = new King(color);
-        ChessPiece pawn1 = new Pawn(color);
-        ChessPiece pawn2 = new Pawn(color);
-        ChessPiece pawn3 = new Pawn(color);
-        ChessPiece pawn4 = new Pawn(color);
-        ChessPiece pawn5 = new Pawn(color);
-        ChessPiece pawn6 = new Pawn(color);
-        ChessPiece pawn7 = new Pawn(color);
-        ChessPiece pawn8 = new Pawn(color);
 
     }
 
@@ -289,18 +271,15 @@ public class ChessBoard extends JFrame implements MouseListener{
             networkChess = new NetworkChess(IP_Address);
         } catch (Exception e) {
             e.printStackTrace();
-            Error_Message("Network Game could not be established. Aborting now");
+            this.error_Message("Network Game could not be established. Aborting now");
         }
-        
-        
-
 
     }
     public void deselectCurrentSquare()
     {
         PieceSelected=false;
         Square originalSquare = squares[highlightedPosition[1] * 8 + highlightedPosition[0]];
-        originalSquare.setBackground(originalSquare.defaultColor);
+        originalSquare.setBackground(originalSquare.getDefaultColor());
         
     }
     
@@ -329,8 +308,24 @@ public class ChessBoard extends JFrame implements MouseListener{
       //  this.backGroundChange(theirMove);
 
         this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
+        
         this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
         this.deselectCurrentSquare();
+    }
+    public boolean upgradablePawn(Square s){
+
+        
+        if ((s.getCoord()[1]==0 && s.getCurrentPiece().getColor()==Color.black) || s.getCoord()[1]==7 && s.getCurrentPiece().getColor()==Color.white) {
+            ChessPiece piece;
+            do {
+                 piece = this.upgradePawn(s.getCurrentPiece());
+            } while (piece==null);
+            this.removePiece(s.getCoord()[1]*8 + s.getCoord()[0]);
+            this.addPiece(piece, s.getCoord()[1]*8 + s.getCoord()[0]);
+            
+            return true;
+        }
+            else return false;
     }
     public void mouseClicked(MouseEvent e)
 
@@ -344,7 +339,7 @@ public class ChessBoard extends JFrame implements MouseListener{
                 this.selectPiece(s);
 
             } else {
-                this.Error_Message("Please select the other color");
+                this.error_Message("Please select the other color");
             }
         } else {
             Square s = this.findSquareatLocation(e);
@@ -352,13 +347,16 @@ public class ChessBoard extends JFrame implements MouseListener{
             if (newPosition==highlightedPosition)
             {
                 this.deselectCurrentSquare();
-                this.Error_Message("Please select a valid square");
+                this.error_Message("Please select a valid square");
                 return;
             }
             if (highlightedPiece.validMove(highlightedPosition, newPosition, squares)) {
                 this.makeMove(newPosition);
+                if (highlightedPiece.getName()=="Pawn")
+                        this.upgradablePawn(s);
+
             } else {
-                Error_Message("Not valid move");
+                error_Message("Not valid move");
                 this.deselectCurrentSquare();
             }
           
@@ -378,17 +376,53 @@ public class ChessBoard extends JFrame implements MouseListener{
     public void mouseExited(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
 
-    public void Error_Message(String message) {
+    public void error_Message(String message) {
         JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
                 JOptionPane.ERROR_MESSAGE);
     }
-    public void Information_Message(String message) {
+    public void information_Message(String message) {
         JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
                 JOptionPane.INFORMATION_MESSAGE);
     }
-    public void Won(String message) {
+    public void won(String message) {
         JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
                 JOptionPane.YES_OPTION);
+    }
+    public ChessPiece upgradePawn(ChessPiece pawn)
+    {
+        String input="";
+            String[] choices = {"Queen", "Bishop", "Rook", "Knight"};
+            input = (String) JOptionPane.showInputDialog(null, "Choose now...",
+                    "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
+                    // default
+                    // icon
+                    choices, // Array of choices
+                    choices[1]); // Initial choice
+
+        if (input.equals("Queen"))
+        {
+            return new Queen(pawn.getColor());
+        }
+        else if (input.equals("Rook"))
+        {
+            return new Rook(pawn.getColor());
+        }
+        else if (input.equals("Knight")) {
+            return new Knight(pawn.getColor());
+        }
+        else if (input.equals("Bishop")) {
+            return new Bishop(pawn.getColor());
+        }
+        else // this should never happen so I'll close the program
+        {
+            this.Error_Message("Something is wrong with the program, aborting...");
+            System.exit(2);
+        }
+        return null;
+    }
+    public void Error_Message(String message) {
+        JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
+                JOptionPane.ERROR_MESSAGE);
     }
 }
 

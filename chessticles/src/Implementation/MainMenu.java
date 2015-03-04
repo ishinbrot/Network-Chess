@@ -15,12 +15,12 @@ public class MainMenu extends JFrame implements ActionListener {
     public boolean blackPlayer;
     public boolean whitePlayer;
     public int moveResult;
-    public ChessBoard board;
+    private ChessBoard board;
     private JButton quit = new JButton("Quit");
     private JButton newGame = new JButton("New Game");
     private JButton testMoves = new JButton("test Moves");
     private JButton networkGame = new JButton("Network Game");
-    JPanel panel1 = new JPanel();
+    private JPanel panel1 = new JPanel();
 
     public MainMenu() {
         JFrame frame = new JFrame("Start");
@@ -165,21 +165,18 @@ public class MainMenu extends JFrame implements ActionListener {
     
     public void network() {
 
-    
+        board = new ChessBoard();
+        ChessGame game=new ChessGame();
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         System.out.println("Starting Chess Program");
-
-        ChessGame game=new ChessGame();
 
         board.pack();
         board.setResizable(true);
         board.setLocationRelativeTo(null);
         board.setVisible(true);
         game.setBoard(board);
-        game.getBoard().currentPlayer= 2;
-        game.getBoard().startPlayer1();
-        game.getBoard().startPlayer2();
-          String IP_Address = this.IP_prompt();
+        game.getBoard().currentPlayer=2;
+        String IP_Address = this.IP_prompt();
         game.getBoard().connection(IP_Address);
         game.getBoard().startPlayer1();
         game.getBoard().startPlayer2();

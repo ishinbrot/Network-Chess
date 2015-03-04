@@ -15,9 +15,6 @@ public class ChessGame {//extends ChessRules{
     private ChessBoard board;
 
     private ChessPiece highlightedPiece;
-    public static final int player1 = 0;
-    public static final int player2 = 1;
-    int playerToMove = player1;
 
     public boolean test() {
 
@@ -85,11 +82,6 @@ public class ChessGame {//extends ChessRules{
         addPiece(new Pawn(color), 49);
         addPiece(new Pawn(color), 48);
 
-    }
-
-    public int nextPlayer(int player) {
-        if (player == player1) return player2;
-        return player1;
     }
 
     public Square[] getPath(int[] initialPosition, int[] finalPosition) {
