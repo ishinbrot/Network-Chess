@@ -82,7 +82,7 @@ public class MainMenu extends JFrame implements ActionListener {
         game.setBoard(board);
         game.getBoard().currentPlayer=1;
         String IP_Address = this.IP_prompt();
-        game.getBoard().connection(IP_Address);
+        game.getBoard().connection(IP_Address, false);
         game.getBoard().startPlayer1();
         game.getBoard().startPlayer2();
 
@@ -177,7 +177,7 @@ public class MainMenu extends JFrame implements ActionListener {
         game.setBoard(board);
         game.getBoard().currentPlayer=2;
         String IP_Address = this.IP_prompt();
-        game.getBoard().connection(IP_Address);
+        game.getBoard().connection(IP_Address,true);
         game.getBoard().startPlayer1();
         game.getBoard().startPlayer2();
 

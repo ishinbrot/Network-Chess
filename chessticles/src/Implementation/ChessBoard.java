@@ -265,10 +265,13 @@ public class ChessBoard extends JFrame implements MouseListener{
         }
         return false;
     }
-    public void connection(String IP_Address)
+    public void connection(String IP_Address,Boolean black)
     {
         try {
             networkChess = new NetworkChess(IP_Address);
+            if(black){
+                networkChess.blackfirstSend();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             this.error_Message("Network Game could not be established. Aborting now");
