@@ -1,10 +1,10 @@
 package Implementation;
-
+import java.io.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.ActionEvent;
-import java.net.InetAddress;
+import java.net.*;
 import java.net.UnknownHostException;
 
 /**
@@ -12,38 +12,35 @@ import java.net.UnknownHostException;
  */
 public class MainMenu extends JFrame implements ActionListener {
 
-    public boolean blackPlayer;
-    public boolean whitePlayer;
-    public int moveResult;
     private ChessBoard board;
     private JButton quit = new JButton("Quit");
-    private JButton newGame = new JButton("New Game");
+    private JButton white = new JButton("Player 1: White");
     private JButton testMoves = new JButton("test Moves");
-    private JButton networkGame = new JButton("Network Game");
+    private JButton black = new JButton("Player 2: Black");
     private JPanel panel1 = new JPanel();
 
     public MainMenu() {
         JFrame frame = new JFrame("Start");
         
         // Adding New Game Button
-       
-        newGame.setVerticalTextPosition(AbstractButton.CENTER);
-        newGame.setHorizontalTextPosition(AbstractButton.LEADING);
-        newGame.setToolTipText("New Game");
-        newGame.addActionListener(this);
+
+        white.setVerticalTextPosition(AbstractButton.CENTER);
+        white.setHorizontalTextPosition(AbstractButton.LEADING);
+        white.setToolTipText("Player 1: White");
+        white.addActionListener(this);
         
         testMoves.setToolTipText("test Moves");
         testMoves.setVerticalTextPosition(AbstractButton.CENTER);
         testMoves.addActionListener(this);
-        networkGame.setToolTipText("Network Game");
-        networkGame.addActionListener(this);
+        black.setToolTipText("Player 2: Black");
+        black.addActionListener(this);
         quit.setToolTipText("Quit");
         quit.addActionListener(this);
         quit.setVerticalTextPosition(AbstractButton.CENTER);
         quit.setHorizontalTextPosition(AbstractButton.LEADING);
-        panel1.add(newGame);
+        panel1.add(white);
         panel1.add(testMoves);
-        panel1.add(networkGame);
+        panel1.add(black);
         panel1.add(quit);
         frame.add(panel1);
 
@@ -53,23 +50,31 @@ public class MainMenu extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == newGame) {
-            start();
+        if (e.getSource() == white) {
+            try {
+                start();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
-        if (e.getSource() == networkGame) {
-            network();
+        if (e.getSource() == black) {
+            try {
+                network();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
         if (e.getSource() == quit) {
 
             quit();
         }
         if (e.getSource() == testMoves) {
+                testMoves();
 
-            testMoves();
         }
     }
 
-    public void start() {
+    public void start() throws IOException {
         board = new ChessBoard();
         ChessGame game=new ChessGame();
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -87,6 +92,7 @@ public class MainMenu extends JFrame implements ActionListener {
         game.getBoard().startPlayer2();
 
     }
+
 
     public void testMoves() {
         System.out.println("Starting Chess Program");
@@ -161,9 +167,9 @@ public class MainMenu extends JFrame implements ActionListener {
             }
         }
     }
+
     
-    
-    public void network() {
+    public void network() throws IOException{
 
         board = new ChessBoard();
         ChessGame game=new ChessGame();
@@ -183,16 +189,18 @@ public class MainMenu extends JFrame implements ActionListener {
 
     }
 
-   public String IP_prompt() {
+   public String IP_prompt() throws IOException {
 
        JFrame frame = new JFrame("Network Connection");
        String ip="";
        String IP_Address;
-        try {
-            ip = InetAddress.getLocalHost().toString();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+            URL whatismyip = new URL("http://checkip.amazonaws.com");
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                    whatismyip.openStream()));
+
+             ip = in.readLine(); //you get the IP as a String
+
+
         JOptionPane.showMessageDialog(new JFrame(), "your ip address is: " + ip,
                 "Dialog",
                 JOptionPane.INFORMATION_MESSAGE);

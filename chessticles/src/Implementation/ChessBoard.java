@@ -101,12 +101,14 @@ public class ChessBoard extends JFrame implements MouseListener{
     }
 
 
-    public void removePiece(int location) {
+    public ChessPiece removePiece(int location) {
+        ChessPiece piece = squares[location].getCurrentPiece();
         squares[location].setCurrentPiece(null);
         squares[location].removeAll();
         squares[location].add(new JLabel());
         chessBoard.repaint();
         chessBoard.revalidate();
+        return piece;
     }
 
     public void startPlayer1() {
@@ -314,11 +316,8 @@ public class ChessBoard extends JFrame implements MouseListener{
         this.removePiece(newPosition[1] * 8 + newPosition[0]);
 
 
-        String oldPosition = Integer.toString(newPosition[1] *8 + newPosition[0]);
-        String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
-        String theirMove = networkChess.sendAndWait(oldPosition + ";" + newPos);
-
-        this.backGroundChange(theirMove, pieceName);
+      
+      
 
         this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
         
@@ -364,11 +363,18 @@ public class ChessBoard extends JFrame implements MouseListener{
                 return;
             }
             if (highlightedPiece.validMove(highlightedPosition, newPosition, squares)) {
-                String pieceName = "";
+                String pieceName = highlightedPiece.getName();
+
+                this.makeMove(newPosition, pieceName);
                 if (highlightedPiece.getName() == "Pawn") {
                     pieceName = this.upgradablePawn(s);
                 }
-                this.makeMove(newPosition, pieceName);
+
+                String oldPosition = Integer.toString(newPosition[1] *8 + newPosition[0]);
+                String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
+                String theirMove = networkChess.sendAndWait(oldPosition + ";" + newPos + ";" + pieceName);
+
+                this.backGroundChange(theirMove, pieceName);
            
 
             } else {
@@ -381,32 +387,32 @@ public class ChessBoard extends JFrame implements MouseListener{
     public void backGroundChange(String theirMove, String pieceName)
     {
         String oldPosition = theirMove.substring(0, theirMove.indexOf(';'));
-        String newPosition = theirMove.substring(theirMove.indexOf(';')+1,theirMove.length()-1);
-
-        this.removePiece(Integer.parseInt(oldPosition));
-        if (pieceName=="Queen")
+        String newPosition = theirMove.substring(theirMove.indexOf(';')+1,theirMove.lastIndexOf(';'));
+        pieceName = theirMove.substring(theirMove.lastIndexOf(';')+1, theirMove.length());
+        ChessPiece piece = this.removePiece(Integer.parseInt(oldPosition));
+        if (pieceName.equals("Queen"))
         {
-            highlightedPiece = new Queen(highlightedPiece.getColor());
+            piece = new Queen(piece.getColor());
         }
-        if (pieceName=="Rook")
+        if (pieceName.equals("Rook"))
         {
-            highlightedPiece = new Rook(highlightedPiece.getColor());
+            piece = new Rook(piece.getColor());
         }
-        if (pieceName=="Knight")
+        if (pieceName.equals("Knight"))
         {
-            highlightedPiece = new Knight(highlightedPiece.getColor());
+            piece = new Knight(piece.getColor());
         }
-        if (pieceName=="Bishop")
+        if (pieceName.equals("Bishop"))
         {
-            highlightedPiece = new Bishop(highlightedPiece.getColor());
+            piece = new Bishop(piece.getColor());
         }
-        else if (pieceName=="")
+        else if (pieceName.equals(""))
         {
             // do nothing
         }
         
 
-        this.addPiece(highlightedPiece, Integer.parseInt(newPosition));
+        this.addPiece(piece, Integer.parseInt(newPosition));
         
         
     }
