@@ -307,11 +307,6 @@ public class ChessBoard extends JFrame implements MouseListener{
         String theirMove = networkChess.sendAndWait("black");
 
         this.backGroundChange(theirMove);
-
-        this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
-
-        this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
-        this.deselectCurrentSquare();
     }
     public void makeMove(int[] newPosition)
     {
@@ -383,6 +378,12 @@ public class ChessBoard extends JFrame implements MouseListener{
     {
         String oldPosition = theirMove.substring(0, theirMove.indexOf(';'));
         String newPosition = theirMove.substring(theirMove.indexOf(';')+1,theirMove.length()-1);
+
+        this.removePiece(Integer.parseInt(oldPosition));
+
+
+        this.addPiece(highlightedPiece, Integer.parseInt(newPosition));
+        
         
     }
     public void mousePressed(MouseEvent e) {}
