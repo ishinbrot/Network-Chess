@@ -83,5 +83,15 @@ public class  NetworkChess extends Thread
 
         return thing;
     }
+    
+    String blackfirstSend()
+    {
+        return sendAndWait("black");
+        
+    }
+    
+    
+    
+    
 
 }
