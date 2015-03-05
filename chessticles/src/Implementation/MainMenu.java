@@ -108,7 +108,7 @@ public class MainMenu extends JFrame implements ActionListener {
         board.setLocationRelativeTo(null);
         board.setVisible(true);
         game.setBoard(board);
-        int startPos = 19;
+        int startPos = 20;
         game.addPiece(new Pawn(Color.black), 0);
         game.addPiece(new Pawn(Color.black), 1);
         game.addPiece(new Pawn(Color.black), 2);
@@ -137,7 +137,7 @@ public class MainMenu extends JFrame implements ActionListener {
         game.addPiece(new Pawn(Color.black), 31);
 
 
-        game.addPiece(new Pawn(Color.black), 37);
+        game.addPiece(new Pawn(Color.black), 27);
         game.addPiece(new Pawn(Color.black), 10);
         game.addPiece(new Pawn(Color.black), 26);
         game.addPiece(new Pawn(Color.black), 12);
@@ -150,7 +150,7 @@ public class MainMenu extends JFrame implements ActionListener {
         game.addPiece(new Pawn(Color.black), 3);
         game.addPiece(new Pawn(Color.black), 5);
         game.addPiece(new Pawn(Color.black), 30);
-        game.addPiece(new Pawn(Color.black), startPos);
+        game.addPiece(new Pawn(Color.white), startPos);
 
 
         int[] start = new int[]{startPos % 8, startPos / 8};
