@@ -1,10 +1,6 @@
 package Implementation;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
 /**
  import Implementation.ChessPiece;
  * Created by ianshinbrot on 1/14/15.

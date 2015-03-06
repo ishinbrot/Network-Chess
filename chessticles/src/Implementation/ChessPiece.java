@@ -79,7 +79,7 @@ public class ChessPiece {//extends ChessRules{
     public void setPlayer(Color color) {
         if (this.color == Color.white)
             player = 1;
-        if (this.color == color.black)
+        if (this.color == Color.black)
             player = 2;
     }
     public int getPlayer()
