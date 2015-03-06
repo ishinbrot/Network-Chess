@@ -337,7 +337,7 @@ public class ChessBoard extends JFrame implements MouseListener{
             
             return piece.getName();
         }
-        return null;
+        return "";
     }
     public void mouseClicked(MouseEvent e)
 
@@ -363,7 +363,8 @@ public class ChessBoard extends JFrame implements MouseListener{
                 return;
             }
             if (highlightedPiece.validMove(highlightedPosition, newPosition, squares)) {
-                String pieceName = highlightedPiece.getName();
+
+                 String pieceName = highlightedPiece.getName();
 
                 this.makeMove(newPosition, pieceName);
                 highlightedPiece.setMoved(true);
@@ -371,7 +372,10 @@ public class ChessBoard extends JFrame implements MouseListener{
                 if (highlightedPiece.getName().equals( "Pawn")) {
                     pieceName = this.upgradablePawn(s);
                 }
-
+                if (pieceName.equals(""))
+                {
+                    pieceName = highlightedPiece.getName();
+                }
                 String oldPosition = Integer.toString(newPosition[1] *8 + newPosition[0]);
                 String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
                 String theirMove = networkChess.sendAndWait(oldPosition + ";" + newPos + ";" + pieceName);
