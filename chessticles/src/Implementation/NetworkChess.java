@@ -47,12 +47,14 @@ public class  NetworkChess extends Thread
         System.exit(1);                                                       // exit on error
     }
 
-
+    //function sends and recives moves from game 
     public String sendAndWait(String s)
     {
-        String thing="";
+        String thing=""//string to hold return value 
         // loop waiting for keyboard input, send datagram to remote IP
 
+        
+    //sending functionality 
         try
         {
             // String s = in.readLine();                       // read a String
@@ -64,6 +66,7 @@ public class  NetworkChess extends Thread
         }
         catch (Exception e) {System.out.println("Eroor sending datagram " + e);}
 
+    //reciving functionality 
         try
         {
             // open DatagramSocket to receive
@@ -84,9 +87,11 @@ public class  NetworkChess extends Thread
         return thing;
     }
     
+    
+    //function for when game starts to put black into recive mode 
     String blackfirstSend()
     {
-        return sendAndWait("black");
+        return sendAndWait("black");//sends black and waits for whites first move 
         
     }
     
