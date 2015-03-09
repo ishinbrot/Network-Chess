@@ -409,7 +409,7 @@ public class ChessBoard extends JFrame implements MouseListener{
                 }
                 String oldPosition = Integer.toString(newPosition[1] *8 + newPosition[0]);
                 String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
-                String theirMove = networkChess.sendAndWait(castleMove + newPos + ";" + oldPosition + ";" + pieceName);
+                String theirMove = networkChess.sendAndWait(castleMove + newPos + ";" + oldPosition + ";" + pieceName + "!");
 
                 this.backGroundChange(theirMove, pieceName);
            
