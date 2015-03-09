@@ -334,7 +334,7 @@ public class ChessBoard extends JFrame implements MouseListener{
 
                 this.addPiece(s.getCurrentPiece(),newPosition[1]*8+newPosition[0]-1);
                 this.removePiece(newPosition[1]*8+7);
-                 extraMove =  Integer.toString(newPosition[1]*8+7) + ";" + Integer.toString(newPosition[1]*8+newPosition[0]-1) + ";" +"Rook";
+                 extraMove =  Integer.toString(newPosition[1]*8+7) + ";" + Integer.toString(newPosition[1]*8+newPosition[0]-1) + ";" +"Rook!";
             }
             else if ((newPosition[1]*8+newPosition[0])<piece.getPosition())
             {
@@ -342,7 +342,7 @@ public class ChessBoard extends JFrame implements MouseListener{
 
                 this.addPiece(s.getCurrentPiece(),newPosition[1]*8+newPosition[0]+1);
                 this.removePiece(newPosition[1]*8);
-                extraMove =  Integer.toString(newPosition[1]*8) + ";" + Integer.toString(newPosition[1]*8+newPosition[0]+1) + ";" +"Rook";
+                extraMove =  Integer.toString(newPosition[1]*8) + ";" + Integer.toString(newPosition[1]*8+newPosition[0]+1) + ";" +"Rook!";
             }
             this.castle=true;
         }
@@ -409,7 +409,7 @@ public class ChessBoard extends JFrame implements MouseListener{
                 }
                 String oldPosition = Integer.toString(newPosition[1] *8 + newPosition[0]);
                 String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
-                String theirMove = networkChess.sendAndWait(newPos + ";" + oldPosition + ";" + pieceName + castleMove);
+                String theirMove = networkChess.sendAndWait(castleMove + newPos + ";" + oldPosition + ";" + pieceName);
 
                 this.backGroundChange(theirMove, pieceName);
            
