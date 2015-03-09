@@ -42,6 +42,11 @@ public class Pawn extends ChessPiece {
             if ((Math.abs(initialPosition[0] - finalPosition[0])==Math.abs(initialPosition[1]-finalPosition[1]))&&
                     (Math.abs(initialPosition[0] - finalPosition[0])==1)){
                 if (board[fp].getCurrentPiece().getColor()!=board[ip].getCurrentPiece().getColor()){
+                    if (lookForCheck){
+                        if (check(initialPosition, finalPosition, board)){
+                            return false;
+                        }
+                    }
                     return true;
                 }
                 return false;
@@ -51,7 +56,15 @@ public class Pawn extends ChessPiece {
         }
 
 
-        return vertical(initialPosition, finalPosition, board);
+        if( vertical(initialPosition, finalPosition, board)){
+            if (lookForCheck){
+                if (check(initialPosition, finalPosition, board)){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
 }
