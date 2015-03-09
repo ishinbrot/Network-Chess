@@ -19,7 +19,7 @@ public class King extends ChessPiece {
         }
         setValue(0);
         setMoveLimit(1);
-        setName("king");
+        setName("King");
 
     }
     public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board, boolean lookForCheck){

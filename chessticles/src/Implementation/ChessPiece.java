@@ -109,11 +109,13 @@ public class ChessPiece {//extends ChessRules{
         board[finalPosition[1]*8+finalPosition[0]].setCurrentPiece(piece);
         board[initialPosition[1]*8+initialPosition[0]].setCurrentPiece(null);
         int[] myKing=new int[2];
-        for (int i=0;i<board.length;i++){
-            if (board[i].getCurrentPiece().getName().equalsIgnoreCase("king")){
-                if (board[i].getCurrentPiece().getColor()==piece.getColor()){
-                    myKing=board[i].getCoord();
-                    break;
+        for (int i=0;i<board.length;i++) {
+            if (board[i].getCurrentPiece() != null) {
+                if (board[i].getCurrentPiece().getName().equalsIgnoreCase("king")) {
+                    if (board[i].getCurrentPiece().getColor() == piece.getColor()) {
+                        myKing = board[i].getCoord();
+                        break;
+                    }
                 }
             }
         }

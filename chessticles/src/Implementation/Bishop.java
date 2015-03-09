@@ -26,10 +26,10 @@ public class Bishop extends ChessPiece {
 
 
         if (diagonal(initialPosition, finalPosition, board)) {
-            if (lookForCheck){
-                if (check(initialPosition, finalPosition, board)){
-                    return false;
-                }
+           if (lookForCheck){
+               if (check(initialPosition, finalPosition, board)){
+                   return false;
+               }
 
             }
             return true;

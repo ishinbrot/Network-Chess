@@ -24,22 +24,22 @@ public class MainMenu extends JFrame implements ActionListener {
 
     public MainMenu() {
         JFrame frame = new JFrame("Start");
-        
+
         // Adding Player 1 Button
 
         white.setVerticalTextPosition(AbstractButton.CENTER);
         white.setHorizontalTextPosition(AbstractButton.LEADING);
         white.setToolTipText("Player 1: White");
         white.addActionListener(this);
-        
+
         testMoves.setToolTipText("test Moves");
         testMoves.setVerticalTextPosition(AbstractButton.CENTER);
         testMoves.addActionListener(this);
         // Adding Player 2 Button
-        
+
         black.setToolTipText("Player 2: Black");
         black.addActionListener(this);
-        
+
         // Adding About option
         About.setToolTipText("About");
         white.setVerticalTextPosition(AbstractButton.CENTER);
@@ -81,7 +81,7 @@ This registered the action performed in the menu
             }
         }
         if (e.getSource() == About) {
-            
+
             about();
         }
         if (e.getSource() == quit) {
@@ -102,7 +102,7 @@ This registered the action performed in the menu
         ChessGame game=new ChessGame();
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         System.out.println("Starting Chess Program");
-        
+
         board.pack();
         board.setResizable(true);
         board.setLocationRelativeTo(null);
@@ -132,50 +132,50 @@ This registered the action performed in the menu
         board.setVisible(true);
         game.setBoard(board);
         int startPos = 20;
-        game.addPiece(new King(Color.black), 0);
-        game.addPiece(new King(Color.white), 1);
-        game.addPiece(new Pawn(Color.black), 2);
-        game.addPiece(new Pawn(Color.black), 6);
-        game.addPiece(new Pawn(Color.black), 7);
-        game.addPiece(new Pawn(Color.black), 8);
-        game.addPiece(new Pawn(Color.black), 16);
-        game.addPiece(new Pawn(Color.black), 24);
-        game.addPiece(new Pawn(Color.black), 32);
-        game.addPiece(new Pawn(Color.black), 40);
-        game.addPiece(new Pawn(Color.black), 48);
-        game.addPiece(new Pawn(Color.black), 56);
-        game.addPiece(new Pawn(Color.black), 15);
-        game.addPiece(new Pawn(Color.black), 23);
-        game.addPiece(new Pawn(Color.black), 39);
-        game.addPiece(new Pawn(Color.black), 47);
-        game.addPiece(new Pawn(Color.black), 55);
-        game.addPiece(new Pawn(Color.black), 56);
-        game.addPiece(new Pawn(Color.black), 63);
-        game.addPiece(new Pawn(Color.black), 57);
-        game.addPiece(new Pawn(Color.black), 58);
-        game.addPiece(new Pawn(Color.black), 59);
-        game.addPiece(new Pawn(Color.black), 60);
-        game.addPiece(new Pawn(Color.black), 61);
-        game.addPiece(new Pawn(Color.black), 62);
-        game.addPiece(new Pawn(Color.black), 31);
+        board.addPiece(new King(Color.black), 7);
+        board.addPiece(new King(Color.white), 13);
+        board.addPiece(new Pawn(Color.black), 2);
+      //  board.addPiece(new Pawn(Color.black), 6);
+       // board.addPiece(new Pawn(Color.black), 7);
+      //  board.addPiece(new Pawn(Color.black), 8);
+        board.addPiece(new Pawn(Color.black), 16);
+        board.addPiece(new Pawn(Color.black), 24);
+        board.addPiece(new Pawn(Color.black), 32);
+        board.addPiece(new Pawn(Color.black), 40);
+       // board.addPiece(new Pawn(Color.black), 48);
+        board.addPiece(new Bishop(Color.black), 48);
+        board.addPiece(new Pawn(Color.black), 15);
+        board.addPiece(new Pawn(Color.black), 23);
+        board.addPiece(new Pawn(Color.black), 39);
+        board.addPiece(new Pawn(Color.black), 47);
+        board.addPiece(new Pawn(Color.black), 55);
+     //   board.addPiece(new Pawn(Color.black), 56);
+        board.addPiece(new Pawn(Color.black), 63);
+        board.addPiece(new Pawn(Color.black), 57);
+        board.addPiece(new Pawn(Color.black), 58);
+        board.addPiece(new Pawn(Color.black), 59);
+        board.addPiece(new Pawn(Color.black), 60);
+        board.addPiece(new Pawn(Color.black), 61);
+        board.addPiece(new Pawn(Color.black), 62);
+        board.addPiece(new Pawn(Color.black), 31);
 
 
-        game.addPiece(new Pawn(Color.black), 27);
-        game.addPiece(new Pawn(Color.black), 10);
-        game.addPiece(new Pawn(Color.black), 26);
-        game.addPiece(new Pawn(Color.black), 12);
-        game.addPiece(new Pawn(Color.black), 9);
-        game.addPiece(new Pawn(Color.black), 36);
-        game.addPiece(new Pawn(Color.black), 14);
-        game.addPiece(new Pawn(Color.white), 4);
-        game.addPiece(new Pawn(Color.black), 33);
-        game.addPiece(new Pawn(Color.black), 39);
-        game.addPiece(new Pawn(Color.black), 3);
-        game.addPiece(new Pawn(Color.black), 5);
-        game.addPiece(new Pawn(Color.black), 30);
+      //  board.addPiece(new Pawn(Color.black), 27);
+       // board.addPiece(new Pawn(Color.black), 10);
+        board.addPiece(new Pawn(Color.black), 26);
+        board.addPiece(new Pawn(Color.black), 12);
+        board.addPiece(new Pawn(Color.black), 9);
+        board.addPiece(new Pawn(Color.black), 36);
+        board.addPiece(new Pawn(Color.black), 14);
+        board.addPiece(new Pawn(Color.white), 4);
+        board.addPiece(new Pawn(Color.black), 33);
+        board.addPiece(new Pawn(Color.black), 39);
+        board.addPiece(new Pawn(Color.black), 3);
+        board.addPiece(new Pawn(Color.black), 5);
+        board.addPiece(new Pawn(Color.black), 30);
 
-        game.addPiece(new Bishop(Color.white), startPos);
-
+        board.addPiece(new Rook(Color.white), startPos);
+        board.getSquare(startPos).setBackground(Color.orange);
 
         int[] start = new int[]{startPos % 8, startPos / 8};
         int[] test = new int[2];
@@ -185,14 +185,15 @@ This registered the action performed in the menu
             col = i % 8;
             test[0] = col;
             test[1] = row;
-            if (game.getBoard().squares[startPos].getCurrentPiece().validMove(start, test, game.getBoard().squares, true)) {
-                game.getBoard().getSquare(i).setBackground(Color.green);
+            board.deepCopy(board.squares);
+            if (board.squares[startPos].getCurrentPiece().validMove(start, test,   board.deepCopy(board.squares), true)) {
+                board.getSquare(i).setBackground(Color.green);
 
             }
         }
     }
 
-    
+
     public void player2() throws IOException{
 
         board = new ChessBoard();
@@ -205,17 +206,17 @@ This registered the action performed in the menu
         board.setLocationRelativeTo(null);
         board.setVisible(true);
         game.setBoard(board);
-        game.getBoard().currentPlayer=2;
+        board.currentPlayer=2;
         String IP_Address = this.IP_prompt();
-        game.getBoard().connection(IP_Address,true);
-        game.getBoard().startPlayer1();
-        game.getBoard().startPlayer2();
+        board.connection(IP_Address,true);
+        board.startPlayer1();
+        board.startPlayer2();
 
     }
     public void startGame(int playerNum, boolean black) throws IOException {
         board = new ChessBoard();
         ChessGame game=new ChessGame();
-        
+
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         System.out.println("Starting Chess Program");
 
@@ -224,13 +225,13 @@ This registered the action performed in the menu
         board.setLocationRelativeTo(null);
         board.setVisible(true);
         game.setBoard(board);
-        game.getBoard().currentPlayer=playerNum;
+        board.currentPlayer=playerNum;
         board.setTitle("Player: " + playerNum);
         String IP_Address = this.IP_prompt();
-        game.getBoard().connection(IP_Address,black);
-        game.getBoard().startPlayer1();
-        game.getBoard().startPlayer2();
-        
+        board.connection(IP_Address,black);
+        board.startPlayer1();
+        board.startPlayer2();
+
     }
 /*/
 This brings up the prompt for the IP Address
@@ -256,7 +257,7 @@ The IP address for the current user is displayed, and you are asked to type in y
        return IP_Address;
     }
     public void quit() {
-        
+
         System.exit(2);
     }
 
