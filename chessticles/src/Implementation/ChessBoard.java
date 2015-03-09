@@ -269,6 +269,17 @@ public class ChessBoard extends JFrame implements MouseListener{
         }
         return false;
     }
+
+
+    public Square[] deepCopy(Square [] board){
+        Square [] copy= new Square[board.length];
+        for (int i=0;i<copy.length;i++){
+            copy[i]=new Square(new BorderLayout());
+            copy[i].setCurrentPiece(board[i].getCurrentPiece());
+            copy[i].setCoord(board[i].getCoord());
+        }
+        return copy;
+    }
     public void connection(String IP_Address,Boolean black)
     {
         try {
@@ -362,7 +373,7 @@ public class ChessBoard extends JFrame implements MouseListener{
                 this.error_Message("Please select a valid square");
                 return;
             }
-            if (highlightedPiece.validMove(highlightedPosition, newPosition, squares)) {
+            if (highlightedPiece.validMove(highlightedPosition, newPosition, deepCopy(squares), true)) {
 
                  String pieceName = highlightedPiece.getName();
 

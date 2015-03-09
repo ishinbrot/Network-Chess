@@ -50,7 +50,7 @@ public class  NetworkChess extends Thread
     //function sends and recives moves from game 
     public String sendAndWait(String s)
     {
-        String thing=""//string to hold return value 
+        String thing="";//string to hold return value
         // loop waiting for keyboard input, send datagram to remote IP
 
         

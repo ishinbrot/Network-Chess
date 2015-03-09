@@ -96,10 +96,41 @@ public class ChessPiece {//extends ChessRules{
         this.moved = moved;
 
     }
-    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
+    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board, boolean lookForCheck){
 
-        return this.validMove(initialPosition,finalPosition, board);
+        //return this.validMove(initialPosition,finalPosition, board, lookForCheck);
+        return true;
     }
+
+
+    public boolean check(int[] initialPosition, int[] finalPosition, Square[] board){
+
+        ChessPiece piece=board[initialPosition[1]*8+initialPosition[0]].getCurrentPiece();
+        board[finalPosition[1]*8+finalPosition[0]].setCurrentPiece(piece);
+        board[initialPosition[1]*8+initialPosition[0]].setCurrentPiece(null);
+        int[] myKing=new int[2];
+        for (int i=0;i<board.length;i++){
+            if (board[i].getCurrentPiece().getName().equalsIgnoreCase("king")){
+                if (board[i].getCurrentPiece().getColor()==piece.getColor()){
+                    myKing=board[i].getCoord();
+                    break;
+                }
+            }
+        }
+
+        for (int i=0;i<board.length;i++){
+            if (board[i].getCurrentPiece()!=null){
+                ChessPiece testPiece=board[i].getCurrentPiece();
+                if (testPiece.getColor()!=piece.getColor()){
+                    if(testPiece.validMove(board[i].getCoord(),myKing, board, false)){
+                        return true;
+                    }
+                }
+            }
+        }return false;
+    }
+
+
     public boolean horizontal(int[] initialPosition, int[] finalPosition, Square[] board)
     {
         int test;

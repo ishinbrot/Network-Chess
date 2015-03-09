@@ -109,8 +109,8 @@ public class MainMenu extends JFrame implements ActionListener {
         board.setVisible(true);
         game.setBoard(board);
         int startPos = 20;
-        game.addPiece(new Pawn(Color.black), 0);
-        game.addPiece(new Pawn(Color.black), 1);
+        game.addPiece(new King(Color.black), 0);
+        game.addPiece(new King(Color.white), 1);
         game.addPiece(new Pawn(Color.black), 2);
         game.addPiece(new Pawn(Color.black), 6);
         game.addPiece(new Pawn(Color.black), 7);
@@ -150,7 +150,8 @@ public class MainMenu extends JFrame implements ActionListener {
         game.addPiece(new Pawn(Color.black), 3);
         game.addPiece(new Pawn(Color.black), 5);
         game.addPiece(new Pawn(Color.black), 30);
-        game.addPiece(new Pawn(Color.white), startPos);
+
+        game.addPiece(new Bishop(Color.white), startPos);
 
 
         int[] start = new int[]{startPos % 8, startPos / 8};
@@ -161,7 +162,7 @@ public class MainMenu extends JFrame implements ActionListener {
             col = i % 8;
             test[0] = col;
             test[1] = row;
-            if (game.getBoard().squares[startPos].getCurrentPiece().validMove(start, test, game.getBoard().squares)) {
+            if (game.getBoard().squares[startPos].getCurrentPiece().validMove(start, test, game.getBoard().squares, true)) {
                 game.getBoard().getSquare(i).setBackground(Color.green);
 
             }

@@ -23,7 +23,17 @@ public class Knight extends ChessPiece {
         setValue(3);
         setMoveLimit(3);
     }
-    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
-        return L_shape(initialPosition, finalPosition, board);
+    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board, boolean lookForCheck){
+
+        if (L_shape(initialPosition, finalPosition, board)) {
+            if (lookForCheck){
+                if (check(initialPosition, finalPosition, board)){
+                    return false;
+                }
+
+            }
+            return true;
+        }
+        return false;
     }
 }

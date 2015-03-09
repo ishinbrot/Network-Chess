@@ -19,14 +19,27 @@ public class King extends ChessPiece {
         }
         setValue(0);
         setMoveLimit(1);
+        setName("king");
 
     }
-    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
+    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board, boolean lookForCheck){
         if (Math.abs(initialPosition[1]-finalPosition[1])>getMoveLimit()){return false;}
         if (Math.abs(initialPosition[0]-finalPosition[0])>getMoveLimit()){return false;}
-        return horizontal(initialPosition, finalPosition, board)||
+
+
+        if (horizontal(initialPosition, finalPosition, board)||
                 vertical(initialPosition, finalPosition, board)||
-                diagonal(initialPosition, finalPosition, board);
+                diagonal(initialPosition, finalPosition, board)) {
+            if (lookForCheck){
+                if (check(initialPosition, finalPosition, board)){
+                    return false;
+                }
+
+            }
+            return true;
+        }
+        return false;
+
 
     }
 }

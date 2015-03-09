@@ -22,7 +22,7 @@ public class Pawn extends ChessPiece {
         setValue(1);
         setMoveLimit(2);
     }
-    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
+    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board, boolean lookForCheck){
         int ip=(initialPosition[1]*8)+initialPosition[0];
         int fp=(finalPosition[1]*8)+finalPosition[0];
         if (isMoved()){
