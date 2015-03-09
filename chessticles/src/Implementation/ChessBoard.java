@@ -22,10 +22,11 @@ public class ChessBoard extends JFrame implements MouseListener{
     private boolean PieceSelected = false;
     public Square[] squares = new Square[64];
     public int currentPlayer;
+    public boolean castle=false;
 
     public ChessBoard() {
         //Initialize Board and it's components
-
+        setTitle("Chess Tickles");
         boardSize = new Dimension(600, 600);
         layeredPane = new JLayeredPane();
         getContentPane().add(layeredPane);
@@ -322,18 +323,37 @@ public class ChessBoard extends JFrame implements MouseListener{
 
         this.backGroundChange(theirMove, "");
     }
-    public void makeMove(int[] newPosition, String pieceName)
+    public String makeMove(int[] newPosition, String pieceName, ChessPiece piece)
     {
-        this.removePiece(newPosition[1] * 8 + newPosition[0]);
+        String extraMove="";
+        if (pieceName.equalsIgnoreCase("King") && (Math.abs(piece.getPosition()-(newPosition[1]*8+newPosition[0]))==2))
+        {
+            if ((newPosition[1]*8+newPosition[0])>piece.getPosition())
+            {
+                Square s = squares[newPosition[1]*8+7];
 
+                this.addPiece(s.getCurrentPiece(),newPosition[1]*8+newPosition[0]-1);
+                this.removePiece(newPosition[1]*8+7);
+                 extraMove =  Integer.toString(newPosition[1]*8+7) + ";" + Integer.toString(newPosition[1]*8+newPosition[0]-1) + ";" +"Rook";
+            }
+            else if ((newPosition[1]*8+newPosition[0])<piece.getPosition())
+            {
+                Square s = squares[newPosition[1]*8];
 
-      
-      
-
+                this.addPiece(s.getCurrentPiece(),newPosition[1]*8+newPosition[0]+1);
+                this.removePiece(newPosition[1]*8);
+                extraMove =  Integer.toString(newPosition[1]*8) + ";" + Integer.toString(newPosition[1]*8+newPosition[0]+1) + ";" +"Rook";
+            }
+            this.castle=true;
+        }
+        
         this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
         
         this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
+        
         this.deselectCurrentSquare();
+        this.castle=false;
+        return extraMove;
     }
     public String upgradablePawn(Square s){
 
@@ -377,7 +397,7 @@ public class ChessBoard extends JFrame implements MouseListener{
 
                  String pieceName = highlightedPiece.getName();
 
-                this.makeMove(newPosition, pieceName);
+                String castleMove = this.makeMove(newPosition, pieceName, highlightedPiece);
                 highlightedPiece.setMoved(true);
 
                 if (highlightedPiece.getName().equals( "Pawn")) {
@@ -389,7 +409,7 @@ public class ChessBoard extends JFrame implements MouseListener{
                 }
                 String oldPosition = Integer.toString(newPosition[1] *8 + newPosition[0]);
                 String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
-                String theirMove = networkChess.sendAndWait(newPos + ";" + oldPosition + ";" + pieceName);
+                String theirMove = networkChess.sendAndWait(newPos + ";" + oldPosition + ";" + pieceName + castleMove);
 
                 this.backGroundChange(theirMove, pieceName);
            
@@ -403,34 +423,40 @@ public class ChessBoard extends JFrame implements MouseListener{
     }
     public void backGroundChange(String theirMove, String pieceName)
     {
-        String oldPosition = theirMove.substring(0, theirMove.indexOf(';'));
-        String newPosition = theirMove.substring(theirMove.indexOf(';')+1,theirMove.lastIndexOf(';'));
-        pieceName = theirMove.substring(theirMove.lastIndexOf(';')+1, theirMove.length());
-        ChessPiece piece = this.removePiece(Integer.parseInt(oldPosition));
-        if (pieceName.equals("Queen"))
+        String moves[];
+        moves = theirMove.split("!");
+        for (int i=0; i<moves.length; i++)
         {
-            piece = new Queen(piece.getColor());
-        }
-        if (pieceName.equals("Rook"))
-        {
-            piece = new Rook(piece.getColor());
-        }
-        if (pieceName.equals("Knight"))
-        {
-            piece = new Knight(piece.getColor());
-        }
-        if (pieceName.equals("Bishop"))
-        {
-            piece = new Bishop(piece.getColor());
-        }
-        else if (pieceName.equals(""))
-        {
-            // do nothing
-        }
-        
+            String oldPosition = moves[i].substring(0, moves[i].indexOf(';'));
 
-        this.addPiece(piece, Integer.parseInt(newPosition));
-        
+            String newPosition = moves[i].substring(moves[i].indexOf(';') +1,moves[i].lastIndexOf(';'));
+            if (newPosition.equals("-1"))
+            {
+                this.removePiece(Integer.parseInt(oldPosition));
+            }
+            else {
+                pieceName = theirMove.substring(moves[i].lastIndexOf(';') + 1, moves[i].length());
+                ChessPiece piece = this.removePiece(Integer.parseInt(oldPosition));
+                if (pieceName.equals("Queen")) {
+                    piece = new Queen(piece.getColor());
+                }
+                if (pieceName.equals("Rook")) {
+                    piece = new Rook(piece.getColor());
+                }
+                if (pieceName.equals("Knight")) {
+                    piece = new Knight(piece.getColor());
+                }
+                if (pieceName.equals("Bishop")) {
+                    piece = new Bishop(piece.getColor());
+                } else if (pieceName.equals("")) {
+                    // do nothing
+                }
+
+
+                this.addPiece(piece, Integer.parseInt(newPosition));
+            }
+        }
+    
         
     }
     public void mousePressed(MouseEvent e) {}
@@ -458,7 +484,7 @@ public class ChessBoard extends JFrame implements MouseListener{
         String input="";
             String[] choices = {"Queen", "Bishop", "Rook", "Knight"};
             input = (String) JOptionPane.showInputDialog(null, "Choose now...",
-                    "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
+                    "Please upgrade your piece.", JOptionPane.QUESTION_MESSAGE, null, // Use
                     // default
                     // icon
                     choices, // Array of choices
