@@ -122,7 +122,7 @@ This registered the action performed in the menu
 
         board = new ChessBoard();
         ChessGame game = new ChessGame();
-        board.currentPlayer=2;
+        board.currentPlayer=1;
 
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -131,7 +131,13 @@ This registered the action performed in the menu
         board.setLocationRelativeTo(null);
         board.setVisible(true);
         game.setBoard(board);
-        int startPos = 20;
+        int startPos = 60;
+      //  board.addPiece(new King(Color.white), 60));
+        board.addPiece(new Rook(Color.white), 56);
+        board.addPiece(new Rook(Color.white), 63);
+        
+        
+      /*
         board.addPiece(new King(Color.black), 7);
         board.addPiece(new King(Color.white), 13);
         board.addPiece(new Pawn(Color.black), 2);
@@ -173,8 +179,8 @@ This registered the action performed in the menu
         board.addPiece(new Pawn(Color.black), 3);
         board.addPiece(new Pawn(Color.black), 5);
         board.addPiece(new Pawn(Color.black), 30);
-
-        board.addPiece(new Rook(Color.white), startPos);
+*/
+        board.addPiece(new King(Color.white), startPos);
         board.getSquare(startPos).setBackground(Color.orange);
 
         int[] start = new int[]{startPos % 8, startPos / 8};
