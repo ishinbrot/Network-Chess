@@ -9,6 +9,8 @@ import java.net.UnknownHostException;
 
 /**
  * Created by ianshinbrot on 1/14/15.
+ * This represents the main menu of the game
+ * Buttons are represented for each choice, Player 1, Player 2, About, and Quit *
  */
 public class MainMenu extends JFrame implements ActionListener {
 
@@ -17,12 +19,13 @@ public class MainMenu extends JFrame implements ActionListener {
     private JButton white = new JButton("Player 1: White");
     private JButton testMoves = new JButton("test Moves");
     private JButton black = new JButton("Player 2: Black");
+    private JButton About = new JButton("About");
     private JPanel panel1 = new JPanel();
 
     public MainMenu() {
         JFrame frame = new JFrame("Start");
         
-        // Adding New Game Button
+        // Adding Player 1 Button
 
         white.setVerticalTextPosition(AbstractButton.CENTER);
         white.setHorizontalTextPosition(AbstractButton.LEADING);
@@ -32,8 +35,18 @@ public class MainMenu extends JFrame implements ActionListener {
         testMoves.setToolTipText("test Moves");
         testMoves.setVerticalTextPosition(AbstractButton.CENTER);
         testMoves.addActionListener(this);
+        // Adding Player 2 Button
+        
         black.setToolTipText("Player 2: Black");
         black.addActionListener(this);
+        
+        // Adding About option
+        About.setToolTipText("About");
+        white.setVerticalTextPosition(AbstractButton.CENTER);
+        white.setHorizontalTextPosition(AbstractButton.LEADING);
+        About.addActionListener(this);
+
+        // Adding Quit option
         quit.setToolTipText("Quit");
         quit.addActionListener(this);
         quit.setVerticalTextPosition(AbstractButton.CENTER);
@@ -41,28 +54,35 @@ public class MainMenu extends JFrame implements ActionListener {
         panel1.add(white);
         panel1.add(testMoves);
         panel1.add(black);
+        panel1.add(About);
         panel1.add(quit);
         frame.add(panel1);
 
 
-        frame.setSize(300, 100);
+        frame.setSize(350, 100);
         frame.setVisible(true);
     }
-
+/*
+This registered the action performed in the menu
+ */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == white) {
             try {
-                start();
+                startGame(1,false);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         }
         if (e.getSource() == black) {
             try {
-                network();
+                startGame(2, true);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
+        }
+        if (e.getSource() == About) {
+            
+            about();
         }
         if (e.getSource() == quit) {
 
@@ -73,8 +93,11 @@ public class MainMenu extends JFrame implements ActionListener {
 
         }
     }
+        public void about() {
+        AboutScreen aboutScreen = new AboutScreen();
 
-    public void start() throws IOException {
+        }
+    public void player1() throws IOException {
         board = new ChessBoard();
         ChessGame game=new ChessGame();
         board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -170,7 +193,7 @@ public class MainMenu extends JFrame implements ActionListener {
     }
 
     
-    public void network() throws IOException{
+    public void player2() throws IOException{
 
         board = new ChessBoard();
         ChessGame game=new ChessGame();
@@ -189,7 +212,30 @@ public class MainMenu extends JFrame implements ActionListener {
         game.getBoard().startPlayer2();
 
     }
+    public void startGame(int playerNum, boolean black) throws IOException {
+        board = new ChessBoard();
+        ChessGame game=new ChessGame();
+        
+        board.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        System.out.println("Starting Chess Program");
 
+        board.pack();
+        board.setResizable(true);
+        board.setLocationRelativeTo(null);
+        board.setVisible(true);
+        game.setBoard(board);
+        game.getBoard().currentPlayer=playerNum;
+        board.setTitle("Player: " + playerNum);
+        String IP_Address = this.IP_prompt();
+        game.getBoard().connection(IP_Address,black);
+        game.getBoard().startPlayer1();
+        game.getBoard().startPlayer2();
+        
+    }
+/*/
+This brings up the prompt for the IP Address
+The IP address for the current user is displayed, and you are asked to type in your IP address
+ */
    public String IP_prompt() throws IOException {
 
        JFrame frame = new JFrame("Network Connection");
@@ -202,7 +248,7 @@ public class MainMenu extends JFrame implements ActionListener {
              ip = in.readLine(); //you get the IP as a String
 
 
-        JOptionPane.showMessageDialog(new JFrame(), "your ip address is: " + ip,
+        JOptionPane.showMessageDialog(new JFrame(), "your IP address is: " + ip,
                 "Dialog",
                 JOptionPane.INFORMATION_MESSAGE);
 
