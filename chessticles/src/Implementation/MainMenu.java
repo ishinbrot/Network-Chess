@@ -249,11 +249,11 @@ The IP address for the current user is displayed, and you are asked to type in y
              ip = in.readLine(); //you get the IP as a String
 
 
-        JOptionPane.showMessageDialog(new JFrame(), "your IP address is: " + ip,
-                "Dialog",
-                JOptionPane.INFORMATION_MESSAGE);
+       // JOptionPane.showMessageDialog(new JFrame(), "your IP address is: " + ip,
+        //        "Dialog",
+        //        JOptionPane.INFORMATION_MESSAGE);
 
-        IP_Address = JOptionPane.showInputDialog(frame, "Please type in the IP Address");
+        IP_Address = JOptionPane.showInputDialog(frame, "Your IP Address is: "+ip+" \nPlease type in the IP Address");
        return IP_Address;
     }
     public void quit() {
