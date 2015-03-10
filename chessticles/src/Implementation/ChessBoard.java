@@ -11,10 +11,10 @@ import javax.swing.*;
 /**
  * Created by mike on 1/13/2015.
  */
-public class ChessBoard extends JFrame implements MouseListener{
+public class ChessBoard extends JFrame implements MouseListener {
 
     private Dimension boardSize;
-    private  NetworkChess networkChess;
+    private NetworkChess networkChess;
     private JLayeredPane layeredPane;
     private JPanel chessBoard;
     private ChessPiece highlightedPiece;
@@ -22,7 +22,8 @@ public class ChessBoard extends JFrame implements MouseListener{
     private boolean PieceSelected = false;
     public Square[] squares = new Square[64];
     public int currentPlayer;
-    public boolean castle=false;
+    public boolean castle = false;
+    public boolean gameOver = false;
 
     public ChessBoard() {
         //Initialize Board and it's components
@@ -71,7 +72,7 @@ public class ChessBoard extends JFrame implements MouseListener{
                     squares[i].setDefaultColor(Color.DARK_GRAY);
                 }
             } else
-            
+
             {
                 if (i % 2 == 0) {
                     squares[i].setBackground(Color.DARK_GRAY);
@@ -84,11 +85,11 @@ public class ChessBoard extends JFrame implements MouseListener{
         }
 
     }
+
     public Square getSquare(int i) {
         return squares[i];
 
     }
-
 
 
     public void addPiece(ChessPiece chessPiece, int location) {
@@ -153,7 +154,7 @@ public class ChessBoard extends JFrame implements MouseListener{
         addPiece(new Pawn(color), 50);
         addPiece(new Pawn(color), 49);
         addPiece(new Pawn(color), 48);
-        if (currentPlayer==2)
+        if (currentPlayer == 2)
             blackFirst();
 
     }
@@ -272,20 +273,20 @@ public class ChessBoard extends JFrame implements MouseListener{
     }
 
 
-    public Square[] deepCopy(Square [] board){
-        Square [] copy= new Square[board.length];
-        for (int i=0;i<copy.length;i++){
-            copy[i]=new Square(new BorderLayout());
+    public Square[] deepCopy(Square[] board) {
+        Square[] copy = new Square[board.length];
+        for (int i = 0; i < copy.length; i++) {
+            copy[i] = new Square(new BorderLayout());
             copy[i].setCurrentPiece(board[i].getCurrentPiece());
             copy[i].setCoord(board[i].getCoord());
         }
         return copy;
     }
-    public void connection(String IP_Address,Boolean black)
-    {
+
+    public void connection(String IP_Address, Boolean black) {
         try {
             networkChess = new NetworkChess(IP_Address);
-            if(black){
+            if (black) {
                 //networkChess.blackfirstSend();
             }
         } catch (Exception e) {
@@ -294,131 +295,163 @@ public class ChessBoard extends JFrame implements MouseListener{
         }
 
     }
-    public void deselectCurrentSquare()
-    {
-        PieceSelected=false;
+
+    public void deselectCurrentSquare() {
+        PieceSelected = false;
         Square originalSquare = squares[highlightedPosition[1] * 8 + highlightedPosition[0]];
         originalSquare.setBackground(originalSquare.getDefaultColor());
-        
+
     }
-    
+
     public Square findSquareatLocation(MouseEvent e) {
         Component c = chessBoard.findComponentAt(e.getX(), e.getY());
-         return(Square) c.getParent();
-        
+        return (Square) c.getParent();
+
     }
-   public void selectPiece(Square s)
-   {
-       highlightedPiece = s.getCurrentPiece();
-       highlightedPosition = s.getCoord();
-       PieceSelected = true;
-       s.setBackground(Color.ORANGE);
-       
-   }
-    
-    public void blackFirst()
-    {
+
+    public void selectPiece(Square s) {
+        highlightedPiece = s.getCurrentPiece();
+        highlightedPosition = s.getCoord();
+        PieceSelected = true;
+        s.setBackground(Color.ORANGE);
+
+    }
+
+    public void blackFirst() {
 
         String theirMove = networkChess.sendAndWait("black");
 
         this.backGroundChange(theirMove, "");
     }
-    public String makeMove(int[] newPosition, String pieceName, ChessPiece piece)
-    {
-        String extraMove="";
-        if (pieceName.equalsIgnoreCase("King") && (Math.abs(piece.getPosition()-(newPosition[1]*8+newPosition[0]))==2))
-        {
-            if ((newPosition[1]*8+newPosition[0])>piece.getPosition())
-            {
-                Square s = squares[newPosition[1]*8+7];
 
-                this.addPiece(s.getCurrentPiece(),newPosition[1]*8+newPosition[0]-1);
-                this.removePiece(newPosition[1]*8+7);
-                 extraMove =  Integer.toString(newPosition[1]*8+7) + ";" + Integer.toString(newPosition[1]*8+newPosition[0]-1) + ";" +"Rook!";
-            }
-            else if ((newPosition[1]*8+newPosition[0])<piece.getPosition())
-            {
-                Square s = squares[newPosition[1]*8];
+    public String makeMove(int[] newPosition, String pieceName, ChessPiece piece) {
+        String extraMove = "";
+        if (pieceName.equalsIgnoreCase("King") && (Math.abs(piece.getPosition() - (newPosition[1] * 8 + newPosition[0])) == 2)) {
+            if ((newPosition[1] * 8 + newPosition[0]) > piece.getPosition()) {
+                Square s = squares[newPosition[1] * 8 + 7];
 
-                this.addPiece(s.getCurrentPiece(),newPosition[1]*8+newPosition[0]+1);
-                this.removePiece(newPosition[1]*8);
-                extraMove =  Integer.toString(newPosition[1]*8) + ";" + Integer.toString(newPosition[1]*8+newPosition[0]+1) + ";" +"Rook!";
+                this.addPiece(s.getCurrentPiece(), newPosition[1] * 8 + newPosition[0] - 1);
+                this.removePiece(newPosition[1] * 8 + 7);
+                extraMove = Integer.toString(newPosition[1] * 8 + 7) + ";" + Integer.toString(newPosition[1] * 8 + newPosition[0] - 1) + ";" + "Rook!";
+            } else if ((newPosition[1] * 8 + newPosition[0]) < piece.getPosition()) {
+                Square s = squares[newPosition[1] * 8];
+
+                this.addPiece(s.getCurrentPiece(), newPosition[1] * 8 + newPosition[0] + 1);
+                this.removePiece(newPosition[1] * 8);
+                extraMove = Integer.toString(newPosition[1] * 8) + ";" + Integer.toString(newPosition[1] * 8 + newPosition[0] + 1) + ";" + "Rook!";
             }
-            this.castle=true;
+            this.castle = true;
         }
-        
+
         this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
-        
+
         this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
-        
+
         this.deselectCurrentSquare();
-        this.castle=false;
+        this.castle = false;
         return extraMove;
     }
-    public String upgradablePawn(Square s){
 
-        
-        if ((s.getCoord()[1]==0 && s.getCurrentPiece().getColor()==Color.black) || s.getCoord()[1]==7 && s.getCurrentPiece().getColor()==Color.white) {
+    public String upgradablePawn(Square s) {
+
+
+        if ((s.getCoord()[1] == 0 && s.getCurrentPiece().getColor() == Color.black) || s.getCoord()[1] == 7 && s.getCurrentPiece().getColor() == Color.white) {
             ChessPiece piece;
             do {
-                 piece = this.upgradePawn(s.getCurrentPiece());
-            } while (piece==null);
-            this.removePiece(s.getCoord()[1]*8 + s.getCoord()[0]);
-            this.addPiece(piece, s.getCoord()[1]*8 + s.getCoord()[0]);
-            
+                piece = this.upgradePawn(s.getCurrentPiece());
+            } while (piece == null);
+            this.removePiece(s.getCoord()[1] * 8 + s.getCoord()[0]);
+            this.addPiece(piece, s.getCoord()[1] * 8 + s.getCoord()[0]);
+
             return piece.getName();
         }
         return "";
     }
+
     public void mouseClicked(MouseEvent e)
 
     {
-        if (!PieceSelected) {
-            Square s = this.findSquareatLocation(e);
-            if (s.getCurrentPiece() == null) {
-                this.selectPiece(s);
-                return;
-            } else if ((s.getCurrentPiece().getPlayer() == currentPlayer)) {
-                this.selectPiece(s);
-
-            } else {
-                this.error_Message("Please select the other color");
-            }
+        String networkString = "";
+        if (this.gameOver == true) {
+            networkString = "TERMINATE";
         } else {
-            Square s = this.findSquareatLocation(e);
-            int[] newPosition = s.getCoord();
-            if (newPosition==highlightedPosition)
-            {
-                this.deselectCurrentSquare();
-                this.error_Message("Please select a valid square");
-                return;
-            }
-            if (highlightedPiece.validMove(highlightedPosition, newPosition, deepCopy(squares), true)) {
+            if (!PieceSelected) {
+                Square s = this.findSquareatLocation(e);
+                if (s.getCurrentPiece() == null) {
+                    this.selectPiece(s);
+                    return;
+                } else if ((s.getCurrentPiece().getPlayer() == currentPlayer)) {
+                    this.selectPiece(s);
 
-                 String pieceName = highlightedPiece.getName();
-
-                String castleMove = this.makeMove(newPosition, pieceName, highlightedPiece);
-                highlightedPiece.setMoved(true);
-
-                if (highlightedPiece.getName().equals( "Pawn")) {
-                    pieceName = this.upgradablePawn(s);
+                } else {
+                    this.error_Message("Please select the other color");
                 }
-                if (pieceName.equals(""))
-                {
-                    pieceName = highlightedPiece.getName();
-                }
-                String oldPosition = Integer.toString(newPosition[1] *8 + newPosition[0]);
-                String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
-                String theirMove = networkChess.sendAndWait(castleMove + newPos + ";" + oldPosition + ";" + pieceName + "!");
-
-                this.backGroundChange(theirMove, pieceName);
-           
-
             } else {
-                error_Message("Not valid move");
-                this.deselectCurrentSquare();
+                Square s = this.findSquareatLocation(e);
+                int[] newPosition = s.getCoord();
+                if (newPosition == highlightedPosition) {
+                    this.deselectCurrentSquare();
+                    this.error_Message("Please select a valid square");
+                    return;
+                }
+                if (highlightedPiece.validMove(highlightedPosition, newPosition, deepCopy(squares), true)) {
+
+                    String pieceName = highlightedPiece.getName();
+
+                    String castleMove = this.makeMove(newPosition, pieceName, highlightedPiece);
+                    highlightedPiece.setMoved(true);
+
+                    if (highlightedPiece.getName().equals("Pawn")) {
+                        pieceName = this.upgradablePawn(s);
+                    }
+                    if (pieceName.equals("")) {
+                        pieceName = highlightedPiece.getName();
+                    }
+                    String oldPosition = Integer.toString(newPosition[1] * 8 + newPosition[0]);
+                    String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
+
+
+                    // Logic for Checkmate goes here
+
+                    // if (checkmate)
+                    {
+                        //theirMove = networkChess.sendAndWait("Winner")
+                       /* if (theirMove.equals("Winner")) {
+                            String message = "Congrats on Winning";
+
+                            this.Message(message);
+                            this.gameOver = true;
+                            try {
+                                Thread.sleep(50000);
+                            } catch (InterruptedException e1) {
+                                e1.printStackTrace();
+                            }
+                        } else if (theirMove.equals("Lost")) {
+                            String message = "Sorry you lost";
+                            this.gameOver = true;
+                            this.Message(message);
+                            try {
+                                Thread.sleep(50000);
+                            } catch (InterruptedException e1) {
+                                e1.printStackTrace();
+                            }
+                            this.gameOver=true;
+                            */
+                    }
+                    //else
+                    //{
+                    networkString = castleMove + newPos + ";" + oldPosition + ";" + pieceName + "!";
+
+
+                    String theirMove = networkChess.sendAndWait(networkString);
+
+                    this.backGroundChange(theirMove, pieceName);
+                    //}
+                } else {
+                    error_Message("Not valid move");
+                    this.deselectCurrentSquare();
+                }
             }
-          
         }
     }
     public void backGroundChange(String theirMove, String pieceName)
@@ -510,6 +543,12 @@ public class ChessBoard extends JFrame implements MouseListener{
             System.exit(2);
         }
         return null;
+    }
+    public void Message(String message)
+    {
+        JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
+                JOptionPane.ERROR_MESSAGE);
+        
     }
     public void Error_Message(String message) {
         JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
