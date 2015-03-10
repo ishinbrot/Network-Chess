@@ -1,6 +1,5 @@
 package Implementation;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -11,6 +10,8 @@ public class Knight extends ChessPiece {
     public Knight(Color color) {
         
         setColor(color);
+        setPlayer(color);
+        setName("Knight");
         if (getColor() == Color.white) {
         
             setImage("../Chess_Pictures/white/knight.png");
@@ -20,8 +21,19 @@ public class Knight extends ChessPiece {
             setImage("../Chess_Pictures/black/knight.png");
         }
         setValue(3);
+        setMoveLimit(3);
     }
-    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board){
-        return L_shape(initialPosition, finalPosition, board);
+    public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board, boolean lookForCheck){
+
+        if (L_shape(initialPosition, finalPosition, board)) {
+            if (lookForCheck){
+                if (check(initialPosition, finalPosition, board)){
+                    return false;
+                }
+
+            }
+            return true;
+        }
+        return false;
     }
 }

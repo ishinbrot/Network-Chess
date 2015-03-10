@@ -1,8 +1,10 @@
+package Implementation;
+
 import java.io.*;
 import java.util.*;
 import java.net.*;
 
-public class NetworkChess extends Thread
+public class  NetworkChess extends Thread
 {
     private final static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
     int port=10000;                             // port to send/receive datagrams on
@@ -12,11 +14,11 @@ public class NetworkChess extends Thread
     byte[] buffer = new byte[65507];                       // array to put datagrams in
     DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
     // constructor, parameter is command line parameters
-    public NetworkChess(String args[]) throws Exception
+    public NetworkChess(String IPman) throws Exception
     {
         // get remote IP address and port from command line parameters
-        if (args.length > 0)    remoteIPaddress =  (args[0]);           // get IPaddress
-        if (args.length > 1)    port = Integer.parseInt(args[1]);        // get port number
+        remoteIPaddress =  IPman;           // get IPaddress
+        //if (args.length > 1)    port = Integer.parseInt(args[1]);        // get port number
         //System.out.println("chat program: IP address " + InetAddress.getLocalHost().toString() + " port " + port );
         ds = new DatagramSocket(port);
         theSocket = new DatagramSocket();
@@ -45,16 +47,18 @@ public class NetworkChess extends Thread
         System.exit(1);                                                       // exit on error
     }
 
-
+    //function sends and recives moves from game 
     public String sendAndWait(String s)
     {
-        String thing="";
+        String thing="";//string to hold return value
         // loop waiting for keyboard input, send datagram to remote IP
 
+        
+    //sending functionality 
         try
         {
-            // String s = in.readLine();                       // read a String
-            // System.out.println("Sending to " + remoteIPaddress + " socket " + port + " data: " + s);
+           //  String s = in.readLine();                       // read a String
+             System.out.println("Sending to " + remoteIPaddress + " socket " + port + " data: " + s);
             byte[] data = s.getBytes();                                     // convert to byte array
             // DatagramSocket theSocket = new DatagramSocket();                // create datagram socket and the datagram
             DatagramPacket   theOutput = new DatagramPacket(data, data.length, InetAddress.getByName(remoteIPaddress), port);
@@ -62,6 +66,7 @@ public class NetworkChess extends Thread
         }
         catch (Exception e) {System.out.println("Eroor sending datagram " + e);}
 
+    //reciving functionality 
         try
         {
             // open DatagramSocket to receive
@@ -78,20 +83,34 @@ public class NetworkChess extends Thread
         catch (SocketException se) {System.err.println("chat error " + se); }
         catch (IOException se) {System.err.println("chat error " + se);}
         //System.exit(1);
+        if(thing == "TERMINATE")
+        {
 
+            try
+            {
+                s = thing;                       // read a String
+                System.out.println("Sending to " + remoteIPaddress + " socket " + port + " data: " + s);
+                byte[] data = s.getBytes();                                     // convert to byte array
+                // DatagramSocket theSocket = new DatagramSocket();                // create datagram socket and the datagram
+                DatagramPacket   theOutput = new DatagramPacket(data, data.length, InetAddress.getByName(remoteIPaddress), port);
+                theSocket.send(theOutput);                                      // and send the datagram
+            }
+            catch (Exception e) {System.out.println("Eroor sending datagram " + e);}
+            System.exit(1);
+        }
         return thing;
     }
-
-
-
-
-    public static void main(String args[]) throws Exception
+    
+    
+    //function for when game starts to put black into recive mode 
+    String blackfirstSend()
     {
-        NetworkChess c=new NetworkChess(args);
-        String test = c.sendAndWait("penis");
-        System.out.println(test);
-        test = c.sendAndWait("peen");
-        System.out.println(test);
+        return sendAndWait("black");//sends black and waits for whites first move 
+        
     }
+    
+    
+    
+    
 
 }

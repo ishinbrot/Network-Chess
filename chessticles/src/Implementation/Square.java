@@ -2,15 +2,13 @@ package Implementation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
  * Created by Buzz on 2/11/2015.
  */
 public class Square extends JPanel{
-    ChessPiece currentPiece = null;
-    Color defaultColor;
+    private ChessPiece currentPiece = null;
+    private Color defaultColor;
 
     int[] coord = new int[2];
     public Square(LayoutManager layout) {
@@ -33,7 +31,7 @@ public class Square extends JPanel{
         this.currentPiece = currentPiece;
     }
 
-    public void RemovePiece(ChessPiece currentPiece) {this.currentPiece = null;}
+    public void removePiece(ChessPiece currentPiece) {this.currentPiece = null;}
     public int[] getCoord() {
         return coord;
     }
@@ -41,4 +39,6 @@ public class Square extends JPanel{
     public void setCoord(int[] coord) {
         this.coord = coord;
     }
+    
+
 }
