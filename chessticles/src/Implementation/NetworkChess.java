@@ -57,8 +57,8 @@ public class  NetworkChess extends Thread
     //sending functionality 
         try
         {
-            // String s = in.readLine();                       // read a String
-            // System.out.println("Sending to " + remoteIPaddress + " socket " + port + " data: " + s);
+           //  String s = in.readLine();                       // read a String
+             System.out.println("Sending to " + remoteIPaddress + " socket " + port + " data: " + s);
             byte[] data = s.getBytes();                                     // convert to byte array
             // DatagramSocket theSocket = new DatagramSocket();                // create datagram socket and the datagram
             DatagramPacket   theOutput = new DatagramPacket(data, data.length, InetAddress.getByName(remoteIPaddress), port);
