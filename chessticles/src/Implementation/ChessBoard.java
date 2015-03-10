@@ -429,9 +429,7 @@ public class ChessBoard extends JFrame implements MouseListener {
 
     {
         String networkString = "";
-        if (this.gameOver == true) {
-            networkString = "TERMINATE";
-        } else {
+
             if (!PieceSelected) {
                 Square s = this.findSquareatLocation(e);
                 if (s.getCurrentPiece() == null) {
@@ -467,56 +465,92 @@ public class ChessBoard extends JFrame implements MouseListener {
                     String oldPosition = Integer.toString(newPosition[1] * 8 + newPosition[0]);
                     String newPos = Integer.toString(highlightedPosition[1] * 8 + highlightedPosition[0]);
 
-
-                    // Logic for Checkmate goes here
-
-                    // if (checkmate)
-                    {
-                        //theirMove = networkChess.sendAndWait("Winner")
-                       /* if (theirMove.equals("Winner")) {
-                            String message = "Congrats on Winning";
-
-                            this.Message(message);
-                            this.gameOver = true;
-                            try {
-                                Thread.sleep(50000);
-                            } catch (InterruptedException e1) {
-                                e1.printStackTrace();
-                            }
-                        } else if (theirMove.equals("Lost")) {
-                            String message = "Sorry you lost";
-                            this.gameOver = true;
-                            this.Message(message);
-                            try {
-                                Thread.sleep(50000);
-                            } catch (InterruptedException e1) {
-                                e1.printStackTrace();
-                            }
-                            this.gameOver=true;
-                            */
-                    }
-                    //else
-                    //{
-                    networkString = castleMove +"!" + newPos + ";" + oldPosition + ";" + pieceName + "!";
+                    networkString = castleMove + "!" + newPos + ";" + oldPosition + ";" + pieceName + "!";
 
                     repaint();
                     revalidate();
                     String theirMove = networkChess.sendAndWait(networkString);
 
-                    this.backGroundChange(theirMove, pieceName);
-                    this.information_Message("Is is now your move");
-                    //}
-                } else {
-                    if (highlightedPiece.isCheck())
-                    {
-                        this.error_Message("Can't move piece since you are in check");
+                    if (theirMove.equalsIgnoreCase("WINNER")) {
+                        try {
+                            this.winner();
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
                     }
-                    else
-                    error_Message("Not valid move");
+                    else if (theirMove.equalsIgnoreCase("STALEMATE")) {
+                        try {
+                            this.staleMate();
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                    this.backGroundChange(theirMove, pieceName);
+
+
+                    // Am I know in check mate?
+                    if (!this.Moves(highlightedPiece.getColor())) {
+                        if (this.check(highlightedPiece.getColor())) {
+                            networkChess.sendAndWait("WINNER");
+                            try {
+                                this.loser();
+                            } catch (InterruptedException e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+
+                        networkChess.sendAndWait("STALEMATE");
+
+                        try {
+                            this.staleMate();
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+
+                        System.exit(2);
+
+                    }
+                    this.information_Message("Is is now your move");
+                } else {
+                    if (highlightedPiece.isCheck()) {
+                        this.error_Message("Can't move piece since you are in check");
+                    } else
+                        error_Message("Not valid move");
                     this.deselectCurrentSquare();
                 }
+
             }
-        }
+    }
+    public void winner() throws InterruptedException {
+        this.information_Message("Congrats you Won");
+        
+        Thread.sleep(5000);
+        
+        System.exit(2);
+        
+    }
+    public void loser() throws InterruptedException {
+        this.information_Message("Sorry you lost");
+        
+        Thread.sleep(5000);
+        
+        System.exit(2);
+        
+    }
+    
+    public void staleMate() throws InterruptedException {
+
+        this.information_Message("This is a stalemate. Improve and try again");
+
+        Thread.sleep(5000);
+
+        System.exit(2);
     }
     public void backGroundChange(String theirMove, String pieceName)
     {
