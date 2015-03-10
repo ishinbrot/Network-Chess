@@ -286,6 +286,57 @@ public class ChessBoard extends JFrame implements MouseListener {
         }
         return copy;
     }
+    public boolean check(Color c){
+        int[] myKing=new int[2];
+        for (int i=0;i<this.squares.length;i++) {
+            if (this.squares[i].getCurrentPiece() != null) {
+                if (this.squares[i].getCurrentPiece().getName().equalsIgnoreCase("king")) {
+                    if (this.squares[i].getCurrentPiece().getColor() == c) {
+                        myKing = this.squares[i].getCoord();
+                        break;
+                    }
+                }
+            }
+        }
+
+        for (int i=0;i<this.squares.length;i++){
+            if (this.squares[i].getCurrentPiece()!=null){
+                ChessPiece testPiece=this.squares[i].getCurrentPiece();
+                if (testPiece.getColor()!=c){
+                    if(testPiece.validMove(this.squares[i].getCoord(),myKing, deepCopy(this.squares), false)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean Moves(Color c){
+        for (int i=0;i<this.squares.length;i++){
+            if (this.squares[i].getCurrentPiece()!=null) {
+                ChessPiece testPiece = this.squares[i].getCurrentPiece();
+                if (testPiece.getColor() == c) {
+                    int[] test = new int[2];
+                    int[] start={testPiece.getPosition()%8, testPiece.getPosition()/8};
+                    for (int j = 0; j < 64; j++) {
+                        int row, col;
+                        row = j / 8;
+                        col = j % 8;
+                        test[0] = col;
+                        test[1] = row;
+
+                        if (testPiece.validMove(start, test,deepCopy(this.squares), true)) {
+                            return true;
+
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 
     public void connection(String IP_Address, Boolean black) {
         try {
