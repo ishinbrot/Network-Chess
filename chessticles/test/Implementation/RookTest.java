@@ -49,8 +49,8 @@ public class RookTest extends TestCase {
 
         for(int i=0; i<8; i++) {
             if(i<4) {
-                assertTrue(r.validMove(initPos, fPositions.get(i), cb.squares));
-            } else assertFalse(r.validMove(initPos, fPositions.get(i), cb.squares));
+                assertTrue(r.validMove(initPos, fPositions.get(i), cb.deepCopy(cb.squares),true));
+            } else assertFalse(r.validMove(initPos, fPositions.get(i), cb.deepCopy(cb.squares),true));
         }
 
     }

@@ -48,8 +48,8 @@ public class KingTest extends TestCase {
 
         for(int i=0; i<8; i++) {
             if (i < 5) {
-                assertTrue(k.validMove(initPos, fPositions.get(i), cb.squares));
-            } else assertFalse(k.validMove(initPos, fPositions.get(i), cb.squares));
+                assertTrue(k.validMove(initPos, fPositions.get(i), cb.deepCopy(cb.squares), true));
+            } else assertFalse(k.validMove(initPos, fPositions.get(i), cb.deepCopy(cb.squares), true));
         }
 
     }

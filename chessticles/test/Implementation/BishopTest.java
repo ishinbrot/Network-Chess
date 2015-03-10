@@ -46,9 +46,9 @@ public class BishopTest extends TestCase {
 
         for(int i=0; i<6; i++) {
             if(i<2) {
-                assertTrue(b.validMove(initPos, fPositions.get(i), cb.squares));
+                assertTrue(b.validMove(initPos, fPositions.get(i), cb.deepCopy(cb.squares),true));
             }
-            else assertFalse(b.validMove(initPos, fPositions.get(i), cb.squares));
+            else assertFalse(b.validMove(initPos, fPositions.get(i), cb.deepCopy(cb.squares),true));
         }
 
     }
