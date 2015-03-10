@@ -325,7 +325,7 @@ public class ChessBoard extends JFrame implements MouseListener {
     }
 
     public String makeMove(int[] newPosition, String pieceName, ChessPiece piece) {
-        this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
+        this.removePiece(newPosition[1] * 8 + newPosition[0]);
 
         String extraMove = "";
         if (pieceName.equalsIgnoreCase("King") && (Math.abs(piece.getPosition() - (newPosition[1] * 8 + newPosition[0])) == 2)) {
