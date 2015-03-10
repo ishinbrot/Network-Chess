@@ -85,6 +85,17 @@ public class  NetworkChess extends Thread
         //System.exit(1);
         if(thing == "TERMINATE")
         {
+
+            try
+            {
+                s = thing;                       // read a String
+                System.out.println("Sending to " + remoteIPaddress + " socket " + port + " data: " + s);
+                byte[] data = s.getBytes();                                     // convert to byte array
+                // DatagramSocket theSocket = new DatagramSocket();                // create datagram socket and the datagram
+                DatagramPacket   theOutput = new DatagramPacket(data, data.length, InetAddress.getByName(remoteIPaddress), port);
+                theSocket.send(theOutput);                                      // and send the datagram
+            }
+            catch (Exception e) {System.out.println("Eroor sending datagram " + e);}
             System.exit(1);
         }
         return thing;
