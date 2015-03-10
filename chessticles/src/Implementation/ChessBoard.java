@@ -449,6 +449,7 @@ public class ChessBoard extends JFrame implements MouseListener {
                     String theirMove = networkChess.sendAndWait(networkString);
 
                     this.backGroundChange(theirMove, pieceName);
+                    this.information_Message("Is is now your move");
                     //}
                 } else {
                     error_Message("Not valid move");
@@ -471,7 +472,7 @@ public class ChessBoard extends JFrame implements MouseListener {
                 this.removePiece(Integer.parseInt(oldPosition));
             }
             else {
-                pieceName = theirMove.substring(moves[i].lastIndexOf(';') + 1, moves[i].length());
+                pieceName = moves[i].substring(moves[i].lastIndexOf(';') + 1, moves[i].length());
                 ChessPiece piece = this.removePiece(Integer.parseInt(oldPosition));
                 if (pieceName.equals("Queen")) {
                     piece = new Queen(piece.getColor());
