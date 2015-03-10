@@ -470,7 +470,7 @@ public class ChessBoard extends JFrame implements MouseListener {
                     repaint();
                     revalidate();
                     String theirMove = networkChess.sendAndWait(networkString);
-
+                    this.backGroundChange(theirMove, pieceName);
                     if (theirMove.equalsIgnoreCase("WINNER")) {
                         try {
                             this.winner();
@@ -485,7 +485,7 @@ public class ChessBoard extends JFrame implements MouseListener {
                             e1.printStackTrace();
                         }
                     }
-                    this.backGroundChange(theirMove, pieceName);
+
 
 
                     // Am I know in check mate?

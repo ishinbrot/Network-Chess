@@ -100,7 +100,7 @@ public class  NetworkChess extends Thread
             //DatagramPacket dp = new DatagramPacket(buffer, buffer.length); // DatagramPacket to hold the datagram
             ds.receive(dp);                                     // wait for next datagram
             thing = new String(dp.getData(),0,dp.getLength());        // get contenets as a String
-            //System.out.println("UDP datagram length " + s.length()+ "  from IP " + dp.getAddress() + " received: " + s );
+            System.out.println("UDP datagram length " + s.length()+ "  from IP " + dp.getAddress() + " received: " + s );
             dp.setLength(buffer.length);
         }
         catch (SocketException se) {System.err.println("chat error " + se); }
