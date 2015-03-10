@@ -44,9 +44,9 @@ public class PawnTest extends TestCase {
 
         for(int i=0; i<5; i++) {
             if(i<2) {
-                assertTrue(p.validMove(initPos, fPositions.get(i), cb.squares));
+                assertTrue(p.validMove(initPos, fPositions.get(i), cb.deepCopy(cb.squares),true));
             }
-            else assertFalse(p.validMove(initPos, fPositions.get(i), cb.squares));
+            else assertFalse(p.validMove(initPos, fPositions.get(i), cb.deepCopy(cb.squares),true));
         }
     }
 }
