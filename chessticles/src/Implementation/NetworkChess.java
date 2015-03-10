@@ -35,6 +35,7 @@ public class  NetworkChess extends Thread
             // loop forever reading datagrams from the DatagramSocket
             while (true)
             {
+
                 byte[] buffer = new byte[65507];                       // array to put datagrams in
                 DatagramPacket dp = new DatagramPacket(buffer, buffer.length); // DatagramPacket to hold the datagram
                 ds.receive(dp);                                     // wait for next datagram
@@ -80,7 +81,7 @@ public class  NetworkChess extends Thread
     //sending functionality 
         try
         {
-           //  String s = in.readLine();                       // read a String
+           // String s = in.readLine();                       // read a String
              System.out.println("Sending to " + remoteIPaddress + " socket " + port + " data: " + s);
             byte[] data = s.getBytes();                                     // convert to byte array
             // DatagramSocket theSocket = new DatagramSocket();                // create datagram socket and the datagram
@@ -98,8 +99,8 @@ public class  NetworkChess extends Thread
             //DatagramSocket ds = new DatagramSocket(port);
             // loop forever reading datagrams from the DatagramSocket
 
-            //byte[] buffer = new byte[65507];                       // array to put datagrams in
-            //DatagramPacket dp = new DatagramPacket(buffer, buffer.length); // DatagramPacket to hold the datagram
+            byte[] buffer = new byte[65507];                       // array to put datagrams in
+            DatagramPacket dp = new DatagramPacket(buffer, buffer.length); // DatagramPacket to hold the datagram
             ds.receive(dp);                                     // wait for next datagram
             thing = new String(dp.getData(),0,dp.getLength());        // get contenets as a String
             System.out.println("UDP datagram length " + s.length()+ "  from IP " + dp.getAddress() + " received: " + s );

@@ -342,7 +342,7 @@ public class ChessBoard extends JFrame implements MouseListener {
         try {
             networkChess = new NetworkChess(IP_Address);
             if (black) {
-                //networkChess.blackfirstSend();
+                networkChess.blackfirstSend();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -403,7 +403,7 @@ public class ChessBoard extends JFrame implements MouseListener {
         this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
 
         this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
-        
+
         this.deselectCurrentSquare();
         this.castle = false;
         return extraMove;
