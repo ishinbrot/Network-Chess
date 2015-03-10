@@ -132,6 +132,10 @@ public class ChessBoard extends JFrame implements MouseListener {
         addPiece(new Pawn(color), 13);
         addPiece(new Pawn(color), 14);
         addPiece(new Pawn(color), 15);
+        if (currentPlayer==1)
+        {
+            this.information_Message("Is is now your move");
+        }
 
     }
 
