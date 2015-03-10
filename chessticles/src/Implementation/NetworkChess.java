@@ -83,7 +83,10 @@ public class  NetworkChess extends Thread
         catch (SocketException se) {System.err.println("chat error " + se); }
         catch (IOException se) {System.err.println("chat error " + se);}
         //System.exit(1);
-
+        if(thing == "TERMINATE")
+        {
+            System.exit(1);
+        }
         return thing;
     }
     
