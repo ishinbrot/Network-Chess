@@ -456,6 +456,11 @@ public class ChessBoard extends JFrame implements MouseListener {
                     this.information_Message("Is is now your move");
                     //}
                 } else {
+                    if (highlightedPiece.isCheck())
+                    {
+                        this.error_Message("Can't move piece since you are in check");
+                    }
+                    else
                     error_Message("Not valid move");
                     this.deselectCurrentSquare();
                 }

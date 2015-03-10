@@ -181,22 +181,23 @@ This registered the action performed in the menu
         board.addPiece(new Pawn(Color.black), 30);
 */
         board.addPiece(new King(Color.white), startPos);
+        board.addPiece(new Queen(Color.black), startPos-16);
         board.getSquare(startPos).setBackground(Color.orange);
 
         int[] start = new int[]{startPos % 8, startPos / 8};
         int[] test = new int[2];
-        for (int i = 0; i < 64; i++) {
+      /*  for (int i = 0; i < 64; i++) {
             int row, col;
             row = i / 8;
             col = i % 8;
             test[0] = col;
             test[1] = row;
             board.deepCopy(board.squares);
-            if (board.squares[startPos].getCurrentPiece().validMove(start, test,   board.deepCopy(board.squares), true)) {
-                board.getSquare(i).setBackground(Color.green);
+          //  if (board.squares[startPos].getCurrentPiece().validMove(start, test,   board.deepCopy(board.squares), true)) {
+           //     board.getSquare(i).setBackground(Color.green);
 
-            }
-        }
+         //   }
+        }*/
     }
 
 

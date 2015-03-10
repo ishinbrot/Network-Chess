@@ -16,12 +16,17 @@ public class ChessPiece {//extends ChessRules{
     private int player;
     private String image;
     private int value;
+    private boolean inCheck;
     private boolean moved =false;
     private int moveLimit;
 
     public String getName() {
         return Name;
     }
+    public void inCheck() { this.inCheck=true;}
+    public boolean isCheck() {return this.inCheck;}
+    
+    public void outCheck() {this.inCheck=false;}
 
     public void setName(String name) {
         Name = name;

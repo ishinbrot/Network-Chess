@@ -1,5 +1,6 @@
 package Implementation;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -65,10 +66,12 @@ public class King extends ChessPiece {
                     diagonal(initialPosition, finalPosition, board)) {
                 if (lookForCheck) {
                     if (check(initialPosition, finalPosition, board)) {
+                        this.inCheck();
                         return false;
                     }
 
                 }
+                this.outCheck();
                 return true;
             }
             return false;
