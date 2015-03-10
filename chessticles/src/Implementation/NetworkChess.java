@@ -86,8 +86,10 @@ public class  NetworkChess extends Thread
             // DatagramSocket theSocket = new DatagramSocket();                // create datagram socket and the datagram
             DatagramPacket   theOutput = new DatagramPacket(data, data.length, InetAddress.getByName(remoteIPaddress), port);
             theSocket.send(theOutput);                                      // and send the datagram
+            System.out.println("Send Successful");
         }
-        catch (Exception e) {System.out.println("Eroor sending datagram " + e);}
+        catch (Exception e)  {
+        System.out.println("Eroor sending datagram " + e);}
 
     //reciving functionality 
         try

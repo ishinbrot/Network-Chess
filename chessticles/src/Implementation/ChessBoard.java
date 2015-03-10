@@ -403,7 +403,7 @@ public class ChessBoard extends JFrame implements MouseListener {
         this.addPiece(highlightedPiece, newPosition[1] * 8 + newPosition[0]);
 
         this.removePiece(highlightedPosition[1] * 8 + highlightedPosition[0]);
-
+        
         this.deselectCurrentSquare();
         this.castle = false;
         return extraMove;
