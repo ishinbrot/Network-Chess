@@ -491,7 +491,7 @@ public class ChessBoard extends JFrame implements MouseListener {
                     // Am I know in check mate?
                     if (!this.Moves(highlightedPiece.getColor())) {
                         if (this.check(highlightedPiece.getColor())) {
-                            networkChess.Send("WINNER");
+                            networkChess.send("WINNER");
                             try {
                                 this.loser();
                             } catch (InterruptedException e1) {
@@ -499,7 +499,7 @@ public class ChessBoard extends JFrame implements MouseListener {
                             }
                         }
 
-                        networkChess.sendAndWait("STALEMATE");
+                        networkChess.send("STALEMATE");
 
                         try {
                             this.staleMate();

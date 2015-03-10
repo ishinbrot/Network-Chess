@@ -47,7 +47,7 @@ public class  NetworkChess extends Thread
         System.exit(1);                                                       // exit on error
     }
 
-    public String Send(String s)
+    public String send(String s)
     {
 
         String thing="";
