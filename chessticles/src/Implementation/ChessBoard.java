@@ -473,15 +473,18 @@ public class ChessBoard extends JFrame implements MouseListener {
                 if (pieceName.equals("Queen")) {
                     piece = new Queen(piece.getColor());
                 }
-                if (pieceName.equals("Rook")) {
+               else if (pieceName.equals("Rook")) {
                     piece = new Rook(piece.getColor());
                 }
-                if (pieceName.equals("Knight")) {
+                else if (pieceName.equals("Knight")) {
                     piece = new Knight(piece.getColor());
                 }
-                if (pieceName.equals("Bishop")) {
+                else if (pieceName.equals("Bishop")) {
                     piece = new Bishop(piece.getColor());
-                } else if (pieceName.equals("")) {
+                } 
+                else if (pieceName.equals("King")) {
+                    piece = new King(piece.getColor());
+                }else if (pieceName.equals("")) {
                     // do nothing
                 }
 
