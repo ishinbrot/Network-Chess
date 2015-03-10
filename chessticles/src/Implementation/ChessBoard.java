@@ -334,13 +334,13 @@ public class ChessBoard extends JFrame implements MouseListener {
 
                 this.addPiece(s.getCurrentPiece(), newPosition[1] * 8 + newPosition[0] - 1);
                 this.removePiece(newPosition[1] * 8 + 7);
-                extraMove = Integer.toString(newPosition[1] * 8 + 7) + ";" + Integer.toString(newPosition[1] * 8 + newPosition[0] - 1) + ";" + "Rook!";
+                extraMove = Integer.toString(newPosition[1] * 8 + 7) + ";" + Integer.toString(newPosition[1] * 8 + newPosition[0] - 1) + ";" + "Rook";
             } else if ((newPosition[1] * 8 + newPosition[0]) < piece.getPosition()) {
                 Square s = squares[newPosition[1] * 8];
 
                 this.addPiece(s.getCurrentPiece(), newPosition[1] * 8 + newPosition[0] + 1);
                 this.removePiece(newPosition[1] * 8);
-                extraMove = Integer.toString(newPosition[1] * 8) + ";" + Integer.toString(newPosition[1] * 8 + newPosition[0] + 1) + ";" + "Rook!";
+                extraMove = Integer.toString(newPosition[1] * 8) + ";" + Integer.toString(newPosition[1] * 8 + newPosition[0] + 1) + ";" + "Rook";
             }
             this.castle = true;
         }
@@ -442,7 +442,7 @@ public class ChessBoard extends JFrame implements MouseListener {
                     }
                     //else
                     //{
-                    networkString = castleMove + newPos + ";" + oldPosition + ";" + pieceName + "!";
+                    networkString = castleMove +"!" + newPos + ";" + oldPosition + ";" + pieceName + "!";
 
                     repaint();
                     revalidate();
@@ -471,7 +471,7 @@ public class ChessBoard extends JFrame implements MouseListener {
                 this.removePiece(Integer.parseInt(oldPosition));
             }
             else {
-                pieceName = theirMove.substring(moves[i].lastIndexOf(';') + 1, moves[i].length()-1);
+                pieceName = theirMove.substring(moves[i].lastIndexOf(';') + 1, moves[i].length());
                 ChessPiece piece = this.removePiece(Integer.parseInt(oldPosition));
                 if (pieceName.equals("Queen")) {
                     piece = new Queen(piece.getColor());
@@ -487,6 +487,9 @@ public class ChessBoard extends JFrame implements MouseListener {
                 } 
                 else if (pieceName.equals("King")) {
                     piece = new King(piece.getColor());
+                }
+                else if (pieceName.equals("Pawn")) {
+                    piece = new Pawn(piece.getColor());
                 }else if (pieceName.equals("")) {
                     // do nothing
                 }
