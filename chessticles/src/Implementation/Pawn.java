@@ -22,6 +22,15 @@ public class Pawn extends ChessPiece {
         setValue(1);
         setMoveLimit(2);
     }
+
+    /**
+     * 
+     * @param initialPosition the initial position of the square array
+     * @param finalPosition the final position in the square array
+     * @param board the chessboard
+     * @param lookForCheck if the user would like to look for check
+     * @return
+     */
     public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board, boolean lookForCheck){
         if (getColor()==Color.black){
             if (initialPosition[1]-finalPosition[1]<0){return false;}

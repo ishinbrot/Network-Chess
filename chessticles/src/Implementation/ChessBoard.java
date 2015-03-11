@@ -25,6 +25,9 @@ public class ChessBoard extends JFrame implements MouseListener {
     public boolean castle = false;
     public boolean gameOver = false;
 
+    /**
+     * Constructor for ChessBoard*
+     */
     public ChessBoard() {
         //Initialize Board and it's components
         setTitle("Chess Tickles");
@@ -85,13 +88,19 @@ public class ChessBoard extends JFrame implements MouseListener {
         }
 
     }
-
+    /**
+     * Retrieves the square of the current array of squares
+     */
     public Square getSquare(int i) {
         return squares[i];
 
     }
 
-
+    /**
+     * Adds a chess piece to a current square
+     * @param chessPiece is the chessPiece that will be added to the square
+     *@param location is the location of the square, 1-64*
+     */
     public void addPiece(ChessPiece chessPiece, int location) {
         squares[location].setCurrentPiece(chessPiece);
         chessPiece.setPosition(location);
@@ -102,7 +111,11 @@ public class ChessBoard extends JFrame implements MouseListener {
         chessBoard.revalidate();
     }
 
-
+    /**
+     * 
+     * @param location is the location of the square 1-64
+     * @return
+     */
     public ChessPiece removePiece(int location) {
         ChessPiece piece = squares[location].getCurrentPiece();
         squares[location].setCurrentPiece(null);
@@ -113,6 +126,9 @@ public class ChessBoard extends JFrame implements MouseListener {
         return piece;
     }
 
+    /**
+     * Starts the game for player 1*
+     */
     public void startPlayer1() {
         Color color = Color.white;
 
@@ -139,6 +155,9 @@ public class ChessBoard extends JFrame implements MouseListener {
 
     }
 
+    /**
+     * starts the game for player 2
+     */
     public void startPlayer2() {
         // place black pieces
         Color color = Color.black;
@@ -276,7 +295,12 @@ public class ChessBoard extends JFrame implements MouseListener {
         return false;
     }
 
-
+    /**
+     * 
+     * @param board the array of squares contained, basically the chessboard
+     *              This method performs a deep copy of the chessBoard to be used for chek and checkMate*
+     * @return
+     */
     public Square[] deepCopy(Square[] board) {
         Square[] copy = new Square[board.length];
         for (int i = 0; i < copy.length; i++) {
@@ -286,6 +310,12 @@ public class ChessBoard extends JFrame implements MouseListener {
         }
         return copy;
     }
+
+    /**
+     * 
+     * @param c this is the color of the chess piece
+     * @return true or false, if the king is currently in check
+     */
     public boolean check(Color c){
         int[] myKing=new int[2];
         for (int i=0;i<this.squares.length;i++) {
@@ -338,11 +368,16 @@ public class ChessBoard extends JFrame implements MouseListener {
         return false;
     }
 
+    /**
+     * 
+     * @param IP_Address the IP address for the other computer
+     * @param black should wait if the current player is black or white
+     */
     public void connection(String IP_Address, Boolean black) {
         try {
             networkChess = new NetworkChess(IP_Address);
             if (black) {
-                //networkChess.blackfirstSend();
+                networkChess.blackfirstSend();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -351,6 +386,9 @@ public class ChessBoard extends JFrame implements MouseListener {
 
     }
 
+    /**
+     * this deselects a current square on the board
+     */
     public void deselectCurrentSquare() {
         PieceSelected = false;
         Square originalSquare = squares[highlightedPosition[1] * 8 + highlightedPosition[0]];
@@ -358,12 +396,21 @@ public class ChessBoard extends JFrame implements MouseListener {
 
     }
 
+    /**
+     * 
+     * @param e the mouse event registered during a click
+     * @return the current square clicked on the board
+     */
     public Square findSquareatLocation(MouseEvent e) {
         Component c = chessBoard.findComponentAt(e.getX(), e.getY());
         return (Square) c.getParent();
 
     }
 
+    /**
+     * this highlights the square on the board
+     * @param s A square from the board
+     */
     public void selectPiece(Square s) {
         highlightedPiece = s.getCurrentPiece();
         highlightedPosition = s.getCoord();
@@ -372,6 +419,9 @@ public class ChessBoard extends JFrame implements MouseListener {
 
     }
 
+    /**
+     * This method ensures that white will go first on the board
+     */
     public void blackFirst() {
 
         String theirMove = networkChess.sendAndWait("black");
@@ -379,6 +429,13 @@ public class ChessBoard extends JFrame implements MouseListener {
         this.backGroundChange(theirMove, "");
     }
 
+    /**
+     * 
+     * @param newPosition the new position made from the highlighted piece
+     * @param pieceName the name of the piece that is to be moved
+     * @param piece the actual piece that will be moved
+     * @return an extra move , if castling as been made
+     */
     public String makeMove(int[] newPosition, String pieceName, ChessPiece piece) {
         this.removePiece(newPosition[1] * 8 + newPosition[0]);
 
@@ -409,6 +466,11 @@ public class ChessBoard extends JFrame implements MouseListener {
         return extraMove;
     }
 
+    /**
+     * 
+     * @param s the current square
+     * @return the new upgraded chess piece
+     */
     public String upgradablePawn(Square s) {
 
 
@@ -425,6 +487,12 @@ public class ChessBoard extends JFrame implements MouseListener {
         return "";
     }
 
+    /**
+     * This function is where the chess moves and network is processed *
+     * This function calls many others to make a move, check for checkmate, etc. *
+     * This is also where the game will end *
+     * @param e the event clicked on the board
+     */
     public void mouseClicked(MouseEvent e)
 
     {
@@ -527,6 +595,11 @@ public class ChessBoard extends JFrame implements MouseListener {
 
             }
     }
+
+    /**
+     * This brings up a message declaring you the winner
+     * @throws InterruptedException
+     */
     public void winner() throws InterruptedException {
         this.information_Message("Congrats you Won");
         
@@ -535,6 +608,11 @@ public class ChessBoard extends JFrame implements MouseListener {
         System.exit(2);
         
     }
+
+    /**
+     *  This brings up a message declaring you the user
+     * @throws InterruptedException
+     */
     public void loser() throws InterruptedException {
         this.information_Message("Sorry you lost");
         
@@ -543,7 +621,11 @@ public class ChessBoard extends JFrame implements MouseListener {
         System.exit(2);
         
     }
-    
+
+    /**
+     * This brings up a message declaring stalemate
+     * @throws InterruptedException
+     */
     public void staleMate() throws InterruptedException {
 
         this.information_Message("This is a stalemate. Improve and try again");
@@ -552,6 +634,13 @@ public class ChessBoard extends JFrame implements MouseListener {
 
         System.exit(2);
     }
+
+    /**
+     * This performs a background change for the chess board
+     * This currently occurs after player 2 makes a move*
+     * @param theirMove the string that the other player makes, sent over the network
+     * @param pieceName the name of the piece moved, only used if pawn has been upgraded
+     */
     public void backGroundChange(String theirMove, String pieceName)
     {
         String moves[];
@@ -616,6 +705,12 @@ public class ChessBoard extends JFrame implements MouseListener {
         JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
                 JOptionPane.YES_OPTION);
     }
+
+    /**
+     * This method brings up a dialog box to upgrade a pawn
+     * @param pawn the current pawn to be upgraded
+     * @return
+     */
     public ChessPiece upgradePawn(ChessPiece pawn)
     {
         String input="";

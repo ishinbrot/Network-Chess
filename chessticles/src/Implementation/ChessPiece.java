@@ -80,7 +80,11 @@ public class ChessPiece {//extends ChessRules{
     public void setValue(int value) {
         this.value = value;
     }
-    
+
+    /**
+     * This assigns the piece to a specific player based on the piece color
+     * @param color the current color of the piece
+     */
     public void setPlayer(Color color) {
         if (this.color == Color.white)
             player = 1;
@@ -92,7 +96,9 @@ public class ChessPiece {//extends ChessRules{
         return this.player;
         
     }
-
+    /**
+     * checks if the current piece has been moved
+     */
     public boolean isMoved() {
         return moved;
     }
@@ -101,13 +107,28 @@ public class ChessPiece {//extends ChessRules{
         this.moved = moved;
 
     }
+
+    /**
+     * 
+     * @param initialPosition the initial position of the square array
+     * @param finalPosition the final position in the square array
+     * @param board the chessboard
+     * @param lookForCheck if the user would like to look for check
+     * @return true or false, if the move is allowed
+     */
     public boolean validMove(int[] initialPosition, int[] finalPosition, Square[] board, boolean lookForCheck){
 
         //return this.validMove(initialPosition,finalPosition, board, lookForCheck);
         return true;
     }
 
-
+    /**
+     * 
+     * @param initialPosition the initial position of the square array
+     * @param finalPosition the final position in the square array
+     * @param board the chessboard
+     * @return if the current player is in check or not
+     */
     public boolean check(int[] initialPosition, int[] finalPosition, Square[] board){
 
         ChessPiece piece=board[initialPosition[1]*8+initialPosition[0]].getCurrentPiece();
@@ -137,7 +158,13 @@ public class ChessPiece {//extends ChessRules{
         }return false;
     }
 
-
+    /**
+     * 
+     * @param initialPosition the initial position of the square array
+     * @param finalPosition the final position in the square array
+     * @param board the chessboard
+     * @return if the piece can make a horizontal move
+     */
     public boolean horizontal(int[] initialPosition, int[] finalPosition, Square[] board)
     {
         int test;
@@ -266,6 +293,14 @@ public class ChessPiece {//extends ChessRules{
         }
         return false;
     }
+
+    /**
+     *
+     * @param initialPosition the initial position of the square array
+     * @param finalPosition the final position in the square array
+     * @param board the chessboard
+     * @return if the piece can make a L_shape move, only for knights
+     */
     public boolean L_shape(int[] initialPosition, int[] finalPosition, Square[] board){
         int ip=(initialPosition[1]*8)+initialPosition[0];
         int fp=(finalPosition[1]*8)+finalPosition[0];
