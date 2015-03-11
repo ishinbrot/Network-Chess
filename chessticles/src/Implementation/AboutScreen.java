@@ -8,6 +8,9 @@ package Implementation;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 
+/**
+ * This class generates the about window for the chess game
+ */
 public class AboutScreen extends JFrame {
     JFrame frame = new JFrame();
 
@@ -15,7 +18,7 @@ public class AboutScreen extends JFrame {
 
         frame.setTitle("Chess Tickles");
         
-        String text = this.buildText(.1);
+        String text = this.buildText(1.0);
         javax.swing.JOptionPane.showMessageDialog((java.awt.Component)
                 null, text, "About", JOptionPane.DEFAULT_OPTION);
 
