@@ -15,7 +15,7 @@ public class AboutScreen extends JFrame {
 
         frame.setTitle("Chess Tickles");
         
-        String text = this.buildText(.8);
+        String text = this.buildText(.1);
         javax.swing.JOptionPane.showMessageDialog((java.awt.Component)
                 null, text, "About", JOptionPane.DEFAULT_OPTION);
 
