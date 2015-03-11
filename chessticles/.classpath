@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/chessticles/src"/>
+	<classpathentry kind="src" path="/chessticles/test"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/junit:junit:4.11"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/com.intellij:javac2:5.1"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
